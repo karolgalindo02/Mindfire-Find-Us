@@ -37,6 +37,7 @@ public class AI : MonoBehaviour
 
     void Update()
     {
+        //Vector3.Distance() need 2 parameters for the calculation, in this case the position of the enemy and the position of the player
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
         if(distanceToPlayer < distanceToFollowPlayer && isFollowingPlayer)
