@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3441059081766053422}
   - component: {fileID: 4514383613880064498}
   m_Layer: 0
-  m_Name: M1911 Handgun
+  m_Name: M1911 Handgun V1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

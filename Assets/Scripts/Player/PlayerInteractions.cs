@@ -13,5 +13,14 @@ public class PlayerInteractions : MonoBehaviour
             //And then the box disappears
             Destroy(other.gameObject);
         }
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            GameManager.Instance.LoseHealth(5);
+        }
     }
 }

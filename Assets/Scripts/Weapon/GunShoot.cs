@@ -43,11 +43,13 @@ public class GunShoot : MonoBehaviour
         //If you want a different input, change it here
         if (Input.GetButtonDown("Fire1"))
         {
-            if(GameManager.Instance.ammo > 0)
+            if(Time.time > shotRateTime && GameManager.Instance.ammo > 0)
             {
-                GameManager.Instance.ammo--;
                 //Calls animation on the gun that has the relevant animation events that will fire
                 gunAnimator.SetTrigger("Fire");
+
+                GameManager.Instance.ammo--;
+                
             }
 
             
@@ -71,7 +73,7 @@ public class GunShoot : MonoBehaviour
         //cancels if there's no bullet prefeb
         if (!bulletPrefab)
         { return; }
-        if(Time.time > shotRateTime && GameManager.Instance.ammo > 0)
+        if( GameManager.Instance.ammo > 0)
         {
             
             // Create a bullet and add force on it in direction of the barrel
