@@ -27,15 +27,20 @@ public class GunShoot : MonoBehaviour
     private float shotRateTime = 0;
 
     public Camera mainCamera;
-
+    public AudioSource shotSound;
+    public AudioSource emptySound;
 
     void Start()
     {
-        if (barrelLocation == null)
+        if (barrelLocation == null){
             barrelLocation = transform;
-
-        if (gunAnimator == null)
+        }
+        if (gunAnimator == null){
             gunAnimator = GetComponentInChildren<Animator>();
+        }
+        if (shotSound == null){
+            shotSound = GetComponent<AudioSource>();
+        }
     }
 
     void Update()
@@ -45,10 +50,22 @@ public class GunShoot : MonoBehaviour
         {
             if(GameManager.Instance.ammo > 0)
             {
+                shotSound.Play();
+
                 GameManager.Instance.ammo--;
                 //Calls animation on the gun that has the relevant animation events that will fire
                 gunAnimator.SetTrigger("Fire");
-            }
+                if (GameManager.Instance.ammo >= 0)
+                {
+                    Shoot();
+                }
+            } else{       
+                // Play empty sound when no ammo
+                if (GameManager.Instance.ammo==0){
+                
+                    emptySound.Play();
+                }
+            }   
 
             
         }
@@ -77,6 +94,7 @@ public class GunShoot : MonoBehaviour
             // Create a bullet and add force on it in direction of the barrel
             //Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
             GameObject newBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
+
             //Calculate the direction based on the crosshair
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
 
@@ -99,9 +117,9 @@ public class GunShoot : MonoBehaviour
             newBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shotPower);
 
             shotRateTime = Time.time + shotRate;
+            Destroy(newBullet, 2f);
 
-        }
-        
+        }            
 
     }
 
