@@ -721,6 +721,7 @@ GameObject:
   - component: {fileID: 1712892746665701079}
   - component: {fileID: 4427219477201945617}
   - component: {fileID: 565792981252264005}
+  - component: {fileID: 3637391494880867373}
   m_Layer: 0
   m_Name: Caja.004
   m_TagString: Untagged
@@ -793,6 +794,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3637391494880867373
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131272990812680584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7058901286918873338, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &134989167659920292
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2440,7 @@ GameObject:
   - component: {fileID: 5323789606255377042}
   - component: {fileID: 5432486923990583407}
   - component: {fileID: 1862651893126612628}
+  - component: {fileID: 5633350281904013692}
   m_Layer: 0
   m_Name: Caja.025
   m_TagString: Untagged
@@ -2497,6 +2513,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5633350281904013692
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376963160465429809}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5675463719979109780, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &431197785857460310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,6 +3469,7 @@ GameObject:
   - component: {fileID: 2492994563328007790}
   - component: {fileID: 1688098867177599151}
   - component: {fileID: 7399817646648187474}
+  - component: {fileID: 1449800646028691790}
   m_Layer: 0
   m_Name: Estanteria.001
   m_TagString: Untagged
@@ -3511,6 +3542,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1449800646028691790
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490770036801958905}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3472408504345256097, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &493499151927753989
 GameObject:
   m_ObjectHideFlags: 0
@@ -5566,6 +5611,7 @@ GameObject:
   - component: {fileID: 3323899350925295744}
   - component: {fileID: 7280659362765838419}
   - component: {fileID: 4749712620938184589}
+  - component: {fileID: 584683538525952641}
   m_Layer: 0
   m_Name: Refrigerador
   m_TagString: Untagged
@@ -5638,6 +5684,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &584683538525952641
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875990504696052049}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9124684616691279023, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &884908820132766573
 GameObject:
   m_ObjectHideFlags: 0
@@ -7265,6 +7325,7 @@ GameObject:
   - component: {fileID: 7236145218800882533}
   - component: {fileID: 5153366140813749677}
   - component: {fileID: 2018713338616015063}
+  - component: {fileID: 3272586665347599232}
   m_Layer: 0
   m_Name: Tapa.004
   m_TagString: Untagged
@@ -7337,6 +7398,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3272586665347599232
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134637124121915813}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4413914283006108240, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &1139784320035110649
 GameObject:
   m_ObjectHideFlags: 0
@@ -8112,6 +8187,7 @@ GameObject:
   - component: {fileID: 3064398249147883739}
   - component: {fileID: 3469339080349442056}
   - component: {fileID: 5686376515923533732}
+  - component: {fileID: 1603614548270372644}
   m_Layer: 0
   m_Name: Caja.031
   m_TagString: Untagged
@@ -8184,6 +8260,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1603614548270372644
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281176641599604899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6597721535202652532, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &1332960215998013219
 GameObject:
   m_ObjectHideFlags: 0
@@ -8444,6 +8534,7 @@ GameObject:
   - component: {fileID: 2510690418275145694}
   - component: {fileID: 2682585665971609963}
   - component: {fileID: 8267941275000125752}
+  - component: {fileID: 8618205445121146750}
   m_Layer: 0
   m_Name: Caja.015
   m_TagString: Untagged
@@ -8516,6 +8607,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8618205445121146750
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409046946360960644}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7545907730474446145, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &1426944414764156823
 GameObject:
   m_ObjectHideFlags: 0
@@ -10092,6 +10197,7 @@ GameObject:
   - component: {fileID: 5046837332233551511}
   - component: {fileID: 942669345302991892}
   - component: {fileID: 3023587118209560025}
+  - component: {fileID: 56750093000923619}
   m_Layer: 0
   m_Name: Caja.024
   m_TagString: Untagged
@@ -10164,6 +10270,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &56750093000923619
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584869541952198337}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8190578924809092024, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &1589476906183721084
 GameObject:
   m_ObjectHideFlags: 0
@@ -10773,6 +10893,7 @@ GameObject:
   - component: {fileID: 7468359170379182823}
   - component: {fileID: 3391382703903802762}
   - component: {fileID: 6971495186041711061}
+  - component: {fileID: 1126902768607418508}
   m_Layer: 0
   m_Name: Caja.011
   m_TagString: Untagged
@@ -10845,6 +10966,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1126902768607418508
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699910123957507066}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8961807296467390122, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &1702848828316596031
 GameObject:
   m_ObjectHideFlags: 0
@@ -11716,6 +11851,7 @@ GameObject:
   - component: {fileID: 5063785418167531257}
   - component: {fileID: 5652639848540427146}
   - component: {fileID: 4727454305171129986}
+  - component: {fileID: 1450122568502178257}
   m_Layer: 0
   m_Name: Caja.002
   m_TagString: Untagged
@@ -11788,6 +11924,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1450122568502178257
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832168758441839586}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8580553730416667399, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &1853170256279379684
 GameObject:
   m_ObjectHideFlags: 0
@@ -11965,6 +12115,7 @@ GameObject:
   - component: {fileID: 2489135221297771904}
   - component: {fileID: 5409450554475965291}
   - component: {fileID: 3783469607850259535}
+  - component: {fileID: 5843823650380059621}
   m_Layer: 0
   m_Name: Estanteria.007
   m_TagString: Untagged
@@ -12037,6 +12188,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5843823650380059621
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880030559900305922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1150718026149229889, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &1900224245367398732
 GameObject:
   m_ObjectHideFlags: 0
@@ -14223,6 +14388,7 @@ GameObject:
   - component: {fileID: 1102729555746916357}
   - component: {fileID: 1861387287675472720}
   - component: {fileID: 1194002881587420126}
+  - component: {fileID: 7658274843684345670}
   m_Layer: 0
   m_Name: Caja.007
   m_TagString: Untagged
@@ -14295,6 +14461,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7658274843684345670
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140209451146094605}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6365366621606381750, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &2162146673926723854
 GameObject:
   m_ObjectHideFlags: 0
@@ -15063,6 +15243,7 @@ GameObject:
   - component: {fileID: 2629211120521208747}
   - component: {fileID: 1300607629021926877}
   - component: {fileID: 654886444059942868}
+  - component: {fileID: 3237851759336874718}
   m_Layer: 0
   m_Name: Estante
   m_TagString: Untagged
@@ -15135,6 +15316,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3237851759336874718
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230101009720745904}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3902044730728013207, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &2231925797355717975
 GameObject:
   m_ObjectHideFlags: 0
@@ -15755,6 +15950,7 @@ GameObject:
   - component: {fileID: 1326432325544658033}
   - component: {fileID: 764322962210969373}
   - component: {fileID: 8753290041883694138}
+  - component: {fileID: 535081127858587948}
   m_Layer: 0
   m_Name: Caja.023
   m_TagString: Untagged
@@ -15827,6 +16023,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &535081127858587948
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2367769465828421823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1778658055995740793, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &2391740896030894686
 GameObject:
   m_ObjectHideFlags: 0
@@ -24546,6 +24756,7 @@ GameObject:
   - component: {fileID: 676393466913743136}
   - component: {fileID: 3048217158746346522}
   - component: {fileID: 4519074916949403439}
+  - component: {fileID: 4947976522250509323}
   m_Layer: 0
   m_Name: Caja.010
   m_TagString: Untagged
@@ -24618,6 +24829,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4947976522250509323
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618864635395134263}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5117252069168137863, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &3629936449737156370
 GameObject:
   m_ObjectHideFlags: 0
@@ -25840,6 +26065,7 @@ GameObject:
   - component: {fileID: 8107412109067220274}
   - component: {fileID: 2834979052582602251}
   - component: {fileID: 7109024224959729329}
+  - component: {fileID: 60231382368370973}
   m_Layer: 0
   m_Name: Caja.016
   m_TagString: Untagged
@@ -25912,6 +26138,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &60231382368370973
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3785990995220702005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5452450711991876433, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &3802965436638131651
 GameObject:
   m_ObjectHideFlags: 0
@@ -26447,6 +26687,7 @@ GameObject:
   - component: {fileID: 3650989941799607529}
   - component: {fileID: 7633696979773572385}
   - component: {fileID: 1326651331252422044}
+  - component: {fileID: 3288860088215073401}
   m_Layer: 0
   m_Name: Caja.030
   m_TagString: Untagged
@@ -26519,6 +26760,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3288860088215073401
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862030744354054353}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4037356474866283126, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &3872968114486207117
 GameObject:
   m_ObjectHideFlags: 0
@@ -27912,6 +28167,7 @@ GameObject:
   - component: {fileID: 1731322747007042114}
   - component: {fileID: 3445693861516652449}
   - component: {fileID: 5075159244232045103}
+  - component: {fileID: 1746406009559416429}
   m_Layer: 0
   m_Name: Caja.020
   m_TagString: Untagged
@@ -27984,6 +28240,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1746406009559416429
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4107059318231385739}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7332901383134252307, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &4109078279636374469
 GameObject:
   m_ObjectHideFlags: 0
@@ -28957,6 +29227,7 @@ GameObject:
   - component: {fileID: 4914533210884335856}
   - component: {fileID: 8633256068245311526}
   - component: {fileID: 5356633251824098278}
+  - component: {fileID: 3560548090770396359}
   m_Layer: 0
   m_Name: Caja.027
   m_TagString: Untagged
@@ -29029,6 +29300,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3560548090770396359
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216076061925493225}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9118043215997761131, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &4224140629084534467
 GameObject:
   m_ObjectHideFlags: 0
@@ -30420,6 +30705,7 @@ GameObject:
   - component: {fileID: 2571698905004139465}
   - component: {fileID: 7772096945537469620}
   - component: {fileID: 1873220574067561955}
+  - component: {fileID: 9005781865802787035}
   m_Layer: 0
   m_Name: Caja.005
   m_TagString: Untagged
@@ -30492,6 +30778,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9005781865802787035
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4434309902259567557}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1117384671333385610, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &4438507719535577180
 GameObject:
   m_ObjectHideFlags: 0
@@ -31604,6 +31904,7 @@ GameObject:
   - component: {fileID: 1161339437633739830}
   - component: {fileID: 147057794858445085}
   - component: {fileID: 5251424269268201614}
+  - component: {fileID: 2939663141825471073}
   m_Layer: 0
   m_Name: Estanteria.006
   m_TagString: Untagged
@@ -31676,6 +31977,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2939663141825471073
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546315017898737051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5353006647991119742, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &4563269885881158910
 GameObject:
   m_ObjectHideFlags: 0
@@ -32534,6 +32849,7 @@ GameObject:
   - component: {fileID: 8375980148129384331}
   - component: {fileID: 6848576058916396526}
   - component: {fileID: 4665376823505041701}
+  - component: {fileID: 9030472317249397099}
   m_Layer: 0
   m_Name: Caja.022
   m_TagString: Untagged
@@ -32606,6 +32922,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9030472317249397099
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4646140745841447597}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1485243683742885738, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &4652879701729470979
 GameObject:
   m_ObjectHideFlags: 0
@@ -33285,6 +33615,7 @@ GameObject:
   - component: {fileID: 1422698308227308118}
   - component: {fileID: 98291546888905768}
   - component: {fileID: 7981426367357650729}
+  - component: {fileID: 7456919341024012296}
   m_Layer: 0
   m_Name: Caja.003
   m_TagString: Untagged
@@ -33357,6 +33688,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7456919341024012296
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780948967703409157}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5869960420575268349, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &4790039350795421543
 GameObject:
   m_ObjectHideFlags: 0
@@ -35152,6 +35497,7 @@ GameObject:
   - component: {fileID: 5851436088505097960}
   - component: {fileID: 3867767920586787543}
   - component: {fileID: 4963943891150567930}
+  - component: {fileID: 6664785270710207232}
   m_Layer: 0
   m_Name: Caja.029
   m_TagString: Untagged
@@ -35224,6 +35570,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6664785270710207232
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5022497027516536662}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5003740574301030931, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &5092832064346546732
 GameObject:
   m_ObjectHideFlags: 0
@@ -36279,6 +36639,7 @@ GameObject:
   - component: {fileID: 7682563306226919700}
   - component: {fileID: 1185011233599938419}
   - component: {fileID: 5264505572707670908}
+  - component: {fileID: 1290012523592618062}
   m_Layer: 0
   m_Name: Estanteria.002
   m_TagString: Untagged
@@ -36352,6 +36713,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1290012523592618062
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5315833404650682231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5445776081504288762, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &5320672101229006841
 GameObject:
   m_ObjectHideFlags: 0
@@ -36944,6 +37319,7 @@ GameObject:
   - component: {fileID: 2345100679063394899}
   - component: {fileID: 3701060648723990296}
   - component: {fileID: 7739967769733962312}
+  - component: {fileID: 7458346045310403459}
   m_Layer: 0
   m_Name: Caja.014
   m_TagString: Untagged
@@ -37016,6 +37392,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7458346045310403459
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5377038839218542190}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1146684905835889021, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &5381992438570434990
 GameObject:
   m_ObjectHideFlags: 0
@@ -41672,6 +42062,7 @@ GameObject:
   - component: {fileID: 6084993265330906623}
   - component: {fileID: 865954448211530615}
   - component: {fileID: 8109510707795092837}
+  - component: {fileID: 2023001431693860636}
   m_Layer: 0
   m_Name: Estanteria.008
   m_TagString: Untagged
@@ -41744,6 +42135,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2023001431693860636
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6157011856420571300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8418779947108815528, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &6159697284518036360
 GameObject:
   m_ObjectHideFlags: 0
@@ -43086,6 +43491,7 @@ GameObject:
   - component: {fileID: 250368858539376056}
   - component: {fileID: 1828153687060422054}
   - component: {fileID: 4848726925145244543}
+  - component: {fileID: 4578518633212923750}
   m_Layer: 0
   m_Name: Caja
   m_TagString: Untagged
@@ -43158,6 +43564,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4578518633212923750
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300789345827520157}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7269173089721441667, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &6306989677079901487
 GameObject:
   m_ObjectHideFlags: 0
@@ -44167,6 +44587,7 @@ GameObject:
   - component: {fileID: 8090880842043014689}
   - component: {fileID: 5901930872074588650}
   - component: {fileID: 3967942570870388126}
+  - component: {fileID: 947211178625745670}
   m_Layer: 0
   m_Name: Estanteria.004
   m_TagString: Untagged
@@ -44239,6 +44660,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &947211178625745670
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6367039586043457373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7306585409643442714, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &6372510508720261919
 GameObject:
   m_ObjectHideFlags: 0
@@ -44697,6 +45132,7 @@ GameObject:
   - component: {fileID: 6898972839064563958}
   - component: {fileID: 900040704245278436}
   - component: {fileID: 7876170216769245935}
+  - component: {fileID: 5846915780833705983}
   m_Layer: 0
   m_Name: Estanteria.003
   m_TagString: Untagged
@@ -44769,6 +45205,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5846915780833705983
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422994830550055775}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1957230371114784791, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &6433991906460150559
 GameObject:
   m_ObjectHideFlags: 0
@@ -45200,6 +45650,7 @@ GameObject:
   - component: {fileID: 8266801010535239057}
   - component: {fileID: 1457235883959862805}
   - component: {fileID: 4435591039210502684}
+  - component: {fileID: 3662245625684340112}
   m_Layer: 0
   m_Name: Caja.013
   m_TagString: Untagged
@@ -45272,6 +45723,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3662245625684340112
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6521721381240872641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5863181785869405159, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &6532254295641980943
 GameObject:
   m_ObjectHideFlags: 0
@@ -45366,6 +45831,7 @@ GameObject:
   - component: {fileID: 1336381567517072008}
   - component: {fileID: 5782242672575516410}
   - component: {fileID: 5359256575369220038}
+  - component: {fileID: 3762211215031141432}
   m_Layer: 0
   m_Name: Estanteria
   m_TagString: Untagged
@@ -45438,6 +45904,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3762211215031141432
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6557313498408815152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4743313690245787930, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &6575003555704799635
 GameObject:
   m_ObjectHideFlags: 0
@@ -48159,6 +48639,7 @@ GameObject:
   - component: {fileID: 5900910874267632820}
   - component: {fileID: 1136791596903799643}
   - component: {fileID: 8481357162539613585}
+  - component: {fileID: 9143073790917410743}
   m_Layer: 0
   m_Name: Caja.008
   m_TagString: Untagged
@@ -48231,6 +48712,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9143073790917410743
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956099040838162518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6995754702892031472, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &6974217148145006996
 GameObject:
   m_ObjectHideFlags: 0
@@ -48492,6 +48987,7 @@ GameObject:
   - component: {fileID: 5000385050479408801}
   - component: {fileID: 5401278741796023101}
   - component: {fileID: 7351457080629133263}
+  - component: {fileID: 7095229121078402954}
   m_Layer: 0
   m_Name: Caja.012
   m_TagString: Untagged
@@ -48564,6 +49060,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7095229121078402954
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7003403224865056488}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3257504944982710536, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &7006813593098381578
 GameObject:
   m_ObjectHideFlags: 0
@@ -48575,6 +49085,7 @@ GameObject:
   - component: {fileID: 1304718020128835890}
   - component: {fileID: 2247958670821146886}
   - component: {fileID: 6931465625721906703}
+  - component: {fileID: 7984384577905192063}
   m_Layer: 0
   m_Name: Estanteria.009
   m_TagString: Untagged
@@ -48647,6 +49158,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7984384577905192063
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7006813593098381578}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6224091788721048617, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &7016386391258184297
 GameObject:
   m_ObjectHideFlags: 0
@@ -49323,6 +49848,7 @@ GameObject:
   - component: {fileID: 8760067101288076851}
   - component: {fileID: 8734708085224708234}
   - component: {fileID: 490930892634711053}
+  - component: {fileID: 6087043025279465747}
   m_Layer: 0
   m_Name: Caja.021
   m_TagString: Untagged
@@ -49395,6 +49921,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6087043025279465747
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7112410706341539497}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8369100597612271205, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &7112969140094419147
 GameObject:
   m_ObjectHideFlags: 0
@@ -52434,6 +52974,7 @@ GameObject:
   - component: {fileID: 8997558589127954596}
   - component: {fileID: 6522280169976581039}
   - component: {fileID: 265523859755153050}
+  - component: {fileID: 6990551480435106121}
   m_Layer: 0
   m_Name: Caja.009
   m_TagString: Untagged
@@ -52506,6 +53047,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6990551480435106121
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489773629099941751}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5702168168451680595, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &7497990959512951694
 GameObject:
   m_ObjectHideFlags: 0
@@ -53910,6 +54465,7 @@ GameObject:
   - component: {fileID: 6665544229060579482}
   - component: {fileID: 6968944677007064087}
   - component: {fileID: 4408806285265723670}
+  - component: {fileID: 984653513208445795}
   m_Layer: 0
   m_Name: Caja.006
   m_TagString: Untagged
@@ -53982,6 +54538,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &984653513208445795
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7628566880138487894}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4629858703055533310, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &7633693820504349158
 GameObject:
   m_ObjectHideFlags: 0
@@ -56757,6 +57327,7 @@ GameObject:
   - component: {fileID: 1389082111923864745}
   - component: {fileID: 1034050366724566534}
   - component: {fileID: 6276721315322629022}
+  - component: {fileID: 7376733272046516397}
   m_Layer: 0
   m_Name: Caja.019
   m_TagString: Untagged
@@ -56829,6 +57400,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7376733272046516397
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7911368242584747562}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1234946193940262020, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &7917434413828532631
 GameObject:
   m_ObjectHideFlags: 0
@@ -59493,6 +60078,7 @@ GameObject:
   - component: {fileID: 4233023761878989289}
   - component: {fileID: 6130532912562690566}
   - component: {fileID: 8555373561039637060}
+  - component: {fileID: 2448249990269912747}
   m_Layer: 0
   m_Name: Caja.017
   m_TagString: Untagged
@@ -59565,6 +60151,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2448249990269912747
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8381073780681726337}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6833905758792002963, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &8389713828129681180
 GameObject:
   m_ObjectHideFlags: 0
@@ -60257,6 +60857,7 @@ GameObject:
   - component: {fileID: 5024339901464394528}
   - component: {fileID: 3805395915275350957}
   - component: {fileID: 2816888929387674672}
+  - component: {fileID: 3264135835829063742}
   m_Layer: 0
   m_Name: Caja.028
   m_TagString: Untagged
@@ -60329,6 +60930,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3264135835829063742
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8487494113637620160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6567192105662425321, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &8507239620394477043
 GameObject:
   m_ObjectHideFlags: 0
@@ -60789,6 +61404,7 @@ GameObject:
   - component: {fileID: 8171501960274306035}
   - component: {fileID: 4895225831306223826}
   - component: {fileID: 2122963326644056674}
+  - component: {fileID: 5793938913307304193}
   m_Layer: 0
   m_Name: Caja.026
   m_TagString: Untagged
@@ -60861,6 +61477,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5793938913307304193
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596133814293248726}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2501469465779828844, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &8630510700939353735
 GameObject:
   m_ObjectHideFlags: 0
@@ -63196,6 +63826,7 @@ GameObject:
   - component: {fileID: 7650467770269350193}
   - component: {fileID: 5673877627261189254}
   - component: {fileID: 2216157677581896744}
+  - component: {fileID: 1676806119342144344}
   m_Layer: 0
   m_Name: Estanteria.005
   m_TagString: Untagged
@@ -63268,6 +63899,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1676806119342144344
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9002048526937805784}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1874239125584291537, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &9002793398272861289
 GameObject:
   m_ObjectHideFlags: 0
@@ -63866,6 +64511,7 @@ GameObject:
   - component: {fileID: 3263640964078879300}
   - component: {fileID: 3113876478876562811}
   - component: {fileID: 7709763497580582421}
+  - component: {fileID: 2341438996082275943}
   m_Layer: 0
   m_Name: Caja.018
   m_TagString: Untagged
@@ -63938,6 +64584,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2341438996082275943
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076212080369868407}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8902379893618087398, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
 --- !u!1 &9085252250503954503
 GameObject:
   m_ObjectHideFlags: 0
