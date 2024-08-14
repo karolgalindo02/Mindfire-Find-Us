@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
     //For Player jump
     public float jumpHeight = 3;
 
-
+    public AudioSource pasos;
+    private bool horiActivo;
+    private bool vertiActivo;
 
     
     void Start()
@@ -50,6 +52,42 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
 
         float moveZ = Input.GetAxis("Vertical");
+        
+        //Sonido de pasos
+        if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical"))
+    {
+        if (!horiActivo && !vertiActivo)
+        {
+            pasos.Play();
+        }
+
+        if (Input.GetButtonDown("Horizontal"))
+        {
+            horiActivo = true;
+        }
+        if (Input.GetButtonDown("Vertical"))
+        {
+            vertiActivo = true;
+        }
+    }
+
+    if (Input.GetButtonUp("Horizontal") || Input.GetButtonUp("Vertical"))
+    {
+        if (Input.GetButtonUp("Horizontal"))
+        {
+            horiActivo = false;
+        }
+        if (Input.GetButtonUp("Vertical"))
+        {
+            vertiActivo = false;
+        }
+
+        if (!horiActivo && !vertiActivo)
+        {
+            pasos.Pause();
+        }
+        
+    }
 
         //Vector that we need for set the position of the player when the player press a key
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
@@ -66,5 +104,9 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+        public bool IsMoving()
+    {
+        return Input.GetButton("Horizontal") || Input.GetButton("Vertical");
     }
 }

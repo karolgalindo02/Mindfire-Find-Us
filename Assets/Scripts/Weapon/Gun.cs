@@ -16,10 +16,14 @@ public class Gun : MonoBehaviour
 
     //Counter for shot as a gun
     private float shotRateTime = 0;
-
+    public AudioSource shotSound;
+    public AudioSource emptySound;
     void Start()
     {
-        
+         if (shotSound == null)
+        {
+            shotSound = GetComponent<AudioSource>();
+        }
     }
 
     
@@ -36,6 +40,7 @@ public class Gun : MonoBehaviour
                 GameObject newBullet;
 
                 newBullet = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
+                shotSound.Play();
 
 
                 //Add force forward for impulse de bullet
@@ -43,14 +48,21 @@ public class Gun : MonoBehaviour
 
                 //Controller of the time for shot, if you press play, the Time.time is mayor than shotRateTime, because Time.time could be 1f, y shotRateTime is 0
                 //Then, when you shot the first time, shotRateTime, take the time and add 0.5f, so, the shotRateTime allow to shot every 0.5f seconds, no all the time
-                //Like a machine gun, it´s just a gun
+                //Like a machine gun, itï¿½s just a gun
                 shotRateTime = Time.time + shotRate;
 
                 //Destroy our bullet
                 Destroy(newBullet, 2f);
             }
+            else{
+                    // Play empty sound when no ammo
+                if (emptySound != null)
+                {
+                    emptySound.Play();
+                }
+                
+            } 
             
-
         }
     }
 }
