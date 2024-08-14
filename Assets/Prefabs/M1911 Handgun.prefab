@@ -202,6 +202,7 @@ MonoBehaviour:
   bullet: {fileID: 4585631418030058047, guid: e35e47d76f9dff64980963f9b22e61cf, type: 3}
   shotForce: 1500
   shotRate: 0.5
+  mainCamera: {fileID: 0}
 --- !u!1 &3441059081266565339
 GameObject:
   m_ObjectHideFlags: 0
