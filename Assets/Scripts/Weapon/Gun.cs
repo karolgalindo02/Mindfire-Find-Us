@@ -17,6 +17,8 @@ public class Gun : MonoBehaviour
     //Counter for shot as a gun
     private float shotRateTime = 0;
 
+    public Camera mainCamera;
+
     void Start()
     {
         
@@ -37,9 +39,29 @@ public class Gun : MonoBehaviour
 
                 newBullet = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
 
+                //Calculate the direction based on the crosshair
+                Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+
+                RaycastHit hit;
+
+                Vector3 targetPoint;
+
+                if(Physics.Raycast(ray, out hit))
+                {
+                    targetPoint = hit.point;
+                    Debug.Log($"TargetPoint: {targetPoint}");
+                }
+                else
+                {
+                    targetPoint = ray.GetPoint(1000); //A distant poin in the direction of the raycast
+                }
+
+                Vector3 direction = targetPoint - spawnPoint.position;
+
 
                 //Add force forward for impulse de bullet
-                newBullet.GetComponent<Rigidbody>().AddForce(spawnPoint.forward * shotForce);
+                //We replace here spwanPoint.forward by direction.normalized
+                newBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shotForce);
 
                 //Controller of the time for shot, if you press play, the Time.time is mayor than shotRateTime, because Time.time could be 1f, y shotRateTime is 0
                 //Then, when you shot the first time, shotRateTime, take the time and add 0.5f, so, the shotRateTime allow to shot every 0.5f seconds, no all the time
