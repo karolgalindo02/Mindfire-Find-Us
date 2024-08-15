@@ -11,8 +11,8 @@ public class UIManagerInfoUser : MonoBehaviour
     [SerializeField] private GameObject UIMessageContainer;
     //Message
     [SerializeField] TextMeshProUGUI collectedItemUI;
-    
-    
+
+   
     public void ShowMessage(string message)
     {
         StartCoroutine(DisplayMessage(message));
@@ -28,4 +28,10 @@ public class UIManagerInfoUser : MonoBehaviour
 
         UIMessageContainer.gameObject.SetActive(false);
     }
+
+    public void HiddeCanvaElement(GameObject canvaElement)
+    {
+        canvaElement.SetActive(false);
+    }
+
 }
