@@ -48,7 +48,7 @@ public class GunShoot : MonoBehaviour
         //If you want a different input, change it here
         if (Input.GetButtonDown("Fire1"))
         {
-            if(GameManager.Instance.ammo > 0)
+            if(Time.time > shotRateTime &&  GameManager.Instance.ammo > 0)
             {
                 shotSound.Play();
 

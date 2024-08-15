@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private CharacterController characterController;
 
-    private float speedMove = 10f;
+    [SerializeField] private float speedMove = 5f;
     //Because we dont use RigidBody
     private float gravity = -9.81f;
 
@@ -27,9 +27,6 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 3;
 
     public AudioSource pasos;
-    private bool horiActivo;
-    private bool vertiActivo;
-
     
     void Start()
     {
@@ -54,40 +51,17 @@ public class PlayerController : MonoBehaviour
         float moveZ = Input.GetAxis("Vertical");
         
         //Sonido de pasos
-        if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical"))
-    {
-        if (!horiActivo && !vertiActivo)
+         if (IsMoving() && !pasos.isPlaying)
         {
             pasos.Play();
         }
 
-        if (Input.GetButtonDown("Horizontal"))
-        {
-            horiActivo = true;
-        }
-        if (Input.GetButtonDown("Vertical"))
-        {
-            vertiActivo = true;
-        }
-    }
-
-    if (Input.GetButtonUp("Horizontal") || Input.GetButtonUp("Vertical"))
-    {
-        if (Input.GetButtonUp("Horizontal"))
-        {
-            horiActivo = false;
-        }
-        if (Input.GetButtonUp("Vertical"))
-        {
-            vertiActivo = false;
-        }
-
-        if (!horiActivo && !vertiActivo)
+        // Detén el sonido de pasos si el jugador deja de moverse
+        if (!IsMoving() && pasos.isPlaying)
         {
             pasos.Pause();
         }
-        
-    }
+
 
         //Vector that we need for set the position of the player when the player press a key
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
@@ -105,8 +79,9 @@ public class PlayerController : MonoBehaviour
 
         characterController.Move(velocity * Time.deltaTime);
     }
-        public bool IsMoving()
+    public bool IsMoving()
     {
-        return Input.GetButton("Horizontal") || Input.GetButton("Vertical");
+        // Considera movimiento si la entrada horizontal o vertical es mayor que 0.1 (puedes ajustar el valor si es necesario)
+        return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f;
     }
 }
