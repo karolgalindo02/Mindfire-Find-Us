@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/BrayanSounds/annotated-CV_Brayan_Perea-2.pdf.meta
 guid: fd18fdd4418fa0a47b225bdd5f7ed6fa
+========
+guid: b21f51c7c518d254587e3113f0a311d9
+folderAsset: yes
+>>>>>>>> c6eb5a3524dd4b627975fdbc65d830f6e8ac847d:Assets/Scripts/Select - Deselect.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
