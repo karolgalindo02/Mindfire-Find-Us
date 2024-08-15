@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2571587308602840312}
   - component: {fileID: 1450095982651104093}
   - component: {fileID: 3745642305620750231}
+  - component: {fileID: 4944427718192281545}
   m_Layer: 0
   m_Name: 9mm
   m_TagString: Untagged
@@ -84,3 +85,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4944427718192281545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953180088631070274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6925587a9fb5cd741b88fa2ac10004d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammo: 5
