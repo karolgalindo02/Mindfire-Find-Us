@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Ammunition
   - FxTemporaire
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Floor
   - Water
   - UI
-  - 
+  - Weapon
   - 
   - 
   - 
