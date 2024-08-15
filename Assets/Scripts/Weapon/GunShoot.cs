@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("Scripts/Items/Weapon/GunShoot")]
+[AddComponentMenu("Scripts/Weapon/GunShoot")]
 public class GunShoot : MonoBehaviour
 {
     [Header("Prefab Refrences")]
