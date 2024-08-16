@@ -12,6 +12,14 @@ TagManager:
   - Weapon
   - Knife
   - Health
+  - Door
+  - TriggerDoor
+  - Drawer
+  - TriggerDrawer
+  - FuseBox
+  - SpiderWeb
+  - Key
+  - Fuse
   layers:
   - Default
   - TransparentFX
@@ -21,8 +29,8 @@ TagManager:
   - UI
   - Weapon
   - Knife
-  - 
-  - 
+  - Key
+  - Fuse
   - 
   - 
   - 

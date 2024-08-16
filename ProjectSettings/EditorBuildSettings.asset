@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 5d8cab68abebc4a0e8f5684b2a34d91a
+  - enabled: 1
+    path: Assets/Scenes/GymKarolNew.unity
+    guid: 8686d001b7387fc41a97a1a449078147
   m_configObjects: {}

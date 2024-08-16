@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour
 {
-
     [SerializeField] private Inventory playerInventory;
 
     [SerializeField] private List<GameObject> weaponsInHierachy;
 
     [Header("Deactivated weapons")]
-    //Reference to Gun deactivated
+    // Reference to Gun deactivated
     [SerializeField] private GameObject inactiveWeapon;
     [SerializeField] private GameObject inactiveKnife;
+    [SerializeField] private GameObject inactiveKey; // Referencia a la llave desactivada
+    [SerializeField] private GameObject inactiveFuse; // Referencia al fusible desactivado
 
     // flag for check is gun is picked up
     [SerializeField] private PlayerInteractions playerInteractions;
@@ -30,7 +31,6 @@ public class WeaponSwitch : MonoBehaviour
     {
         usableItems = playerInventory.GetUsableItems();
     }
-
 
     void Update()
     {
@@ -56,7 +56,6 @@ public class WeaponSwitch : MonoBehaviour
 
             SwitchWeapon();
         }
-
     }
 
     void SwitchWeapon()
@@ -64,6 +63,8 @@ public class WeaponSwitch : MonoBehaviour
         // Desactivar todas las armas primero
         if (inactiveWeapon != null) inactiveWeapon.SetActive(false);
         if (inactiveKnife != null) inactiveKnife.SetActive(false);
+        if (inactiveKey != null) inactiveKey.SetActive(false); // Desactivar la llave
+        if (inactiveFuse != null) inactiveFuse.SetActive(false); // Desactivar el fusible
 
         if (currentIndex >= 0 && currentIndex < usableItems.Count)
         {
@@ -71,15 +72,24 @@ public class WeaponSwitch : MonoBehaviour
 
             if (currentItem.itemName == "Gun" && playerInteractions.weaponCollected)
             {
-                //Gun activated
+                // Gun activated
                 inactiveWeapon.SetActive(true);
             }
             else if (currentItem.itemName == "Knife" && playerInteractions.knifeCollected)
             {
-                //Knife activated
+                // Knife activated
                 inactiveKnife.SetActive(true);
+            }
+            else if (currentItem.itemName == "Key")
+            {
+                // Key activated
+                inactiveKey.SetActive(true);
+            }
+            else if (currentItem.itemName == "Fuse")
+            {
+                // Fuse activated
+                inactiveFuse.SetActive(true);
             }
         }
     }
-        
 }

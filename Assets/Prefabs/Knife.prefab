@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1041230609035080479}
   - component: {fileID: 1031503561559447413}
   - component: {fileID: 1072772998496646027}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Knife
   m_TagString: Knife
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008966576459983411}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.020216264, y: 0.55541795, z: 0.16867954}

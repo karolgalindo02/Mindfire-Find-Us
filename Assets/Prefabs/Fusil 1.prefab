@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3834050729793097870}
   - component: {fileID: 8303964134722706645}
   - component: {fileID: 2322190726927198827}
+  - component: {fileID: 5046037237423763391}
   m_Layer: 0
   m_Name: Fusil 1
-  m_TagString: Untagged
+  m_TagString: Fuse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,3 +99,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2363409560044025573, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
+--- !u!114 &5046037237423763391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033455165432517975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0698358325b8eb642807ba82458d907d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Fuse
+  itemType: 1
