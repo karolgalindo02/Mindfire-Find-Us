@@ -7,13 +7,12 @@ public class WeaponSwitch : MonoBehaviour
 
     [SerializeField] private Inventory playerInventory;
 
-    //GameObject empty, point reference
-    [SerializeField] private Transform weaponHolder;
-
     [SerializeField] private List<GameObject> weaponsInHierachy;
 
+    [Header("Deactivated weapons")]
     //Reference to Gun deactivated
     [SerializeField] private GameObject inactiveWeapon;
+    [SerializeField] private GameObject inactiveKnife;
 
     // flag for check is gun is picked up
     [SerializeField] private PlayerInteractions playerInteractions;
@@ -35,7 +34,7 @@ public class WeaponSwitch : MonoBehaviour
 
     void Update()
     {
-        if (Input.mouseScrollDelta.y != 0 && playerInteractions.weaponCollected) 
+        if (Input.mouseScrollDelta.y != 0) 
         {
             if(Input.mouseScrollDelta.y > 0)
             {
@@ -62,18 +61,25 @@ public class WeaponSwitch : MonoBehaviour
 
     void SwitchWeapon()
     {
-        if(currentIndex >= 0 && currentIndex < usableItems.Count)
+        // Desactivar todas las armas primero
+        if (inactiveWeapon != null) inactiveWeapon.SetActive(false);
+        if (inactiveKnife != null) inactiveKnife.SetActive(false);
+
+        if (currentIndex >= 0 && currentIndex < usableItems.Count)
         {
-            if (inactiveWeapon != null)
+            Item currentItem = usableItems[currentIndex];
+
+            if (currentItem.itemName == "Gun" && playerInteractions.weaponCollected)
             {
+                //Gun activated
                 inactiveWeapon.SetActive(true);
-                Debug.Log("Arma activada: " + inactiveWeapon.name);
+            }
+            else if (currentItem.itemName == "Knife" && playerInteractions.knifeCollected)
+            {
+                //Knife activated
+                inactiveKnife.SetActive(true);
             }
         }
-        else if (currentIndex == -1 && inactiveWeapon != null)
-        {
-            inactiveWeapon.SetActive(false);
-            Debug.Log("Arma desactivada");
-        }
     }
+        
 }

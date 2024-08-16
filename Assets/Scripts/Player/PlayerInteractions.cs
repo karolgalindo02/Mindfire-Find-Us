@@ -16,11 +16,12 @@ public class PlayerInteractions : MonoBehaviour
     // Reference to script for change weapon
     [SerializeField] private WeaponSwitch weaponSwitch;
 
-    //Deactivated Gun
-    [SerializeField] private GameObject inactiveWeapon;
 
     //Check if weapon is picked up
     public bool weaponCollected = false;
+
+    //Check if knife is picked up
+    public bool knifeCollected = false;
 
 
     private void Update()
@@ -88,10 +89,12 @@ public class PlayerInteractions : MonoBehaviour
                     //itemComponent.Use();
                 }
 
-                if(itemComponent.itemType == ItemType.Usable && inactiveWeapon != null)
+                if(itemComponent.itemName == "Gun")
                 {
-                    inactiveWeapon.SetActive(true);
                     weaponCollected = true;
+                }else if (itemComponent.itemName == "Knife")
+                {
+                    knifeCollected = true;
                 }
 
                 //Destroy the item at scene

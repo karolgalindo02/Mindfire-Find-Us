@@ -12,5 +12,7 @@ public class UsableItem : Item
     public override void Use()
     {
         Debug.Log(itemName + " equipado en el WeaponHolder");
+
+        //Optimize for sprint 2
     }
 }
