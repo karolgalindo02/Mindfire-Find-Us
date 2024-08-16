@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class UsableItem : Item
 {
-    private void Awake()
-    {
-        itemType = ItemType.Usable;
-    }
-
     public override void Use()
     {
-        Debug.Log(itemName + " equipado en el WeaponHolder");
+        //Logic for use item, for example equip weapon
 
-        //Optimize for sprint 2
     }
 }

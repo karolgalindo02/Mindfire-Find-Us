@@ -7,31 +7,11 @@ public class WeaponSwitch : MonoBehaviour
 
     [SerializeField] private Inventory playerInventory;
 
-    [SerializeField] private List<GameObject> weaponsInHierachy;
+    [SerializeField] private Transform weaponHolder;
 
-    [Header("Deactivated weapons")]
-    //Reference to Gun deactivated
-    [SerializeField] private GameObject inactiveWeapon;
-    [SerializeField] private GameObject inactiveKnife;
-
-    // flag for check is gun is picked up
-    [SerializeField] private PlayerInteractions playerInteractions;
-
-    private int currentIndex = -1;
-
-    private List<Item> usableItems;
-
-    private void Start()
-    {
-        UpdateUsableItems();
-    }
-
-    public void UpdateUsableItems()
-    {
-        usableItems = playerInventory.GetUsableItems();
-    }
-
-
+    private int currentIndex = 0;
+    
+    
     void Update()
     {
         if (Input.mouseScrollDelta.y != 0) 
@@ -40,17 +20,16 @@ public class WeaponSwitch : MonoBehaviour
             {
                 currentIndex++;
 
-                if (currentIndex >= usableItems.Count)
+                if (currentIndex >= playerInventory.collectedItems.Count)
                 {
-                    currentIndex = -1; //withoutGun
+                    currentIndex = 0;
                 }
             }else if(Input.mouseScrollDelta.y < 0)
             {
                 currentIndex--;
-
-                if(currentIndex < -1)
+                if(currentIndex < 0)
                 {
-                    currentIndex = usableItems.Count - 1;
+                    currentIndex = playerInventory.collectedItems.Count - 1;
                 }
             }
 
@@ -61,25 +40,17 @@ public class WeaponSwitch : MonoBehaviour
 
     void SwitchWeapon()
     {
-        // Desactivar todas las armas primero
-        if (inactiveWeapon != null) inactiveWeapon.SetActive(false);
-        if (inactiveKnife != null) inactiveKnife.SetActive(false);
-
-        if (currentIndex >= 0 && currentIndex < usableItems.Count)
+        foreach (GameObject item in playerInventory.collectedItems)
         {
-            Item currentItem = usableItems[currentIndex];
+            item.SetActive(false);
+        }
 
-            if (currentItem.itemName == "Gun" && playerInteractions.weaponCollected)
-            {
-                //Gun activated
-                inactiveWeapon.SetActive(true);
-            }
-            else if (currentItem.itemName == "Knife" && playerInteractions.knifeCollected)
-            {
-                //Knife activated
-                inactiveKnife.SetActive(true);
-            }
+        if (playerInventory.collectedItems.Count > 0)
+        {
+            GameObject currentItem = playerInventory.collectedItems[currentIndex];
+            currentItem.SetActive(true);
+            currentItem.transform.position = weaponHolder.position;
+            currentItem.transform.rotation = weaponHolder.rotation;
         }
     }
-        
 }

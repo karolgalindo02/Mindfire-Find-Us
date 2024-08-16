@@ -12,16 +12,9 @@ public class PlayerInteractions : MonoBehaviour
 
     //Container of the message for pick up items
     [SerializeField] private GameObject uiPickUpItemContainer;
-
-    // Reference to script for change weapon
-    [SerializeField] private WeaponSwitch weaponSwitch;
-
-
-    //Check if weapon is picked up
-    public bool weaponCollected = false;
-
-    //Check if knife is picked up
-    public bool knifeCollected = false;
+    [SerializeField] private AudioSource ammoSound;
+    [SerializeField] private AudioSource weaponSound;
+    [SerializeField] private AudioSource knifeSound;
 
 
     private void Update()
@@ -35,7 +28,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Ammunition") || other.gameObject.CompareTag("Weapon") || other.gameObject.CompareTag("Knife") || other.gameObject.CompareTag("Health"))
+        if (other.gameObject.CompareTag("Ammunition") || other.gameObject.CompareTag("Weapon") || other.gameObject.CompareTag("Knife"))
         {
             IsNearItem = true;
             currentItem = other.gameObject;
@@ -61,49 +54,24 @@ public class PlayerInteractions : MonoBehaviour
 
         if (playerInventory != null && currentItem != null)
         {
-            //We saved the component of the gameObject
-            Item itemComponent = currentItem.GetComponent<Item>();
+            //copy of the item
+            GameObject itemCopy = Instantiate(currentItem);
 
-            if (itemComponent != null) {
+            itemCopy.SetActive(false); //Deactivate the copy in the inventory
 
-                //copy of the item
-                GameObject itemCopy = Instantiate(currentItem);
+            playerInventory.AddItem(itemCopy);
 
-                itemCopy.SetActive(false); //Deactivate the copy in the inventory
-
-                playerInventory.AddItem(itemCopy);
-
-                if(itemComponent.itemType == ItemType.Consumable)
-                {
-                    //use the item inmediatly
-                    itemComponent.Use();
-                    //We hidde container of the message "Press E"
-                    uiManagerInfoUser.HiddeCanvaElement(uiPickUpItemContainer);
-                }
-                else
-                {
-                    //Hidde container PickUpInfo
-                    uiManagerInfoUser.HiddeCanvaElement(uiPickUpItemContainer);
-                    //Info user
-                    uiManagerInfoUser.ShowMessage($"{currentItem.name} Has been added to inventory");
-
-                    //itemComponent.Use();
-                }
-
-                if(itemComponent.itemName == "Gun")
-                {
-                    weaponCollected = true;
-                }else if (itemComponent.itemName == "Knife")
-                {
-                    knifeCollected = true;
-                }
-
-                //Destroy the item at scene
-                Destroy(currentItem);
-                // Actualizar la lista de �tems usables en WeaponSwitch
-                weaponSwitch.UpdateUsableItems();
+            if (currentItem.CompareTag("Ammunition"))
+            {
+                //Here we add the number of variable ammo from the script AmunitionBox to the variable in the instance of the GamaManager
+                GameManager.Instance.ammo += currentItem.GetComponent<AmmunitionBox>().ammo;
             }
-           
+            //Destroy item in scene
+            Destroy(currentItem);
+            //Hidde container PickUpInfo
+            uiManagerInfoUser.HiddeCanvaElement(uiPickUpItemContainer);
+            //Info user
+            uiManagerInfoUser.ShowMessage($"{currentItem.name} Has been added to inventory");
         }
 
         IsNearItem = false;
