@@ -22,6 +22,7 @@ public class PlayerInteractions : MonoBehaviour
         if(IsNearItem && Input.GetKeyDown(KeyCode.E))
         {            
             PlaySoundForCurrentItem();
+
             CollectItem();
         }
     }

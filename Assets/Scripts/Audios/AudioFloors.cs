@@ -17,6 +17,8 @@ public class AudioFloors : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (Time.timeScale==0) return;
+
         if (other.tag == "Player")
         {
             player.GetComponent<AudioSource>().clip = clipPasos;
@@ -24,7 +26,7 @@ public class AudioFloors : MonoBehaviour
             // Si el jugador se está moviendo, reproducimos el sonido de pasos
             if (playerController.IsMoving() && !player.GetComponent<AudioSource>().isPlaying)
             {
-                player.GetComponent<AudioSource>().Play(); 
+                player.GetComponent<AudioSource>().Play();
             }
         }
     }

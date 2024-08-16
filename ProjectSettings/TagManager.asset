@@ -11,6 +11,7 @@ TagManager:
   - EnemyBullet
   - Weapon
   - Knife
+  - EffectSound
   layers:
   - Default
   - TransparentFX
