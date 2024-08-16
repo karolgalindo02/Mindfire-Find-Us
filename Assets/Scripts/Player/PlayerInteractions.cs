@@ -12,13 +12,16 @@ public class PlayerInteractions : MonoBehaviour
 
     //Container of the message for pick up items
     [SerializeField] private GameObject uiPickUpItemContainer;
-
+    [SerializeField] private AudioSource ammoSound;
+    [SerializeField] private AudioSource weaponSound;
+    [SerializeField] private AudioSource knifeSound;
 
 
     private void Update()
     {
         if(IsNearItem && Input.GetKeyDown(KeyCode.E))
-        {
+        {            
+            PlaySoundForCurrentItem();
             CollectItem();
         }
     }
@@ -84,4 +87,21 @@ public class PlayerInteractions : MonoBehaviour
             GameManager.Instance.LoseHealth(5);
         }
     }
+    private void PlaySoundForCurrentItem()
+{
+    if (currentItem == null) return;
+
+    if (currentItem.CompareTag("Weapon") && weaponSound != null)
+    {
+        weaponSound.Play();
+    }
+    else if (currentItem.CompareTag("Knife") && knifeSound != null)
+    {
+        knifeSound.Play();
+    }
+    else if (currentItem.CompareTag("Ammunition") && ammoSound != null)
+    {
+        ammoSound.Play();
+    }
+}
 }
