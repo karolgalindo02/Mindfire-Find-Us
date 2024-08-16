@@ -11,6 +11,7 @@ TagManager:
   - EnemyBullet
   - Weapon
   - Knife
+  - Health
   layers:
   - Default
   - TransparentFX

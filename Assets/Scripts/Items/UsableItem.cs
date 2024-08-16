@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class UsableItem : Item
 {
+    private void Awake()
+    {
+        itemType = ItemType.Usable;
+    }
+
     public override void Use()
     {
-        //Logic for use item, for example equip weapon
-
+        Debug.Log(itemName + " equipado en el WeaponHolder");
     }
 }
