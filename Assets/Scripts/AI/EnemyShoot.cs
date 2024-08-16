@@ -11,12 +11,19 @@ public class EnemyShoot : MonoBehaviour
     private Transform playerPosition;
 
     public float bulletVelocity = 100;
-    // Start is called before the first frame update
+    // Start is called before the first frame update 
+    public float enemyShootRange = 10;
+
+    public float enemyFieldOfView = 90;
+
+
     void Start()
     {
         playerPosition = FindObjectOfType<PlayerController>().transform;
 
-        Invoke("ShootPlayer", 3);
+        Debug.Log(playerPosition.position);
+
+        InvokeRepeating("ShootPlayer", 3, 2);
 
     }
 
@@ -27,12 +34,27 @@ public class EnemyShoot : MonoBehaviour
     }
     void ShootPlayer()
     {
-        Vector3 playerDirection = playerPosition.position - transform.position;
+       Vector3 directionToPlayer = playerPosition.position - transform.position;
 
-        GameObject newBullet = Instantiate(enemyBullet, spawnBulletPoint.transform.position, spawnBulletPoint.transform.rotation);
+       float distanceFromPlayer = directionToPlayer.magnitude;
 
-        newBullet.GetComponent<Rigidbody>().AddForce(playerDirection * bulletVelocity, ForceMode.Force);
+       //Calculated the angle between player direction and enemy direction
+       float angleToPlayer = Vector3.Angle(directionToPlayer, transform.forward);
+       
 
-        Invoke("ShootPlayer", 3);
+        if (distanceFromPlayer < enemyShootRange && angleToPlayer < enemyFieldOfView/2)
+        {
+            //Shoot only if the player is in the field of view of the enemy
+            Vector3 playerDirection = playerPosition.position - transform.position;
+
+            GameObject newBullet = Instantiate(enemyBullet, spawnBulletPoint.transform.position, spawnBulletPoint.transform.rotation);
+
+            newBullet.GetComponent<Rigidbody>().AddForce(directionToPlayer.normalized * bulletVelocity, ForceMode.Force);
+        }
+        
+
+
     }
+
+ 
 }
