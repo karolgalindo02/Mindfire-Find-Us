@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    private bool IsNearItem = false;
-
     private GameObject currentItem;
 
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
-
-    //Container of the message for pick up items
     [SerializeField] private GameObject uiPickUpItemContainer;
     [SerializeField] private AudioSource ammoSound;
     [SerializeField] private AudioSource weaponSound;
     [SerializeField] private AudioSource knifeSound;
+    [SerializeField] private AudioSource healthSound;
+    [SerializeField] private AudioSource gunSound;
+    [SerializeField] private AudioSource keySound;
+    [SerializeField] private AudioSource fuseSound;
+    [SerializeField] private WeaponSwitch weaponSwitch;
+    [SerializeField] private Camera mainCamera;
 
+    public bool weaponCollected = false;
+    public bool knifeCollected = false;
+    public bool keyCollected = false;
+    public bool fuseCollected = false;
 
     private void Update()
     {
+<<<<<<< HEAD
         if(IsNearItem && Input.GetKeyDown(KeyCode.E))
         {            
             PlaySoundForCurrentItem();
@@ -26,60 +33,155 @@ public class PlayerInteractions : MonoBehaviour
             CollectItem();
         }
     }
+=======
+        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        RaycastHit hit;
+>>>>>>> KarolGalindo
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Ammunition") || other.gameObject.CompareTag("Weapon") || other.gameObject.CompareTag("Knife"))
+        if (Physics.Raycast(ray, out hit, 2f))
         {
-            IsNearItem = true;
-            currentItem = other.gameObject;
-            //uiManagerInfoUser.ShowMessage("Press E to pick up item");
-            uiPickUpItemContainer.gameObject.SetActive(true);
+            if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") )
+            {
+                if (currentItem != hit.collider.gameObject)
+                {
+                    if (currentItem != null)
+                    {
+                        if (currentItem.CompareTag("Weapon"))
+                        {
+                            foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
+                            {
+                                renderer.material.DisableKeyword("_EMISSION");
+                            }
+                        }
+                        else
+                        {
+                            currentItem.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                        }
+                    }
+
+                    currentItem = hit.collider.gameObject;
+                    if (currentItem.CompareTag("Weapon"))
+                    {
+                        foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
+                        {
+                            renderer.material.EnableKeyword("_EMISSION");
+                        }
+                    }
+                    else
+                    {
+                        currentItem.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+                    }
+                }
+
+                uiPickUpItemContainer.gameObject.SetActive(true);
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (hit.collider.CompareTag("Door"))
+                    {
+                        hit.collider.gameObject.GetComponent<SystemDoor>().ChangeDoorState();
+                    }
+                    else if (hit.collider.CompareTag("Drawer"))
+                    {
+                        hit.collider.gameObject.GetComponent<SystemDrawer>().ChangeDrawerState();
+                    }
+                    else
+                    {
+                        PlaySoundForCurrentItem();
+                        CollectItem();
+                    }
+                }
+            }
+            else
+            {
+                if (currentItem != null)
+                {
+                    if (currentItem.CompareTag("Weapon"))
+                    {
+                        foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
+                        {
+                            renderer.material.DisableKeyword("_EMISSION");
+                        }
+                    }
+                    else
+                    {
+                        currentItem.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                    }
+                    currentItem = null;
+                }
+                uiPickUpItemContainer.gameObject.SetActive(false);
+            }
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject == currentItem)
+        else
         {
-            IsNearItem = false;
-            currentItem = null;
+            if (currentItem != null)
+            {
+                if (currentItem.CompareTag("Weapon"))
+                {
+                    foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
+                    {
+                        renderer.material.DisableKeyword("_EMISSION");
+                    }
+                }
+                else
+                {
+                    currentItem.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                }
+                currentItem = null;
+            }
             uiPickUpItemContainer.gameObject.SetActive(false);
         }
     }
 
     private void CollectItem()
     {
-        //For use the inventory of the player
         Inventory playerInventory = GetComponent<Inventory>();
 
         if (playerInventory != null && currentItem != null)
         {
-            //copy of the item
-            GameObject itemCopy = Instantiate(currentItem);
+            Item itemComponent = currentItem.GetComponent<Item>();
 
-            itemCopy.SetActive(false); //Deactivate the copy in the inventory
-
-            playerInventory.AddItem(itemCopy);
-
-            if (currentItem.CompareTag("Ammunition"))
+            if (itemComponent != null)
             {
-                //Here we add the number of variable ammo from the script AmunitionBox to the variable in the instance of the GamaManager
-                GameManager.Instance.ammo += currentItem.GetComponent<AmmunitionBox>().ammo;
-            }
-            //Destroy item in scene
-            Destroy(currentItem);
-            //Hidde container PickUpInfo
-            uiManagerInfoUser.HiddeCanvaElement(uiPickUpItemContainer);
-            //Info user
-            uiManagerInfoUser.ShowMessage($"{currentItem.name} Has been added to inventory");
-        }
+                GameObject itemCopy = Instantiate(currentItem);
+                itemCopy.SetActive(false);
+                playerInventory.AddItem(itemCopy);
 
-        IsNearItem = false;
+                if (itemComponent.itemType == ItemType.Consumable)
+                {
+                    itemComponent.Use();
+                    uiManagerInfoUser.HiddeCanvaElement(uiPickUpItemContainer);
+                }
+                else
+                {
+                    uiManagerInfoUser.HiddeCanvaElement(uiPickUpItemContainer);
+                    uiManagerInfoUser.ShowMessage($"{currentItem.name} Has been added to inventory");
+                }
+
+                if (itemComponent.itemName == "Gun")
+                {
+                    weaponCollected = true;
+                }
+                else if (itemComponent.itemName == "Knife")
+                {
+                    knifeCollected = true;
+                }
+                else if (itemComponent.itemName == "Key")
+                {
+                    keyCollected = true;
+                }
+                else if (itemComponent.itemName == "Fuse")
+                {
+                    fuseCollected = true;
+                }
+
+                Destroy(currentItem);
+                weaponSwitch.UpdateUsableItems();
+            }
+        }
 
         currentItem = null;
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -88,21 +190,34 @@ public class PlayerInteractions : MonoBehaviour
             GameManager.Instance.LoseHealth(5);
         }
     }
-    private void PlaySoundForCurrentItem()
-{
-    if (currentItem == null) return;
 
-    if (currentItem.CompareTag("Weapon") && weaponSound != null)
+    private void PlaySoundForCurrentItem()
     {
-        weaponSound.Play();
+        if (currentItem == null) return;
+
+        if (currentItem.CompareTag("Weapon") && gunSound != null)
+        {
+            gunSound.Play();
+        }
+        else if (currentItem.CompareTag("Knife") && knifeSound != null)
+        {
+            knifeSound.Play();
+        }
+        else if (currentItem.CompareTag("Ammunition") && ammoSound != null)
+        {
+            ammoSound.Play();
+        }
+        else if (currentItem.CompareTag("Health") && healthSound != null)
+        {
+            healthSound.Play();
+        }
+        else if (currentItem.CompareTag("Key") && keySound != null)
+        {
+            keySound.Play();
+        }
+        else if (currentItem.CompareTag("Fuse") && fuseSound != null)
+        {
+            fuseSound.Play();
+        }
     }
-    else if (currentItem.CompareTag("Knife") && knifeSound != null)
-    {
-        knifeSound.Play();
-    }
-    else if (currentItem.CompareTag("Ammunition") && ammoSound != null)
-    {
-        ammoSound.Play();
-    }
-}
 }

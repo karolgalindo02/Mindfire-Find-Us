@@ -4,14 +4,34 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour
 {
-
     [SerializeField] private Inventory playerInventory;
 
-    [SerializeField] private Transform weaponHolder;
+    [SerializeField] private List<GameObject> weaponsInHierachy;
 
-    private int currentIndex = 0;
-    
-    
+    [Header("Deactivated weapons")]
+    // Reference to Gun deactivated
+    [SerializeField] private GameObject inactiveWeapon;
+    [SerializeField] private GameObject inactiveKnife;
+    [SerializeField] private GameObject inactiveKey; // Referencia a la llave desactivada
+    [SerializeField] private GameObject inactiveFuse; // Referencia al fusible desactivado
+
+    // flag for check is gun is picked up
+    [SerializeField] private PlayerInteractions playerInteractions;
+
+    private int currentIndex = -1;
+
+    private List<Item> usableItems;
+
+    private void Start()
+    {
+        UpdateUsableItems();
+    }
+
+    public void UpdateUsableItems()
+    {
+        usableItems = playerInventory.GetUsableItems();
+    }
+
     void Update()
     {
         if (Input.mouseScrollDelta.y != 0) 
@@ -20,37 +40,56 @@ public class WeaponSwitch : MonoBehaviour
             {
                 currentIndex++;
 
-                if (currentIndex >= playerInventory.collectedItems.Count)
+                if (currentIndex >= usableItems.Count)
                 {
-                    currentIndex = 0;
+                    currentIndex = -1; //withoutGun
                 }
             }else if(Input.mouseScrollDelta.y < 0)
             {
                 currentIndex--;
-                if(currentIndex < 0)
+
+                if(currentIndex < -1)
                 {
-                    currentIndex = playerInventory.collectedItems.Count - 1;
+                    currentIndex = usableItems.Count - 1;
                 }
             }
 
             SwitchWeapon();
         }
-
     }
 
     void SwitchWeapon()
     {
-        foreach (GameObject item in playerInventory.collectedItems)
-        {
-            item.SetActive(false);
-        }
+        // Desactivar todas las armas primero
+        if (inactiveWeapon != null) inactiveWeapon.SetActive(false);
+        if (inactiveKnife != null) inactiveKnife.SetActive(false);
+        if (inactiveKey != null) inactiveKey.SetActive(false); // Desactivar la llave
+        if (inactiveFuse != null) inactiveFuse.SetActive(false); // Desactivar el fusible
 
-        if (playerInventory.collectedItems.Count > 0)
+        if (currentIndex >= 0 && currentIndex < usableItems.Count)
         {
-            GameObject currentItem = playerInventory.collectedItems[currentIndex];
-            currentItem.SetActive(true);
-            currentItem.transform.position = weaponHolder.position;
-            currentItem.transform.rotation = weaponHolder.rotation;
+            Item currentItem = usableItems[currentIndex];
+
+            if (currentItem.itemName == "Gun" && playerInteractions.weaponCollected)
+            {
+                // Gun activated
+                inactiveWeapon.SetActive(true);
+            }
+            else if (currentItem.itemName == "Knife" && playerInteractions.knifeCollected)
+            {
+                // Knife activated
+                inactiveKnife.SetActive(true);
+            }
+            else if (currentItem.itemName == "Key")
+            {
+                // Key activated
+                inactiveKey.SetActive(true);
+            }
+            else if (currentItem.itemName == "Fuse")
+            {
+                // Fuse activated
+                inactiveFuse.SetActive(true);
+            }
         }
     }
 }

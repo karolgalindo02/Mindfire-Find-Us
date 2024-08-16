@@ -11,6 +11,15 @@ TagManager:
   - EnemyBullet
   - Weapon
   - Knife
+  - Health
+  - Door
+  - TriggerDoor
+  - Drawer
+  - TriggerDrawer
+  - FuseBox
+  - SpiderWeb
+  - Key
+  - Fuse
   - EffectSound
   layers:
   - Default
@@ -20,9 +29,9 @@ TagManager:
   - Water
   - UI
   - Weapon
-  - 
-  - 
-  - 
+  - Knife
+  - Key
+  - Fuse
   - 
   - 
   - 
