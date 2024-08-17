@@ -45,6 +45,8 @@ public class GunShoot : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale==0) return;
+
         //If you want a different input, change it here
         if (Input.GetButtonDown("Fire1"))
         {

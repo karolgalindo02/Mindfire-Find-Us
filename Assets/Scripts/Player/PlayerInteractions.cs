@@ -9,7 +9,6 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
     [SerializeField] private GameObject uiPickUpItemContainer;
     [SerializeField] private AudioSource ammoSound;
-    [SerializeField] private AudioSource weaponSound;
     [SerializeField] private AudioSource knifeSound;
     [SerializeField] private AudioSource healthSound;
     [SerializeField] private AudioSource gunSound;

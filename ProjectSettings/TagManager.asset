@@ -20,6 +20,7 @@ TagManager:
   - SpiderWeb
   - Key
   - Fuse
+  - EffectSound
   layers:
   - Default
   - TransparentFX

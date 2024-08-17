@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
+        if (Time.timeScale==0) return;
         //Check is the player is grounded
         isGrounded = Physics.CheckSphere(groundCheck.position, shpereRadius, groundMask);
 
@@ -79,9 +80,8 @@ public class PlayerController : MonoBehaviour
 
         characterController.Move(velocity * Time.deltaTime);
     }
-    public bool IsMoving()
+        public bool IsMoving()
     {
-        // Considera movimiento si la entrada horizontal o vertical es mayor que 0.1 (puedes ajustar el valor si es necesario)
-        return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f;
+        return Input.GetButton("Horizontal") || Input.GetButton("Vertical");
     }
 }
