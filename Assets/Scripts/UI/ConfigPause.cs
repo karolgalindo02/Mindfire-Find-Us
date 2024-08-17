@@ -13,7 +13,7 @@ public class ConfigPause : MonoBehaviour
     public GameObject menuObjPause;
     public bool pause=false;
     public GameObject OptionsMenu; 
-
+    public GameObject creditsMenu;
     public GameObject homeExit;
     
      private AudioSource[] sonidos;
@@ -64,6 +64,7 @@ public void Resume()
 {
     OptionsMenu.SetActive(false);
     menuObjPause.SetActive(false);
+    creditsMenu.SetActive(false);
     homeExit.SetActive(false);
     pause = false;
     Time.timeScale = 1;

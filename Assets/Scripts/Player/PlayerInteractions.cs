@@ -9,7 +9,6 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
     [SerializeField] private GameObject uiPickUpItemContainer;
     [SerializeField] private AudioSource ammoSound;
-    [SerializeField] private AudioSource weaponSound;
     [SerializeField] private AudioSource knifeSound;
     [SerializeField] private AudioSource healthSound;
     [SerializeField] private AudioSource gunSound;
@@ -25,18 +24,8 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-<<<<<<< HEAD
-        if(IsNearItem && Input.GetKeyDown(KeyCode.E))
-        {            
-            PlaySoundForCurrentItem();
-
-            CollectItem();
-        }
-    }
-=======
         Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
->>>>>>> KarolGalindo
 
         if (Physics.Raycast(ray, out hit, 2f))
         {

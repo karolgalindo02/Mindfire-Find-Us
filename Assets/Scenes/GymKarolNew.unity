@@ -6230,9 +6230,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0509522b1923fa349a837e1f39aabbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Ammo
+  itemName: 
   itemType: 0
-  amount: 10
+  amount: 0
 --- !u!64 &848945781
 MeshCollider:
   m_ObjectHideFlags: 0
