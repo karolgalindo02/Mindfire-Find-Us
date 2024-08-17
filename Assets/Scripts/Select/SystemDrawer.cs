@@ -6,12 +6,11 @@ public class SystemDrawer : MonoBehaviour
 {
     [SerializeField] private bool drawerOpen = false;
     [SerializeField] private float drawerOpenPosition = 0.002f;
-    [SerializeField] private float drawerClosePosition = 0f; 
+    [SerializeField] private float drawerClosePosition = 0f;
     [SerializeField] private float smooth = 3f;
+    [SerializeField] private AudioSource openDrawer;
+    [SerializeField] private AudioSource closeDrawer;
     private Vector3 initialPosition;
-
-    public AudioClip openDrawer;
-    public AudioClip closeDrawer;
 
     void Start()
     {
@@ -21,6 +20,7 @@ public class SystemDrawer : MonoBehaviour
     public void ChangeDrawerState()
     {
         drawerOpen = !drawerOpen;
+        PlayDrawerSound();
     }
 
     void Update()
@@ -37,19 +37,31 @@ public class SystemDrawer : MonoBehaviour
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, smooth * Time.deltaTime);
     }
 
+    private void PlayDrawerSound()
+    {
+        if (drawerOpen && openDrawer != null && !openDrawer.isPlaying)
+        {
+            openDrawer.Play();
+        }
+        else if (!drawerOpen && closeDrawer != null && !closeDrawer.isPlaying)
+        {
+            closeDrawer.Play();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TriggerDrawer"))
+        if(other.tag == "TriggerDoor")
         {
-            AudioSource.PlayClipAtPoint(openDrawer, transform.position, 1);
+            //No Sound
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("TriggerDrawer"))
+        if(other.tag == "TriggerDoor")
         {
-            AudioSource.PlayClipAtPoint(closeDrawer, transform.position, 1);
+            //No Sound
         }
     }
 }

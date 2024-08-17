@@ -8,13 +8,13 @@ public class SystemDoor : MonoBehaviour
     [SerializeField] private float doorOpenAngle = 100f;
     [SerializeField] private float doorCloseAngle = 0f;
     [SerializeField] private float smooth = 3f;
-
-    public AudioClip openDoor;
-    public AudioClip closeDoor;
+    [SerializeField] private AudioSource openDoor;
+    [SerializeField] private AudioSource closeDoor;
     
     public void ChangeDoorState()
     {
         doorOpen = !doorOpen;
+        PlayDoorSound();
     }
 
     void Update()
@@ -31,11 +31,23 @@ public class SystemDoor : MonoBehaviour
         }
     }
 
+    private void PlayDoorSound()
+    {
+        if (doorOpen && openDoor != null && !openDoor.isPlaying)
+        {
+            openDoor.Play();
+        }
+        else if (!doorOpen && closeDoor != null && !closeDoor.isPlaying)
+        {
+            closeDoor.Play();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "TriggerDoor")
         {
-            AudioSource.PlayClipAtPoint(closeDoor, transform.position, 1);
+            //No Sound
         }
     }
 
@@ -43,7 +55,7 @@ public class SystemDoor : MonoBehaviour
     {
         if(other.tag == "TriggerDoor")
         {
-            AudioSource.PlayClipAtPoint(openDoor, transform.position, 1);
+            //No Sound
         }
     }
 }

@@ -15,6 +15,7 @@ public class ConfigPause : MonoBehaviour
     public GameObject OptionsMenu; 
     public GameObject creditsMenu;
     public GameObject homeExit;
+    public GameObject Canvas;
     
      private AudioSource[] sonidos;
     private AudioSource[] efectosSonidos;
@@ -31,10 +32,12 @@ public class ConfigPause : MonoBehaviour
         {
             if (!pause)
             {
+                Canvas.SetActive(false);
                 PausarJuego();
             }
             else
             {
+                Canvas.SetActive(true);
                 Resume();
             }
         }
@@ -87,8 +90,8 @@ public void Resume()
         }
 }
 
-    public void GoToMenu(string NombreMenu)
+    public void GoToMenu()
     {
-        SceneManager.LoadScene(NombreMenu);
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 }
