@@ -8,7 +8,7 @@ public class EnemyShoot : MonoBehaviour
 
     public Transform spawnBulletPoint;
 
-    private Transform playerPosition;
+    public Transform playerPosition;
 
     public float bulletVelocity = 100;
     // Start is called before the first frame update 
@@ -19,7 +19,7 @@ public class EnemyShoot : MonoBehaviour
 
     void Start()
     {
-        playerPosition = FindObjectOfType<PlayerController>().transform;
+        //playerPosition = FindObjectOfType<PlayerController>().transform;
 
         Debug.Log(playerPosition.position);
 
