@@ -4,37 +4,41 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
-public class _PlayerController : MonoBehaviour
+public class PlayerControllerMF : MonoBehaviour
 {
-    public float speed = 6.0f;
-    public float rotationSpeed = 100.0f;
+    [Header("Player settings")]
+    [SerializeField] private float speedMove = 4.0f;
+    [SerializeField] private float rotationSpeed = 80.0f;
+    [SerializeField] private CharacterController controller;
+    [SerializeField] private AudioSource steps;
 
-    public float crouchSpeed = 3.0f; // Crouching Speed
-    public float crouchHeight = 1.0f; // Height when crouching
-    public float standingHeight = 2.0f; // Standing height
+    [Header("Crouch Settings")]
+    [SerializeField] private float crouchSpeed = 3.0f; // Crouching Speed
+    [SerializeField] private float crouchHeight = 1.0f; // Height when crouching
+    [SerializeField] private float standingHeight = 2.0f; // Standing height
+    //[Header("Canvas")]
 
+    //[Header("Animations")]
+
+    [Header("Gravity settings")]
     //Because we dont use RigidBody
-    private float gravity = -9.81f;
-
+    [SerializeField]private float gravity = -9.81f;
     //This is the position of the gameObject empty for check is our player touched the floor
     [SerializeField] private Transform groundCheck;
-
-    //Variable that is configured with the empty object that we set under the Player to check whether or not it is touching the ground.
-    private bool isGrounded;
-
-    public float shpereRadius = 0.3f;
+    [SerializeField] private float shpereRadius = 0.3f;
     //Mask that we created for our scene to defined what is or what is not floor
-    public LayerMask groundMask;
-
+    [SerializeField] private LayerMask groundMask;
     //Variable to saved the force that we apply in the Axis "Y" for simulated the gravity
     private Vector3 velocity;
 
-
-    private bool isCrouching = false;
-
-
-    private CharacterController controller;
     private Vector3 moveDirection = Vector3.zero;
+
+    [Header("States")]
+    //Variable that is configured with the empty object that we set under the Player to check whether or not it is touching the ground.
+    [SerializeField] private bool isGrounded, isMoving, isGameOver;
+    [SerializeField] private bool isCrouching = false;
+    public bool isDead = false;
+
 
 
 
@@ -68,11 +72,35 @@ public class _PlayerController : MonoBehaviour
 
         Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
 
+        isMoving = move.magnitude > 0.1f;
+
+        if(isMoving && !steps.isPlaying)
+        {
+            steps.Play();
+        }
+
+        if(!isMoving && steps.isPlaying)
+        {
+            steps.Pause();
+        }
+
+        /*
+         Template model for include Player animations
+         if(currentAnimation != null)
+        {
+            currentAnimator.SetBool("isMoving", isMoving);
+            currentAnimator.SetBool("isAttacking", isAttacking);
+            currentAnimator.SetBool("isHitted", isHitted);
+            currentAnimator.SetBool("isDead", isDead);
+        }
+         
+         
+         */
         // Apply gravity
         moveDirection.y -= 9.81f * Time.deltaTime;
 
         // Moving the character
-        controller.Move(move * (isCrouching ? crouchSpeed : speed) * Time.deltaTime);
+        controller.Move(move * (isCrouching ? crouchSpeed : speedMove) * Time.deltaTime);
 
         // Rotating the Character with the Mouse
 
@@ -102,11 +130,7 @@ public class _PlayerController : MonoBehaviour
         }
     }
 
-    public bool IsMoving()
-    {
-        // Considera movimiento si la entrada horizontal o vertical es mayor que 0.1 (puedes ajustar el valor si es necesario)
-        return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f;
-    }
+    
 
 
 }
