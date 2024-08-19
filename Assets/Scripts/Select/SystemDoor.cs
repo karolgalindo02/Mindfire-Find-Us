@@ -10,16 +10,23 @@ public class SystemDoor : MonoBehaviour
     [SerializeField] private float smooth = 3f;
     [SerializeField] private AudioSource openDoor;
     [SerializeField] private AudioSource closeDoor;
-    
-    public void ChangeDoorState()
+
+    public void ChangeDoorState(bool hasKey)
     {
-        doorOpen = !doorOpen;
-        PlayDoorSound();
+        if (hasKey)
+        {
+            doorOpen = !doorOpen;
+            PlayDoorSound();
+        }
+        else
+        {
+            Debug.Log("Door is locked. You need a key to open it.");
+        }
     }
 
     void Update()
     {
-        if(doorOpen)
+        if (doorOpen)
         {
             Quaternion targetRotation = Quaternion.Euler(0, 0, doorOpenAngle);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, smooth * Time.deltaTime);
@@ -45,7 +52,7 @@ public class SystemDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "TriggerDoor")
+        if (other.tag == "TriggerDoor")
         {
             //No Sound
         }
@@ -53,7 +60,7 @@ public class SystemDoor : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "TriggerDoor")
+        if (other.tag == "TriggerDoor")
         {
             //No Sound
         }

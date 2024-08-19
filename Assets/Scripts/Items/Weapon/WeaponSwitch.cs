@@ -92,4 +92,14 @@ public class WeaponSwitch : MonoBehaviour
             }
         }
     }
+
+    public void RemoveItemFromInventory(string itemName)
+    {
+        Item itemToRemove = usableItems.Find(item => item.itemName == itemName);
+        if (itemToRemove != null)
+        {
+            usableItems.Remove(itemToRemove);
+            playerInventory.RemoveItem(itemToRemove);
+        }
+    }
 }

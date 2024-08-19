@@ -14,7 +14,7 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private AudioSource gunSound;
     [SerializeField] private AudioSource keySound;
     [SerializeField] private AudioSource fuseSound;
-    [SerializeField] private WeaponSwitch weaponSwitch;
+    [SerializeField] public WeaponSwitch weaponSwitch;
     [SerializeField] private Camera mainCamera;
 
     public bool weaponCollected = false;
@@ -29,7 +29,7 @@ public class PlayerInteractions : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 2f))
         {
-            if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") )
+            if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse"))
             {
                 if (currentItem != hit.collider.gameObject)
                 {
@@ -68,7 +68,14 @@ public class PlayerInteractions : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Door"))
                     {
-                        hit.collider.gameObject.GetComponent<SystemDoor>().ChangeDoorState();
+                        bool hasKey = keyCollected;
+                        hit.collider.gameObject.GetComponent<SystemDoor>().ChangeDoorState(hasKey);
+
+                        if (hasKey)
+                        {
+                            keyCollected = false;
+                            weaponSwitch.RemoveItemFromInventory("Key");
+                        }
                     }
                     else if (hit.collider.CompareTag("Drawer"))
                     {

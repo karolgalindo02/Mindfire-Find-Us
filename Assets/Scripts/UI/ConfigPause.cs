@@ -88,6 +88,7 @@ public void Resume()
         {
             volumeControl.ToggleVolumeCanvas();
         }
+    Canvas.SetActive(true);
 }
 
     public void GoToMenu()
