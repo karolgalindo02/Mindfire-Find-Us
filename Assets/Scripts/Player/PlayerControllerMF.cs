@@ -40,7 +40,8 @@ public class PlayerControllerMF : MonoBehaviour
     [SerializeField] private bool isCrouching = false;
     public bool isDead = false;
 
-
+    [Header("Animations")]
+    public Animator animator;
 
 
     void Start()
@@ -70,6 +71,9 @@ public class PlayerControllerMF : MonoBehaviour
         // Character movement
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
+
+        animator.SetFloat("velX",  moveHorizontal);
+        animator.SetFloat("velZ", moveVertical);
 
         Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
 

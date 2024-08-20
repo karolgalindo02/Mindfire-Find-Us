@@ -11,8 +11,6 @@ public class Knife : MonoBehaviour
 
     [SerializeField] private float attackRange = 1.5f;
 
-    [SerializeField] private LayerMask enemyLayers;
-
     [SerializeField] private Animator animator;
 
     private void Update()
@@ -28,13 +26,17 @@ public class Knife : MonoBehaviour
         animator.SetTrigger("Attack");
 
         //Spot enemies in attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayers);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
 
         //Cause damage to enemy
         foreach (Collider enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(damage);
-            Debug.Log("You hit your enemy");
+            if (enemy.CompareTag("Enemy"))
+            {
+                enemy.GetComponent<Enemy>().TakeDamage(damage);
+                Debug.Log("You hit your enemy");
+            }
+            
         }
 
     }
