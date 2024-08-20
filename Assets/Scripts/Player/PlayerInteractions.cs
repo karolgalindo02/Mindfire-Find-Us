@@ -12,10 +12,13 @@ public class PlayerInteractions : MonoBehaviour
 
     //Container of the message for pick up items
     [SerializeField] private GameObject uiPickUpItemContainer;
+
+    [Header("Sounds")]
     [SerializeField] private AudioSource ammoSound;
     [SerializeField] private AudioSource weaponSound;
     [SerializeField] private AudioSource knifeSound;
     // Reference to script for change weapon
+
     [SerializeField] private WeaponSwitch weaponSwitch;
 
 

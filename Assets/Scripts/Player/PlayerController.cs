@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private float gravity = -9.81f;
 
     //This is the position of the gameObject empty for check is our player touched the floor
-    [SerializeField] private Transform groundCheck;
+    //[SerializeField] private Transform groundCheck;
 
     //Variable that is configured with the empty object that we set under the Player to check whether or not it is touching the ground.
     private bool isGrounded;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Check is the player is grounded
-        isGrounded = Physics.CheckSphere(groundCheck.position, shpereRadius, groundMask);
+        //isGrounded = Physics.CheckSphere(groundCheck.position, shpereRadius, groundMask);
 
         if(isGrounded && velocity.y < 0)
         {
