@@ -12,6 +12,7 @@ TagManager:
   - Weapon
   - Knife
   - Health
+  - Center
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Weapon
   - Knife
-  - 
+  - Enemy
   - 
   - 
   - 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.UIElements;
 
 public class PlayerControllerMF : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class PlayerControllerMF : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        //transform.rotation = Quaternion.Euler(0, 0, 0);
+        //transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     void Update()
@@ -104,12 +105,13 @@ public class PlayerControllerMF : MonoBehaviour
 
         // Rotating the Character with the Mouse
 
-        
         float mouseX = Input.GetAxis("Mouse X");
         if (Mathf.Abs(mouseX) > 0.1f)
         {
+            //transform.rotation = Quaternion.Euler(new Vector3(0, mouseX * rotationSpeed * Time.deltaTime, 0));
             transform.Rotate(0, mouseX * rotationSpeed * Time.deltaTime, 0);
         }
+        
         
         
         //transform.rotation = Quaternion.Euler(new Vector3(0, mouseX * rotationSpeed * Time.deltaTime, 0));

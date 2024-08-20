@@ -25,9 +25,10 @@ public class CameraController : MonoBehaviour
         StartCoroutine(EnableMouseInput());
 
         Cursor.visible = false;
+
         xRotation = 0;
 
-        transform.rotation = Quaternion.Euler(xRotation, 0f, 0f);
+        //transform.rotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         
 
@@ -38,10 +39,11 @@ public class CameraController : MonoBehaviour
         if (Cursor.lockState == CursorLockMode.Locked && isInitialized)
         {
             //Follow player
-            transform.position = player.position + offset;
+            //transform.position = player.position + offset;
 
             //Vertical camera rotation with the mouse
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            //float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
 
             xRotation -= mouseY;
@@ -55,6 +57,7 @@ public class CameraController : MonoBehaviour
             //transform.rotation = Quaternion.Euler(0, player.eulerAngles.y, 0);
 
             transform.rotation = Quaternion.Euler(xRotation, player.eulerAngles.y, 0f);
+
         }
             
     
