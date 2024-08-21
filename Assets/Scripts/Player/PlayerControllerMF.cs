@@ -18,8 +18,7 @@ public class PlayerControllerMF : MonoBehaviour
     [SerializeField] private float standingHeight = 2.0f; // Standing height
     //[Header("Canvas")]
 
-    //[Header("Animations")]
-
+  
     [Header("Gravity settings")]
     //Because we dont use RigidBody
     [SerializeField]private float gravity = -9.81f;
@@ -99,14 +98,19 @@ public class PlayerControllerMF : MonoBehaviour
             currentAnimator.SetBool("isHitted", isHitted);
             currentAnimator.SetBool("isDead", isDead);
         }
-         
-         
+           
          */
+
+        float mouseX = Input.GetAxis("Mouse X") * speedRotation * Time.deltaTime;
+
+        transform.Rotate(Vector3.up * mouseX);
+
         // Apply gravity
         moveDirection.y -= 9.81f * Time.deltaTime;
 
         // Moving the character
         controller.Move(move * (isCrouching ? crouchSpeed : speedMove) * Time.deltaTime);
+
 
      
 

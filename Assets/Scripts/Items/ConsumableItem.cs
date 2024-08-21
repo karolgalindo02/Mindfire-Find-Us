@@ -22,7 +22,10 @@ public class ConsumableItem : Item
 
         if(itemName == "Health")
         {
-            GameManager.Instance.health += amount;
+            //First version
+            //GameManager.Instance.health += amount;
+            //Second version
+            GameManager.Instance.AddHealth(amount);
         }
         
 
