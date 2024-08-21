@@ -32,7 +32,7 @@ public class AI : MonoBehaviour
     {
         agent.destination = destinations[index].position;
         //Search the player, reference
-        player = FindObjectOfType<PlayerController>().gameObject;
+        player = FindObjectOfType<PlayerControllerMF>().gameObject;
     }
 
     void Update()

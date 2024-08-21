@@ -32,7 +32,7 @@ public class CameraLook : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
         if (Cursor.lockState == CursorLockMode.Locked && isInitialized)
         {

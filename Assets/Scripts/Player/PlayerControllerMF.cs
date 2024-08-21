@@ -9,7 +9,6 @@ public class PlayerControllerMF : MonoBehaviour
 {
     [Header("Player settings")]
     [SerializeField] private float speedMove = 4.0f;
-    [SerializeField] private float rotationSpeed = 80.0f;
     [SerializeField] private CharacterController controller;
     [SerializeField] private AudioSource steps;
 
@@ -36,7 +35,7 @@ public class PlayerControllerMF : MonoBehaviour
 
     [Header("States")]
     //Variable that is configured with the empty object that we set under the Player to check whether or not it is touching the ground.
-    [SerializeField] private bool isGrounded, isMoving, isGameOver;
+    [SerializeField] public bool isGrounded, isMoving, isGameOver;
     [SerializeField] private bool isCrouching = false;
     public bool isDead = false;
 
@@ -72,8 +71,9 @@ public class PlayerControllerMF : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        animator.SetFloat("velX",  moveHorizontal);
-        animator.SetFloat("velZ", moveVertical);
+        //Animations
+        //animator.SetFloat("velX",  moveHorizontal);
+        //animator.SetFloat("velZ", moveVertical);
 
         Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
 
@@ -107,18 +107,7 @@ public class PlayerControllerMF : MonoBehaviour
         // Moving the character
         controller.Move(move * (isCrouching ? crouchSpeed : speedMove) * Time.deltaTime);
 
-        // Rotating the Character with the Mouse
-
-        float mouseX = Input.GetAxis("Mouse X");
-        if (Mathf.Abs(mouseX) > 0.1f)
-        {
-            //transform.rotation = Quaternion.Euler(new Vector3(0, mouseX * rotationSpeed * Time.deltaTime, 0));
-            transform.Rotate(0, mouseX * rotationSpeed * Time.deltaTime, 0);
-        }
-        
-        
-        
-        //transform.rotation = Quaternion.Euler(new Vector3(0, mouseX * rotationSpeed * Time.deltaTime, 0));
+     
 
         //Force that we apply in "Y" Axis
         velocity.y += gravity * Time.deltaTime;

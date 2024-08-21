@@ -7,12 +7,12 @@ public class AudioFloors : MonoBehaviour
 {
     public AudioClip clipPasos;
     public GameObject player; 
-    private PlayerController playerController;
+    private PlayerControllerMF playerController;
    
  private void Start()
     {
         // Asignamos el componente PlayerController
-        playerController = player.GetComponent<PlayerController>();
+        playerController = player.GetComponent<PlayerControllerMF>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,7 +22,7 @@ public class AudioFloors : MonoBehaviour
             player.GetComponent<AudioSource>().clip = clipPasos;
 
             // Si el jugador se está moviendo, reproducimos el sonido de pasos
-            if (playerController.IsMoving() && !player.GetComponent<AudioSource>().isPlaying)
+            if (playerController.isMoving && !player.GetComponent<AudioSource>().isPlaying)
             {
                 player.GetComponent<AudioSource>().Play(); 
             }
