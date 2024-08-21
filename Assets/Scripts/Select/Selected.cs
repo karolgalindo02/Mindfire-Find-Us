@@ -9,7 +9,6 @@ public class Selected : MonoBehaviour
 
     void Update()
     {
-        //Raycast(origin, direction, hitInfo, distance, layerMask)
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distance))
         {
@@ -18,12 +17,20 @@ public class Selected : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     bool hasKey = playerInteractions.keyCollected;
-                    hit.collider.gameObject.GetComponent<SystemDoor>().ChangeDoorState(hasKey);
+                    bool keyInHand = playerInteractions.weaponSwitch.GetCurrentItemName() == "Key";
+                    string keyName = playerInteractions.weaponSwitch.GetCurrentItemName();
+                    SystemDoor door = hit.collider.gameObject.GetComponent<SystemDoor>();
+                    door.ChangeDoorState(hasKey, keyInHand, keyName);
 
-                    if (hasKey)
+                    if (hasKey && keyInHand && door.IsDoorUnlocked)
                     {
                         playerInteractions.keyCollected = false;
-                        playerInteractions.weaponSwitch.RemoveItemFromInventory("Key");
+                        playerInteractions.weaponSwitch.RemoveItemFromInventory("Key", true);
+                        playerInteractions.weaponSwitch.SwitchToNextItem();
+                    }
+                    else if (hasKey && keyInHand && !door.IsDoorUnlocked)
+                    {
+                        // playerInteractions.weaponSwitch.RemoveItemFromInventory("Key", false);
                     }
                 }
             }

@@ -48,20 +48,4 @@ public class SystemDrawer : MonoBehaviour
             closeDrawer.Play();
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "TriggerDoor")
-        {
-            //No Sound
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.tag == "TriggerDoor")
-        {
-            //No Sound
-        }
-    }
 }

@@ -12,8 +12,9 @@ public class WeaponSwitch : MonoBehaviour
     // Reference to Gun deactivated
     [SerializeField] private GameObject inactiveWeapon;
     [SerializeField] private GameObject inactiveKnife;
-    [SerializeField] private GameObject inactiveKey; // Referencia a la llave desactivada
-    [SerializeField] private GameObject inactiveFuse; // Referencia al fusible desactivado
+    [SerializeField] private GameObject inactiveKey;
+    [SerializeField] private GameObject inactiveFuse;
+    [SerializeField] private GameObject inactiveKeyBasement;
 
     // flag for check is gun is picked up
     [SerializeField] private PlayerInteractions playerInteractions;
@@ -34,7 +35,7 @@ public class WeaponSwitch : MonoBehaviour
 
     void Update()
     {
-        if (Input.mouseScrollDelta.y != 0) 
+        if (Input.mouseScrollDelta.y != 0)
         {
             if(Input.mouseScrollDelta.y > 0)
             {
@@ -60,11 +61,11 @@ public class WeaponSwitch : MonoBehaviour
 
     void SwitchWeapon()
     {
-        // Desactivar todas las armas primero
         if (inactiveWeapon != null) inactiveWeapon.SetActive(false);
         if (inactiveKnife != null) inactiveKnife.SetActive(false);
-        if (inactiveKey != null) inactiveKey.SetActive(false); // Desactivar la llave
-        if (inactiveFuse != null) inactiveFuse.SetActive(false); // Desactivar el fusible
+        if (inactiveKey != null) inactiveKey.SetActive(false);
+        if (inactiveFuse != null) inactiveFuse.SetActive(false);
+        if (inactiveKeyBasement != null) inactiveKeyBasement.SetActive(false);
 
         if (currentIndex >= 0 && currentIndex < usableItems.Count)
         {
@@ -90,10 +91,17 @@ public class WeaponSwitch : MonoBehaviour
                 // Fuse activated
                 inactiveFuse.SetActive(true);
             }
+            else if (currentItem.itemName == "KeyBasement")
+            {
+                // Key Basement activated
+                inactiveKeyBasement.SetActive(true);
+            }
         }
     }
 
-    public void RemoveItemFromInventory(string itemName)
+public void RemoveItemFromInventory(string itemName, bool correctDoor)
+{
+    if (correctDoor)
     {
         Item itemToRemove = usableItems.Find(item => item.itemName == itemName);
         if (itemToRemove != null)
@@ -101,5 +109,25 @@ public class WeaponSwitch : MonoBehaviour
             usableItems.Remove(itemToRemove);
             playerInventory.RemoveItem(itemToRemove);
         }
+    }
+}
+
+    public string GetCurrentItemName()
+    {
+        if (currentIndex >= 0 && currentIndex < usableItems.Count)
+        {
+            return usableItems[currentIndex].itemName;
+        }
+        return null;
+    }
+
+    public void SwitchToNextItem()
+    {
+        currentIndex++;
+        if (currentIndex >= usableItems.Count)
+        {
+            currentIndex = -1; //withoutGun
+        }
+        SwitchWeapon();
     }
 }
