@@ -15,6 +15,10 @@ public class CameraLook : MonoBehaviour
     //For check that the game is initialized and the gun start in the center of the screen
     private bool isInitialized = false;
 
+    // Public property to control vertical rotation
+    public bool allowVerticalRotation = true;
+
+
 
 
 
@@ -32,7 +36,7 @@ public class CameraLook : MonoBehaviour
     }
 
 
-    void Update()
+    void LateUpdate()
     {
         if (Cursor.lockState == CursorLockMode.Locked && isInitialized)
         {
@@ -42,15 +46,19 @@ public class CameraLook : MonoBehaviour
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            
+            //if (allowVerticalRotation)
+            //{
+                //Setting for the rotation in "X" axis with camera
+                xRotation -= mouseY;
+                //limit of bound rotation in "X" Axis with camera
+                xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-            //Setting for the rotation in "X" axis with camera
-            xRotation -= mouseY;
-            //limit of bound rotation in "X" Axis with camera
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-            //Convert de rotation of the camera in the rotation of the mouse with the player body
-            transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-
+                //Convert de rotation of the camera in the rotation of the mouse with the player body
+                transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            //}
+                
+            
             //Body player rotate in the Y axis with de movement of the mouse in the horizontal Axis
             playerBody.Rotate(Vector3.up * mouseX);
         }
