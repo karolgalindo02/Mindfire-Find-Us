@@ -1496,7 +1496,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7293752462899796551, guid: 1d83466007c19f24e998f7d154aabb56, type: 3}
       propertyPath: m_RootOrder
-      value: 27
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 7293752462899796551, guid: 1d83466007c19f24e998f7d154aabb56, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3863,11 +3863,17 @@ MonoBehaviour:
   uiManagerInfoUser: {fileID: 0}
   uiPickUpItemContainer: {fileID: 0}
   ammoSound: {fileID: 0}
-  weaponSound: {fileID: 0}
   knifeSound: {fileID: 0}
+  healthSound: {fileID: 0}
+  gunSound: {fileID: 0}
+  keySound: {fileID: 0}
+  fuseSound: {fileID: 0}
   weaponSwitch: {fileID: 0}
+  mainCamera: {fileID: 0}
   weaponCollected: 0
   knifeCollected: 0
+  keyCollected: 0
+  fuseCollected: 0
 --- !u!82 &345065869
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5018,8 +5024,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 345065865}
   mouseSensitivity: 80
-  allowVerticalRotation: 1
-  cameraSwitch: {fileID: 0}
 --- !u!1 &465882203
 GameObject:
   m_ObjectHideFlags: 0
@@ -6430,7 +6434,6 @@ MonoBehaviour:
   ammoText: {fileID: 799584719}
   healthText: {fileID: 814921838}
   health: 100
-  maxHealth: 100
   ammo: 10
 --- !u!4 &537373232
 Transform:
@@ -8452,7 +8455,7 @@ Transform:
   - {fileID: 1059057310}
   - {fileID: 576488648}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &663122095
 MonoBehaviour:
@@ -8483,6 +8486,9 @@ MonoBehaviour:
   isGameOver: 0
   isCrouching: 0
   isDead: 0
+  animator: {fileID: 0}
+  moveX: 0
+  moveY: 0
 --- !u!143 &663122096
 CharacterController:
   m_ObjectHideFlags: 0
@@ -8626,6 +8632,8 @@ MonoBehaviour:
   weaponsInHierachy: []
   inactiveWeapon: {fileID: 1198900612}
   inactiveKnife: {fileID: 12212484}
+  inactiveKey: {fileID: 0}
+  inactiveFuse: {fileID: 0}
   playerInteractions: {fileID: 663122100}
 --- !u!114 &663122100
 MonoBehaviour:
@@ -8642,11 +8650,17 @@ MonoBehaviour:
   uiManagerInfoUser: {fileID: 299810251}
   uiPickUpItemContainer: {fileID: 1410735082}
   ammoSound: {fileID: 1953457710}
-  weaponSound: {fileID: 189595299}
   knifeSound: {fileID: 693432496}
+  healthSound: {fileID: 0}
+  gunSound: {fileID: 0}
+  keySound: {fileID: 0}
+  fuseSound: {fileID: 0}
   weaponSwitch: {fileID: 663122099}
+  mainCamera: {fileID: 0}
   weaponCollected: 0
   knifeCollected: 0
+  keyCollected: 0
+  fuseCollected: 0
 --- !u!114 &663122101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8660,11 +8674,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thirdPersonCamera: {fileID: 285504693}
-  child3PCamera: {fileID: 27543772}
   firstPersonCamera: {fileID: 948321634}
-  childFPCamera: {fileID: 831187288}
   isFirstPesonEnable: 1
-  cameraLookScript: {fileID: 948321635}
 --- !u!1 &670096663
 GameObject:
   m_ObjectHideFlags: 0
@@ -13080,7 +13091,7 @@ Transform:
   - {fileID: 761021987}
   - {fileID: 848157400}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &948321631
 GameObject:
@@ -13184,8 +13195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 663122094}
   mouseSensitivity: 80
-  allowVerticalRotation: 1
-  cameraSwitch: {fileID: 663122101}
 --- !u!1 &949627585 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4780948967703409157, guid: 28d60e49159b6f74290ac4cf2cf55ab8, type: 3}
@@ -13422,7 +13431,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992092166
 GameObject:
@@ -14718,11 +14727,17 @@ MonoBehaviour:
   uiManagerInfoUser: {fileID: 0}
   uiPickUpItemContainer: {fileID: 0}
   ammoSound: {fileID: 0}
-  weaponSound: {fileID: 0}
   knifeSound: {fileID: 0}
+  healthSound: {fileID: 0}
+  gunSound: {fileID: 0}
+  keySound: {fileID: 0}
+  fuseSound: {fileID: 0}
   weaponSwitch: {fileID: 0}
+  mainCamera: {fileID: 0}
   weaponCollected: 0
   knifeCollected: 0
+  keyCollected: 0
+  fuseCollected: 0
 --- !u!114 &1063372418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19860,11 +19875,17 @@ MonoBehaviour:
   uiManagerInfoUser: {fileID: 299810251}
   uiPickUpItemContainer: {fileID: 1410735082}
   ammoSound: {fileID: 1953457710}
-  weaponSound: {fileID: 189595299}
   knifeSound: {fileID: 693432496}
+  healthSound: {fileID: 0}
+  gunSound: {fileID: 0}
+  keySound: {fileID: 0}
+  fuseSound: {fileID: 0}
   weaponSwitch: {fileID: 1381787598}
+  mainCamera: {fileID: 0}
   weaponCollected: 0
   knifeCollected: 0
+  keyCollected: 0
+  fuseCollected: 0
 --- !u!114 &1381787597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19894,6 +19915,8 @@ MonoBehaviour:
   weaponsInHierachy: []
   inactiveWeapon: {fileID: 1487959112}
   inactiveKnife: {fileID: 496519452}
+  inactiveKey: {fileID: 0}
+  inactiveFuse: {fileID: 0}
   playerInteractions: {fileID: 1381787596}
 --- !u!114 &1381787600
 MonoBehaviour:
@@ -19924,6 +19947,9 @@ MonoBehaviour:
   isGameOver: 0
   isCrouching: 0
   isDead: 0
+  animator: {fileID: 0}
+  moveX: 0
+  moveY: 0
 --- !u!114 &1381787601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19937,11 +19963,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thirdPersonCamera: {fileID: 1043152491}
-  child3PCamera: {fileID: 0}
   firstPersonCamera: {fileID: 2110727081}
-  childFPCamera: {fileID: 0}
   isFirstPesonEnable: 1
-  cameraLookScript: {fileID: 0}
 --- !u!1 &1397162218
 GameObject:
   m_ObjectHideFlags: 0
@@ -20411,7 +20434,6 @@ MonoBehaviour:
   ammoText: {fileID: 1620697301}
   healthText: {fileID: 1165629667}
   health: 100
-  maxHealth: 100
   ammo: 10
 --- !u!1 &1410735082
 GameObject:
@@ -22611,7 +22633,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1540896568
 GameObject:
@@ -22709,7 +22731,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1540896573
 MonoBehaviour:
@@ -24865,8 +24887,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 1063372416}
   mouseSensitivity: 80
-  allowVerticalRotation: 1
-  cameraSwitch: {fileID: 0}
 --- !u!81 &1681050007
 AudioListener:
   m_ObjectHideFlags: 0
@@ -25470,7 +25490,6 @@ MonoBehaviour:
   ammoText: {fileID: 1273347445}
   healthText: {fileID: 1827081151}
   health: 100
-  maxHealth: 100
   ammo: 10
 --- !u!4 &1721572246
 Transform:
@@ -27494,7 +27513,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1828788577
 MonoBehaviour:
@@ -31274,8 +31293,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 1381787594}
   mouseSensitivity: 120
-  allowVerticalRotation: 1
-  cameraSwitch: {fileID: 0}
 --- !u!81 &2110727080
 AudioListener:
   m_ObjectHideFlags: 0
@@ -34791,7 +34808,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6241594459589022018, guid: a216853b413c8884e9d1ef5d7d12db48, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6241594459589022018, guid: a216853b413c8884e9d1ef5d7d12db48, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35459,7 +35476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878850369403266, guid: a78a725941312494b930d664f3b315d0, type: 3}
       propertyPath: m_RootOrder
-      value: 28
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 4878850369403266, guid: a78a725941312494b930d664f3b315d0, type: 3}
       propertyPath: m_LocalScale.x

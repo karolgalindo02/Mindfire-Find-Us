@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInteractions : MonoBehaviour
 {
     private GameObject currentItem;
-
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
     [SerializeField] private GameObject uiPickUpItemContainer;
 
@@ -17,7 +16,6 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private AudioSource keySound;
     [SerializeField] private AudioSource fuseSound;
     [SerializeField] private WeaponSwitch weaponSwitch;
-    [SerializeField] private Camera mainCamera;
 
     public bool weaponCollected = false;
     public bool knifeCollected = false;
@@ -26,7 +24,8 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+    
+        Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 2f))

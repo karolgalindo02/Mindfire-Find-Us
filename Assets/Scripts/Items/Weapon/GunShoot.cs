@@ -25,8 +25,6 @@ public class GunShoot : MonoBehaviour
 
     //Counter for shot as a gun
     private float shotRateTime = 0;
-
-    public Camera mainCamera;
     public AudioSource shotSound;
     public AudioSource emptySound;
 

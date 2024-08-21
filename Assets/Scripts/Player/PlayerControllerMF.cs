@@ -101,9 +101,7 @@ public class PlayerControllerMF : MonoBehaviour
            
          */
 
-        float mouseX = Input.GetAxis("Mouse X") * speedRotation * Time.deltaTime;
 
-        transform.Rotate(Vector3.up * mouseX);
 
         // Apply gravity
         moveDirection.y -= 9.81f * Time.deltaTime;
