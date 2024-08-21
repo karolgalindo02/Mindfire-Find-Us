@@ -27,16 +27,17 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 3;
 
     public AudioSource pasos;
-    
+    private Animator anim;
+
     void Start()
     {
-        
+        anim =GetComponent<Animator>();
     }
 
     
     void Update()
     {
-        if (Time.timeScale==0) return;
+        if (Time.timeScale==0) return; // Return if game is paused
         //Check is the player is grounded
         isGrounded = Physics.CheckSphere(groundCheck.position, shpereRadius, groundMask);
 
@@ -62,7 +63,8 @@ public class PlayerController : MonoBehaviour
         {
             pasos.Pause();
         }
-
+        anim.SetFloat("VelX",moveX );
+        anim.SetFloat("VelY",moveZ );
 
         //Vector that we need for set the position of the player when the player press a key
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
