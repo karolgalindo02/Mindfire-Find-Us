@@ -41,12 +41,13 @@ public class PlayerControllerMF : MonoBehaviour
 
     [Header("Animations")]
     public Animator animator;
-
+    public float moveX, moveY;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         //transform.localRotation = Quaternion.Euler(0, 0, 0);
+        animator =GetComponent<Animator>();
     }
 
     void Update()
@@ -68,15 +69,15 @@ public class PlayerControllerMF : MonoBehaviour
         }
 
         // Character movement
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        moveX = Input.GetAxis("Horizontal");
+        moveY = Input.GetAxis("Vertical");
 
         //Animations
-        //animator.SetFloat("velX",  moveHorizontal);
-        //animator.SetFloat("velZ", moveVertical);
 
-        Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
 
+        Vector3 move = transform.right * moveX + transform.forward * moveY;
+        animator.SetFloat("VelX",  moveX);
+        animator.SetFloat("VelY", moveY);
         isMoving = move.magnitude > 0.1f;
 
         if(isMoving && !steps.isPlaying)
