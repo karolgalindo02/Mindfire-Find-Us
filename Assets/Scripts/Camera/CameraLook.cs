@@ -18,6 +18,9 @@ public class CameraLook : MonoBehaviour
     // Public property to control vertical rotation
     public bool allowVerticalRotation = true;
 
+    //for limit the rotation when 3person camera is active
+    [SerializeField] CameraSwitch cameraSwitch;
+
 
 
 
@@ -46,17 +49,25 @@ public class CameraLook : MonoBehaviour
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-            
-            //if (allowVerticalRotation)
-            //{
-                //Setting for the rotation in "X" axis with camera
-                xRotation -= mouseY;
+
+
+            //Setting for the rotation in "X" axis with camera
+            xRotation -= mouseY;
+
+            if (cameraSwitch.isFirstPesonEnable)
+            {
                 //limit of bound rotation in "X" Axis with camera
                 xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
                 //Convert de rotation of the camera in the rotation of the mouse with the player body
                 transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-            //}
+            }
+            else
+            {
+                xRotation = Mathf.Clamp(xRotation, -6.46f, 10f);
+
+                transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            }
                 
             
             //Body player rotate in the Y axis with de movement of the mouse in the horizontal Axis

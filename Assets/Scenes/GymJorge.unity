@@ -3207,6 +3207,8 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 948321632}
   thirdPersonCamera: {fileID: 285504694}
   cameraSwitch: {fileID: 663122101}
+  minVerticalAngle: -6.46
+  maxVerticalAngle: 10
 --- !u!1 &290837875
 GameObject:
   m_ObjectHideFlags: 0
@@ -5017,6 +5019,7 @@ MonoBehaviour:
   playerBody: {fileID: 345065865}
   mouseSensitivity: 80
   allowVerticalRotation: 1
+  cameraSwitch: {fileID: 0}
 --- !u!1 &465882203
 GameObject:
   m_ObjectHideFlags: 0
@@ -8438,7 +8441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663122090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.28, z: 4.572}
+  m_LocalPosition: {x: 0, y: 0.501, z: 4.572}
   m_LocalScale: {x: 0.3, y: 0.5, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8491,13 +8494,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.4
+  m_Height: 1.77
   m_Radius: 0.53
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.1, z: 0.77}
+  m_Center: {x: 0, y: -0.1, z: -0}
 --- !u!82 &663122097
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13182,6 +13185,7 @@ MonoBehaviour:
   playerBody: {fileID: 663122094}
   mouseSensitivity: 80
   allowVerticalRotation: 1
+  cameraSwitch: {fileID: 663122101}
 --- !u!1 &949627585 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4780948967703409157, guid: 28d60e49159b6f74290ac4cf2cf55ab8, type: 3}
@@ -24862,6 +24866,7 @@ MonoBehaviour:
   playerBody: {fileID: 1063372416}
   mouseSensitivity: 80
   allowVerticalRotation: 1
+  cameraSwitch: {fileID: 0}
 --- !u!81 &1681050007
 AudioListener:
   m_ObjectHideFlags: 0
@@ -31270,6 +31275,7 @@ MonoBehaviour:
   playerBody: {fileID: 1381787594}
   mouseSensitivity: 120
   allowVerticalRotation: 1
+  cameraSwitch: {fileID: 0}
 --- !u!81 &2110727080
 AudioListener:
   m_ObjectHideFlags: 0
