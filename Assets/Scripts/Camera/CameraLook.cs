@@ -24,15 +24,15 @@ public class CameraLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         xRotation = 0;
-       
+
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         // Desactiva temporalmente la entrada del mouse
         StartCoroutine(EnableMouseInput());
     }
 
-    
-    void FixedUpdate()
+
+    void Update()
     {
         if (Cursor.lockState == CursorLockMode.Locked && isInitialized)
         {
