@@ -6,10 +6,11 @@ using TMPro;
 public class PlayerInteractions : MonoBehaviour
 {
     private GameObject currentItem;
-
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
     [SerializeField] private GameObject uiPickUpItemContainer;
     [SerializeField] private TextMeshProUGUI uiPickUpItemMessage;
+
+    [Header("Sounds")]
     [SerializeField] private AudioSource ammoSound;
     [SerializeField] private AudioSource knifeSound;
     [SerializeField] private AudioSource healthSound;
@@ -30,7 +31,8 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+    
+        Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 2f))

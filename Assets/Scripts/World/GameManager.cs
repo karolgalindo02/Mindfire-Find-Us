@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI healthText;
 
-    public int health = 100;
+    [SerializeField] public int health = 100;
 
-    public int ammo = 10;
+    [SerializeField] private int maxHealth = 100;
+
+    [SerializeField] public int ammo = 10;
 
     private void Awake()
     {
@@ -30,5 +32,26 @@ public class GameManager : MonoBehaviour
     public void LoseHealth(int healthToReduce)
     {
         health -= healthToReduce;
-    } 
+    }
+
+    public void CheckHealth()
+    {
+        if (health <= 0)
+        {
+            //Logic for gameOver
+            Debug.Log("You have died");
+        }
+    }
+    //Control of health limit 100
+    public void AddHealth(int healthToIncrease)
+    {
+        if(this.health + healthToIncrease >= maxHealth)
+        {
+            this.health = 100;
+        }
+        else
+        {
+            this.health += healthToIncrease;
+        }
+    }
 }

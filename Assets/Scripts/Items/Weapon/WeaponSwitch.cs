@@ -57,6 +57,16 @@ public class WeaponSwitch : MonoBehaviour
 
             SwitchWeapon();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentIndex = 0;
+            SwitchWeapon();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && usableItems.Count >= 2)
+        {
+            currentIndex = 1;
+            SwitchWeapon();
+        }
     }
 
     void SwitchWeapon()

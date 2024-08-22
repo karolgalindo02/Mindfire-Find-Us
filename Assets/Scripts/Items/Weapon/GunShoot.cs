@@ -25,8 +25,6 @@ public class GunShoot : MonoBehaviour
 
     //Counter for shot as a gun
     private float shotRateTime = 0;
-
-    public Camera mainCamera;
     public AudioSource shotSound;
     public AudioSource emptySound;
 
@@ -97,8 +95,8 @@ public class GunShoot : MonoBehaviour
             //Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
             GameObject newBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
 
-            //Calculate the direction based on the crosshair
-            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            //Calculate the direction based on the crosshair, and change the ray with the camera
+            Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
 
             RaycastHit hit;
 
