@@ -88,7 +88,7 @@ public class GunShoot : MonoBehaviour
         //cancels if there's no bullet prefeb
         if (!bulletPrefab)
         { return; }
-        if( GameManager.Instance.ammo > 0)
+        if( GameManager.Instance.ammo > 0 )
         {
             
             // Create a bullet and add force on it in direction of the barrel

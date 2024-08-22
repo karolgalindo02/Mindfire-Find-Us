@@ -64,7 +64,7 @@ public class CameraLook : MonoBehaviour
             }
             else
             {
-                xRotation = Mathf.Clamp(xRotation, -6.46f, 10f);
+                xRotation = Mathf.Clamp(xRotation, -18f, 18f);
 
                 transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
             }

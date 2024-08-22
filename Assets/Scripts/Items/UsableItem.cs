@@ -13,6 +13,7 @@ public class UsableItem : Item
     {
         Debug.Log(itemName + " equipado en el WeaponHolder");
 
-        //Optimize for sprint 2
+        //Optimize for sprint 3
+
     }
 }
