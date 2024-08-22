@@ -21,6 +21,10 @@ TagManager:
   - Key
   - Fuse
   - EffectSound
+  - StairStart
+  - FuseGreen
+  - FuseBlue
+  - FuseRed
   layers:
   - Default
   - TransparentFX
