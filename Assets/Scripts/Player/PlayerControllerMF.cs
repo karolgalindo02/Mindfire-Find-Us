@@ -15,7 +15,7 @@ public class PlayerControllerMF : MonoBehaviour
     [Header("Crouch Settings")]
     [SerializeField] private float crouchSpeed = 3.0f; // Crouching Speed
     [SerializeField] private float crouchHeight = 1.0f; // Height when crouching
-    [SerializeField] private float standingHeight = 2.0f; // Standing height
+    [SerializeField] private float standingHeight = 1.7f; // Standing height
     //[Header("Canvas")]
 
   

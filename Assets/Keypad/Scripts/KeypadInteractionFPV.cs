@@ -2,25 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NavKeypad { 
-public class KeypadInteractionFPV : MonoBehaviour
+namespace NavKeypad
 {
-    private Camera cam;
-    private void Awake() => cam = Camera.main;
-    private void Update()
+    public class KeypadInteractionFPV : MonoBehaviour
     {
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
+        [SerializeField] private Camera cam;
 
-        if (Input.GetMouseButtonDown(0))
+        private void Awake()
         {
-            if (Physics.Raycast(ray, out var hit))
+            if (cam == null)
             {
-                if (hit.collider.TryGetComponent(out KeypadButton keypadButton))
+                cam = Camera.main;
+                if (cam == null)
                 {
-                    keypadButton.PressButton();
+                    Debug.LogError("No camera assigned and no main camera found in the scene.");
+                }
+            }
+        }
+
+        private void Update()
+        {
+            if (cam == null) return;
+
+            var ray = cam.ScreenPointToRay(Input.mousePosition);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (Physics.Raycast(ray, out var hit))
+                {
+                    if (hit.collider.TryGetComponent(out KeypadButton keypadButton))
+                    {
+                        keypadButton.PressButton();
+                    }
                 }
             }
         }
     }
-}
 }

@@ -24,7 +24,7 @@ public class CameraSwitch : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
            isFirstPesonEnable = !isFirstPesonEnable;
            ChangeCamera();
