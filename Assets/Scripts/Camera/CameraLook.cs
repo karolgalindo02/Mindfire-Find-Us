@@ -20,6 +20,7 @@ public class CameraLook : MonoBehaviour
 
     //for limit the rotation when 3person camera is active
     [SerializeField] CameraSwitch cameraSwitch;
+    public bool isMouseInputAllowed = true;
 
 
 
@@ -29,7 +30,7 @@ public class CameraLook : MonoBehaviour
     {
         //Block de mouse within the limits of the screen
         Cursor.lockState = CursorLockMode.Locked;
-
+        Cursor.visible = false; 
         xRotation = 0;
 
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
@@ -81,6 +82,8 @@ public class CameraLook : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         isInitialized = true;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; // Ensure the cursor remains hidden
+
     }
 
 }
