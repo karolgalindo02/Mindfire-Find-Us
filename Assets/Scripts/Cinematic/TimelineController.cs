@@ -9,10 +9,15 @@ public class TimelineController : MonoBehaviour
     public GameObject timelineCameras; // asign the game object to have the cinematic cameras
     public Canvas[] canvases; // Here we can put all the canvas to manage the clean escene
     public AudioSource stepAudioSource; // Assign the AudioSource for the footstep sounds
+    public AudioSource ambientMusicSource;
     public PlayerControllerMF playerController;
     public CameraLook cameraLook; 
 
     public KeyCode skipKey = KeyCode.E;
+    public float musicDelayTime = 21f;
+    public GameObject player; 
+    public List<GameObject> objectsToDestroy;
+    private Coroutine musicCoroutine;
         void Start()
     {
         SetCanvasesActive(false);
@@ -27,6 +32,9 @@ public class TimelineController : MonoBehaviour
         {
             cameraLook.enabled = false;
         }
+        StartCoroutine(StartAmbientMusicAfterDelay());
+        musicCoroutine = StartCoroutine(StartAmbientMusicAfterDelay());
+
     }
     void Update()
     {
@@ -51,6 +59,12 @@ public class TimelineController : MonoBehaviour
         timelineDirector.Evaluate();
         timelineDirector.Stop();
 
+        if (musicCoroutine != null)
+        {
+            StopCoroutine(musicCoroutine); // Stop the corrutine if is ejected 
+            ambientMusicSource.Play(); // Play the music ambient immediately
+        }
+
         // Call the method that executes when the cinematic ends
         EndCinematic();
     }
@@ -64,11 +78,20 @@ public class TimelineController : MonoBehaviour
 
         // Reactivate the footstep sounds
         stepAudioSource.mute = false;
+        
+        if (player != null)
+        {
+            player.SetActive(true);
+        }
+
         playerController.enabled = true;
         if (cameraLook != null)
-            {
-                cameraLook.enabled = true;
-            }
+        {
+            cameraLook.enabled = true;
+        }
+
+        DestroyObjectsAfterCinematic();
+
         // Optionally: Deactivate the PlayableDirector to stop Timeline playback
         timelineDirector.gameObject.SetActive(false);
     }
@@ -80,4 +103,29 @@ public class TimelineController : MonoBehaviour
             canvas.gameObject.SetActive(state);
         }
     }
+    
+     IEnumerator StartAmbientMusicAfterDelay()
+    {
+        // Esperar el tiempo de retraso especificado antes de iniciar la música de ambiente
+        yield return new WaitForSeconds(musicDelayTime);
+
+        // Iniciar la música de ambiente si aún no ha terminado la cinemática
+        if (timelineDirector.state == PlayState.Playing)
+        {
+            ambientMusicSource.Play();
+        }
+    }
+    void DestroyObjectsAfterCinematic()
+    {
+        // Recorrer la lista de objetos y destruirlos
+        foreach (GameObject obj in objectsToDestroy)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+        }
+    }
+
+   
 }
