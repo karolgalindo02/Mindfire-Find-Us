@@ -16,15 +16,22 @@ public class ThirdPersonRayCast : MonoBehaviour
 
     [SerializeField] private string ammunitionTag = "Ammunition";
 
+    public float interactionDistance = 10f; // Distancia del Raycast de la mira
+
 
     // Update is called once per frame
     void Update()
     {
-        if (!cameraSwitch.isFirstPesonEnable)
+        //When the camera change position we block the raycast of the player en third person Camera
+        /*
+        if (!cameraSwitch.isFirstPesonEnable && thirdPersonCamera.transform.position.z > -1.756f)
         {
-            ShootRaycast();
+            
         }
-        
+        */
+
+        ShootRaycast();
+
     }
 
     private void ShootRaycast()
@@ -34,6 +41,8 @@ public class ThirdPersonRayCast : MonoBehaviour
         //Create a raycast from the camera to the crosshair position
         Ray ray = thirdPersonCamera.ScreenPointToRay(crosshair.position);
         RaycastHit hit;
+
+        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.green);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactableMask))
         {

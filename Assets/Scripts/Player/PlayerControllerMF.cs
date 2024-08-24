@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
 public class PlayerControllerMF : MonoBehaviour
@@ -11,6 +12,15 @@ public class PlayerControllerMF : MonoBehaviour
     [SerializeField] private float speedMove = 4.0f;
     [SerializeField] private CharacterController controller;
     [SerializeField] private AudioSource steps;
+    [SerializeField] private Transform playerBody;
+    [SerializeField] private Transform cameraHolder;
+    [SerializeField] private float rotationSpeed = 80f;
+
+    [Header("Activate rotation 3P")]
+    //for limit the rotation between cameras
+    [SerializeField] CameraSwitch cameraSwitch;
+   
+
 
     [Header("Crouch Settings")]
     [SerializeField] private float crouchSpeed = 3.0f; // Crouching Speed
@@ -39,8 +49,11 @@ public class PlayerControllerMF : MonoBehaviour
     public bool isDead = false;
 
     [Header("Animations")]
+    Vector3 moveDirectionWithCamera3P;
+    Transform cameraObject;
     public Animator animator;
-    public float moveX, moveY;
+    public float moveHorizontal, moveVertical;
+    
 
     void Start()
     {
@@ -63,59 +76,63 @@ public class PlayerControllerMF : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            //Avoid mistakes, something like normalized de force that we apply for simulated gravity
+            // Asegurar que el jugador esté bien alineado con el suelo
             velocity.y = -2f;
         }
 
-        // Character movement
-        moveX = Input.GetAxis("Horizontal");
-        moveY = Input.GetAxis("Vertical");
+        // Obtener entrada del mouse
+        float mouseX = Input.GetAxis("Mouse X");
 
-        //Animations
+        float mouseY = Input.GetAxis("Mouse Y");
 
+        // Obtener entrada del teclado
+        moveHorizontal = Input.GetAxis("Horizontal");
+        moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * moveX + transform.forward * moveY;
-        animator.SetFloat("VelX",  moveX);
-        animator.SetFloat("VelY", moveY);
+        if (!cameraSwitch.isFirstPesonEnable)
+        {
+            Debug.Log("I´m with on 3camera mode");
+            // Rotation of de body player in Y axis
+            playerBody.Rotate(Vector3.up * mouseX * rotationSpeed * Time.deltaTime);
+            //playerBody.Rotate(mouseX * rotationSpeed * Time.deltaTime * Vector3.up);
+        }
+
+        // Crear vector de movimiento en base a la entrada del teclado
+        Vector3 direction = new Vector3(moveHorizontal, 0, moveVertical).normalized;
+        Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
+
+        // Animaciones
+        animator.SetFloat("VelX", moveHorizontal);
+        animator.SetFloat("VelY", moveVertical);
         isMoving = move.magnitude > 0.1f;
 
-        if(isMoving && !steps.isPlaying)
+        if (isMoving)
         {
-            steps.Play();
+            // Calcular dirección del movimiento en base a la rotación del jugador
+            Vector3 moveDir = Quaternion.Euler(0, playerBody.eulerAngles.y, 0) * direction;
+            controller.Move(moveDir * speedMove * Time.deltaTime);
+
+            // Reproducir sonido de pasos si está en movimiento
+            if (!steps.isPlaying)
+            {
+                steps.Play();
+            }
+        }
+        else
+        {
+            // Pausar sonido de pasos si no se está moviendo
+            if (steps.isPlaying)
+            {
+                steps.Pause();
+            }
         }
 
-        if(!isMoving && steps.isPlaying)
-        {
-            steps.Pause();
-        }
-
-        /*
-         Template model for include Player animations
-         if(currentAnimation != null)
-        {
-            currentAnimator.SetBool("isMoving", isMoving);
-            currentAnimator.SetBool("isAttacking", isAttacking);
-            currentAnimator.SetBool("isHitted", isHitted);
-            currentAnimator.SetBool("isDead", isDead);
-        }
-           
-         */
-
-
-
-        // Apply gravity
-        moveDirection.y -= 9.81f * Time.deltaTime;
-
-        // Moving the character
-        controller.Move(move * (isCrouching ? crouchSpeed : speedMove) * Time.deltaTime);
-
-
-     
-
-        //Force that we apply in "Y" Axis
+        // Aplicar gravedad
         velocity.y += gravity * Time.deltaTime;
-
         controller.Move(velocity * Time.deltaTime);
+
+        // Aplicar movimiento vertical (si se está agachando, la velocidad cambia)
+        controller.Move(move * (isCrouching ? crouchSpeed : speedMove) * Time.deltaTime);
     }
 
     void HandleCrouch()

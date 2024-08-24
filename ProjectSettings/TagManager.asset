@@ -26,6 +26,7 @@ TagManager:
   - FuseBlue
   - FuseRed
   - Center
+  - MainCamera3P
   layers:
   - Default
   - TransparentFX
@@ -40,8 +41,8 @@ TagManager:
   - Enemy
   - Player
   - Interactable
-  - 
-  - 
+  - Wall
+  - Obstacles
   - 
   - 
   - 
