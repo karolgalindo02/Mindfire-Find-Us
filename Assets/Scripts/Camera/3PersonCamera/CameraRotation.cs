@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class CameraRotation : MonoBehaviour
 {
-    public float lookSpeed = 2.0f; // Velocidad de rotación vertical
-    public float pitchMin = -80f; // Ángulo mínimo de inclinación
-    public float pitchMax = 80f; // Ángulo máximo de inclinación
+    public float lookSpeed = 2.0f; // Vertical rotation speed
+    public float angleMin = -80f; // Minimum tilt angle
+    public float angleMax = 80f; // Maximum tilt angle
 
-    private float pitch = 0.0f; // Ángulo de inclinación actual
+    private float pitch = 0.0f; // Current Tilt Angle
 
     void Update()
     {
-        // Obtener entrada del mouse para rotación vertical
+        // Get mouse input for vertical rotation
         float mouseY = Input.GetAxis("Mouse Y");
 
-        // Actualizar el ángulo de inclinación
+        // Update the tilt angle
         pitch -= mouseY * lookSpeed;
-        pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);
+        pitch = Mathf.Clamp(pitch, angleMin, angleMax);
 
-        // Aplicar la rotación vertical a la cámara
+        // Apply vertical rotation to the camera
         transform.localRotation = Quaternion.Euler(pitch, transform.localRotation.eulerAngles.y, 0);
     }
 }

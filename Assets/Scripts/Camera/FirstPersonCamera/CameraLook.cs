@@ -34,7 +34,7 @@ public class CameraLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
-        // Desactiva temporalmente la entrada del mouse
+        //Temporarily disable mouse input
         StartCoroutine(EnableMouseInput());
     }
 
@@ -61,6 +61,9 @@ public class CameraLook : MonoBehaviour
 
                 //Convert de rotation of the camera in the rotation of the mouse with the player body
                 transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+
+                //Body player rotate in the Y axis with de movement of the mouse in the horizontal Axis
+                playerBody.Rotate(Vector3.up * mouseX);
             }
             else
             {
@@ -69,8 +72,7 @@ public class CameraLook : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
             }
 
-            //Body player rotate in the Y axis with de movement of the mouse in the horizontal Axis
-            playerBody.Rotate(Vector3.up * mouseX);
+           
 
         }
     }

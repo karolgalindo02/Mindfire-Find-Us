@@ -58,7 +58,7 @@ public class PlayerControllerMF : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        //transform.localRotation = Quaternion.Euler(0, 0, 0);
+        
         animator =GetComponent<Animator>();
     }
 
@@ -76,16 +76,16 @@ public class PlayerControllerMF : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
-            // Asegurar que el jugador esté bien alineado con el suelo
+            // Ensure that the player is well aligned with the ground
             velocity.y = -2f;
         }
 
-        // Obtener entrada del mouse
+        // Get mouse input
         float mouseX = Input.GetAxis("Mouse X");
 
         float mouseY = Input.GetAxis("Mouse Y");
 
-        // Obtener entrada del teclado
+        // Get keyboard input
         moveHorizontal = Input.GetAxis("Horizontal");
         moveVertical = Input.GetAxis("Vertical");
 
@@ -94,25 +94,25 @@ public class PlayerControllerMF : MonoBehaviour
             Debug.Log("I´m with on 3camera mode");
             // Rotation of de body player in Y axis
             playerBody.Rotate(Vector3.up * mouseX * rotationSpeed * Time.deltaTime);
-            //playerBody.Rotate(mouseX * rotationSpeed * Time.deltaTime * Vector3.up);
+            
         }
 
-        // Crear vector de movimiento en base a la entrada del teclado
+        // Create Motion Vector Based on Keyboard Input
         Vector3 direction = new Vector3(moveHorizontal, 0, moveVertical).normalized;
         Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
 
-        // Animaciones
+        // Animations
         animator.SetFloat("VelX", moveHorizontal);
         animator.SetFloat("VelY", moveVertical);
         isMoving = move.magnitude > 0.1f;
 
         if (isMoving)
         {
-            // Calcular dirección del movimiento en base a la rotación del jugador
+            // Calculate direction of movement based on the player's rotation
             Vector3 moveDir = Quaternion.Euler(0, playerBody.eulerAngles.y, 0) * direction;
             controller.Move(moveDir * speedMove * Time.deltaTime);
 
-            // Reproducir sonido de pasos si está en movimiento
+            // Play footstep sound if you're on the move
             if (!steps.isPlaying)
             {
                 steps.Play();
@@ -120,18 +120,18 @@ public class PlayerControllerMF : MonoBehaviour
         }
         else
         {
-            // Pausar sonido de pasos si no se está moviendo
+            // Pause footstep sound if not moving
             if (steps.isPlaying)
             {
                 steps.Pause();
             }
         }
 
-        // Aplicar gravedad
+        // Apply gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        // Aplicar movimiento vertical (si se está agachando, la velocidad cambia)
+        // Apply vertical movement (if crouching, speed changes)
         controller.Move(move * (isCrouching ? crouchSpeed : speedMove) * Time.deltaTime);
     }
 

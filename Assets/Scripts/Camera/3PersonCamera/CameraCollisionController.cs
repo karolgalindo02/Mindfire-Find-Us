@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CameraCollisionController : MonoBehaviour
 {
-    public Transform player; // El punto de referencia de tu jugador.
-    public Transform cameraHolder; // El contenedor de tu cámara.
-    public float cameraDistance = 5f; // La distancia deseada entre el jugador y la cámara.
-    public LayerMask collisionLayers; // Las capas con las que la cámara puede colisionar.
+    public Transform player; // Reference point of the player.
+    public Transform cameraHolder; // Container of the camera.
+    public float cameraDistance = 2f; // Distance between the player and the camera.
+    public LayerMask collisionLayers; // The layers that the camera can collide with..
+    public float smoothSpeed = 10f; // Smoothing speed for interpolation.
 
     private Vector3 desiredCameraPosition;
 
@@ -18,25 +19,26 @@ public class CameraCollisionController : MonoBehaviour
 
     void HandleCameraCollision()
     {
-        // Calcula la posición deseada de la cámara
+        // Calculates the desired camera position
         desiredCameraPosition = player.position - cameraHolder.forward * cameraDistance;
 
-        // Lanza un rayo desde el jugador hacia la posición deseada de la cámara
+        // Fires a ray from the player into the desired camera position
         Ray ray = new Ray(player.position, desiredCameraPosition - player.position);
         RaycastHit hit;
 
-        // Dibuja el rayo para análisis
+        //Debug Raycast
         Debug.DrawRay(ray.origin, ray.direction * cameraDistance, Color.red);
 
         if (Physics.Raycast(ray, out hit, cameraDistance, collisionLayers))
         {
-            // Si el rayo colisiona con un objeto, reposiciona la cámara cerca del punto de colisión
-            cameraHolder.position = hit.point + hit.normal * 0.5f;
+            // If the ray collides with an object, it gently interpolates toward the point of collision
+            Vector3 hitPosition = hit.point + hit.normal * 0.5f;
+            cameraHolder.position = Vector3.Lerp(cameraHolder.position, hitPosition, smoothSpeed * Time.deltaTime);
         }
         else
         {
-            // Si no hay colisión, coloca la cámara en la posición deseada
-            cameraHolder.position = desiredCameraPosition;
+            // If there is no collision, gently interpolate to the desired position
+            cameraHolder.position = Vector3.Lerp(cameraHolder.position, desiredCameraPosition, smoothSpeed * Time.deltaTime);
         }
     }
 
