@@ -16634,6 +16634,10 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 704304603}
+    - target: {fileID: 2862731869201269434, guid: 9e29f777b6abc4140b68b885651850e8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2862731869201269436, guid: 9e29f777b6abc4140b68b885651850e8, type: 3}
       propertyPath: angleMax
       value: 24.7
@@ -16770,6 +16774,10 @@ PrefabInstance:
       propertyPath: ammoSound
       value: 
       objectReference: {fileID: 1953457710}
+    - target: {fileID: 2862731870388702196, guid: 9e29f777b6abc4140b68b885651850e8, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 704304603}
     - target: {fileID: 2862731870388702196, guid: 9e29f777b6abc4140b68b885651850e8, type: 3}
       propertyPath: fuseSound
       value: 

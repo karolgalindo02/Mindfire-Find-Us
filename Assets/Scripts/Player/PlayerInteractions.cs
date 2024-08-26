@@ -24,6 +24,12 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private FusePuzzleController fusePuzzleController; // Referencia al controlador de fusibles
     [SerializeField] private CameraSwitch cameraSwitch;
 
+    [Header("Raycast settings")]
+    [SerializeField] private float firstPersonDistance = 2f;
+    [SerializeField] private float thirdPersonDistance = 5f;
+    [SerializeField] private RectTransform crosshair;
+
+
     public bool weaponCollected = false;
     public bool knifeCollected = false;
     public bool keyCollected = false;
@@ -33,14 +39,19 @@ public class PlayerInteractions : MonoBehaviour
     private void Update()
     {
 
-        if(cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "FPCamera")
+        if(cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "FPCamera" || !cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "ThirdPersonCamera_")
         {
-            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            float rayDistance = cameraSwitch.isFirstPesonEnable ? firstPersonDistance : thirdPersonDistance;
+            //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            Vector3 crosshairWorldPostion = CameraSwitch.activeCamera.ScreenToViewportPoint(new Vector3(crosshair.position.x, crosshair.position.y, CameraSwitch.activeCamera.nearClipPlane));
+
+            Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(crosshair.position);
 
             RaycastHit hit;
 
+            Debug.DrawRay(ray.origin, ray.direction, Color.yellow);
 
-            if (Physics.Raycast(ray, out hit, 2f))
+            if (Physics.Raycast(ray, out hit, rayDistance))
             {
 
                 if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
