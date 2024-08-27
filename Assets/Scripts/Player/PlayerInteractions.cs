@@ -39,6 +39,13 @@ public class PlayerInteractions : MonoBehaviour
     public bool isfuseGreenActive = false;
     public bool isfuseBlueActive = false;
     public bool isfuseRedActive = false;
+    [SerializeField] private CameraSwitch cameraSwitch;
+
+    [Header("Raycast settings")]
+    [SerializeField] private float firstPersonDistance = 2f;
+    [SerializeField] private float thirdPersonDistance = 5f;
+    [SerializeField] private RectTransform crosshair;
+
 
     public bool weaponCollected = false;
     public bool knifeCollected = false;
@@ -50,65 +57,62 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale == 0f)
-        {
-            return; // Not interactable when the game is paused
-        }
-        Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 2f))
+        if(cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "FPCamera" || !cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "ThirdPersonCamera_")
         {
-            if (hit.collider.CompareTag("FuseBox"))
-            {
-                uiPickUpItemContainer.SetActive(true);
-                uiPickUpItemMessage.text = "Press E to set fuse";
+            float rayDistance = cameraSwitch.isFirstPesonEnable ? firstPersonDistance : thirdPersonDistance;
+            //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            Vector3 crosshairWorldPostion = CameraSwitch.activeCamera.ScreenToViewportPoint(new Vector3(crosshair.position.x, crosshair.position.y, CameraSwitch.activeCamera.nearClipPlane));
 
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    PlaceFuse();
-                }
-            }
-            else if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("Paints") || hit.collider.CompareTag("Pencil") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+            Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(crosshair.position);
+
+            RaycastHit hit;
+
+            Debug.DrawRay(ray.origin, ray.direction, Color.yellow);
+
+            if (Physics.Raycast(ray, out hit, rayDistance))
             {
-                if (currentItem != hit.collider.gameObject)
+
+                if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
                 {
-                    if (currentItem != null)
+                    if (currentItem != hit.collider.gameObject)
                     {
+                        if (currentItem != null)
+                        {
+                            if (currentItem.CompareTag("Weapon"))
+                            {
+                                foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
+                                {
+                                    renderer.material.DisableKeyword("_EMISSION");
+                                }
+                            }
+                            else
+                            {
+                                currentItem.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                            }
+                        }
+
+                        currentItem = hit.collider.gameObject;
                         if (currentItem.CompareTag("Weapon"))
                         {
                             foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
                             {
-                                renderer.material.DisableKeyword("_EMISSION");
+                                renderer.material.EnableKeyword("_EMISSION");
                             }
                         }
                         else
                         {
-                            currentItem.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                            currentItem.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
                         }
                     }
 
-                    currentItem = hit.collider.gameObject;
-                    if (currentItem.CompareTag("Weapon"))
-                    {
-                        foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
-                        {
-                            renderer.material.EnableKeyword("_EMISSION");
-                        }
-                    }
-                    else
-                    {
-                        currentItem.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-                    }
-                }
+                    uiPickUpItemContainer.gameObject.SetActive(true);
 
-                uiPickUpItemContainer.gameObject.SetActive(true);
-
-                if (hit.collider.CompareTag("Door"))
-                {
-                    bool hasKey = keyCollected || keyBasementCollected;
-                    bool isDoorOpen = hit.collider.gameObject.GetComponent<SystemDoor>().IsDoorOpen;
-                    bool isDoorUnlocked = hit.collider.gameObject.GetComponent<SystemDoor>().IsDoorUnlocked;
+                    if (hit.collider.CompareTag("Door"))
+                    {
+                        bool hasKey = keyCollected || keyBasementCollected;
+                        bool isDoorOpen = hit.collider.gameObject.GetComponent<SystemDoor>().IsDoorOpen;
+                        bool isDoorUnlocked = hit.collider.gameObject.GetComponent<SystemDoor>().IsDoorUnlocked;
 
                     if (isDoorOpen || isDoorUnlocked)
                     {
@@ -171,14 +175,14 @@ public class PlayerInteractions : MonoBehaviour
                     uiPickUpItemMessage.text = "Press E to pick up item";
                 }
 
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (hit.collider.CompareTag("Door"))
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        bool hasKey = keyCollected || keyBasementCollected;
-                        bool keyInHand = weaponSwitch.GetCurrentItemName() == "Key" || weaponSwitch.GetCurrentItemName() == "KeyBasement";
-                        string keyName = weaponSwitch.GetCurrentItemName();
-                        bool correctDoor = hit.collider.gameObject.GetComponent<SystemDoor>().ChangeDoorState(hasKey, keyInHand, keyName);
+                        if (hit.collider.CompareTag("Door"))
+                        {
+                            bool hasKey = keyCollected || keyBasementCollected;
+                            bool keyInHand = weaponSwitch.GetCurrentItemName() == "Key" || weaponSwitch.GetCurrentItemName() == "KeyBasement";
+                            string keyName = weaponSwitch.GetCurrentItemName();
+                            bool correctDoor = hit.collider.gameObject.GetComponent<SystemDoor>().ChangeDoorState(hasKey, keyInHand, keyName);
 
                         if (hasKey && keyInHand && correctDoor)
                         {

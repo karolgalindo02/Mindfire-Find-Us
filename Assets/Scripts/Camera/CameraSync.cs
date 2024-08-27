@@ -10,13 +10,12 @@ public class CameraSync : MonoBehaviour
     [SerializeField] private float minVerticalAngle = -30f; // Lower limit of vertical rotation
     [SerializeField] private float maxVerticalAngle = 60f; // Upper limit of vertical rotation
 
-
     void LateUpdate()
     {
         UpdateCameraRotation();
     }
 
-    private void UpdateCameraRotation()
+    public void UpdateCameraRotation()
     {
         if (!cameraSwitch.isFirstPesonEnable)
         {
