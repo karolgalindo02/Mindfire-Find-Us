@@ -57,7 +57,10 @@ public class PlayerInteractions : MonoBehaviour
 
     private void Update()
     {
-
+        if (Time.timeScale == 0f)
+        {
+            return; // Not interactable when the game is paused
+        }
         if(cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "FPCamera" || !cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "ThirdPersonCamera_")
         {
             float rayDistance = cameraSwitch.isFirstPesonEnable ? firstPersonDistance : thirdPersonDistance;
@@ -72,8 +75,17 @@ public class PlayerInteractions : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, rayDistance))
             {
+                if (hit.collider.CompareTag("FuseBox"))
+            {
+                uiPickUpItemContainer.SetActive(true);
+                uiPickUpItemMessage.text = "Press E to set fuse";
 
-                if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    PlaceFuse();
+                }
+            }
+            else if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("Pencil") || hit.collider.CompareTag("Paints") || hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
                 {
                     if (currentItem != hit.collider.gameObject)
                     {
@@ -274,7 +286,7 @@ public class PlayerInteractions : MonoBehaviour
                 currentItem = null;
             }
             uiPickUpItemContainer.gameObject.SetActive(false);
-        }
+        }}
     }
     private IEnumerator ShowPaintInfoWithDelay(PaintInteractable paintInteractable)
     {
