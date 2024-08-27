@@ -26,6 +26,10 @@ public class MirrorReflectionScript : MonoBehaviour
         Camera cam = Camera.current;
         if( !cam )
             return;
+
+        // Verificar si el espejo es visible desde la cámara del jugador
+        if (!rend.isVisible)
+            return;
               
         if( s_InsideRendering )
             return;

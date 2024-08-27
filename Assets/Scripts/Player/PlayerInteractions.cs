@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerInteractions : MonoBehaviour
 {
@@ -9,6 +9,10 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
     [SerializeField] private GameObject uiPickUpItemContainer;
     [SerializeField] private TextMeshProUGUI uiPickUpItemMessage;
+    [SerializeField] private GameObject uiInfoPaintContainer;
+    [SerializeField] private TextMeshProUGUI uiInfoPaintMessage;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private KeyActivator keyActivator;
 
     [Header("Sounds")]
     [SerializeField] private AudioSource ammoSound;
@@ -18,26 +22,98 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private AudioSource keySound;
     [SerializeField] private AudioSource fuseSound;
     [SerializeField] private AudioSource spiderWebSound;
+    [SerializeField] private AudioSource pieceSound;
+    [SerializeField] private AudioSource pencilSound;
     [SerializeField] public WeaponSwitch weaponSwitch;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private KeyActivator keyActivator;
-    [SerializeField] private FusePuzzleController fusePuzzleController; // Referencia al controlador de fusibles
+
+    [Header("Paints Puzzle")]
+    [SerializeField] private AudioSource footstepsSound;
+    [SerializeField] private AudioSource backgroundSound;
+    [SerializeField] private AudioSource classicMusicSound;
+    private HashSet<GameObject> checkedPaints = new HashSet<GameObject>();
+
+    [Header("FuseBox Puzzle")]
+    [SerializeField] private FusePuzzleController fusePuzzleController;
+    [SerializeField] private MeshCollider fuseBoxCollider;
+    [SerializeField] private GameObject fuseGreen;
+    [SerializeField] private GameObject fuseBlue;
+    [SerializeField] private GameObject fuseRed;
+
+    public bool isfuseGreenActive = false;
+    public bool isfuseBlueActive = false;
+    public bool isfuseRedActive = false;
 
     public bool weaponCollected = false;
     public bool knifeCollected = false;
     public bool keyCollected = false;
     public bool fuseCollected = false;
     public bool keyBasementCollected = false;
+    public bool pieceCollected = false;
+    public bool pencilCollected = false;
 
     private void Update()
     {
-    
+        if (Time.timeScale == 0f)
+        {
+            return; // Not interactable when the game is paused
+        }
         Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 2f))
         {
-            if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+            if (hit.collider.CompareTag("Paints"))
+            {
+                PaintInteractable paintInteractable = hit.collider.GetComponent<PaintInteractable>();
+                if (paintInteractable != null && !checkedPaints.Contains(hit.collider.gameObject))
+                {
+                    uiPickUpItemContainer.SetActive(true);
+                    uiPickUpItemMessage.text = "Press E to inspect the painting";
+
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        checkedPaints.Add(hit.collider.gameObject); // Check the painting as visited
+                        PuzzleManager.Instance.ShowPaintInfo(paintInteractable.paintName, paintInteractable.artistName);
+
+                        // Stop the footsteps sound and play the classic music sound
+                        if (footstepsSound.isPlaying)
+                        {
+                            footstepsSound.Stop();
+                        }
+                        if (backgroundSound.isPlaying)
+                        {
+                            backgroundSound.Stop();
+                        }
+                        if (!classicMusicSound.isPlaying)
+                        {
+                            classicMusicSound.Play();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // If not inspecting a painting, ensure the classic music stops and background sound resumes
+                if (classicMusicSound.isPlaying)
+                {
+                    classicMusicSound.Stop();
+                }
+                if (!backgroundSound.isPlaying)
+                {
+                    backgroundSound.Play();
+                }
+            }
+            if (hit.collider.CompareTag("FuseBox"))
+            {
+                uiPickUpItemContainer.SetActive(true);
+                uiPickUpItemMessage.text = "Press E to set fuse";
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    PlaceFuse();
+                }
+            }
+            else if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("Pencil") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
             {
                 if (currentItem != hit.collider.gameObject)
                 {
@@ -91,6 +167,10 @@ public class PlayerInteractions : MonoBehaviour
                         uiPickUpItemMessage.text = "Door is locked. You need a key to open it.";
                     }
                 }
+                else if (hit.collider.CompareTag("DoorOpen"))
+                {
+                    uiPickUpItemMessage.text = "Press E to open";
+                }
                 else if (hit.collider.CompareTag("Drawer"))
                 {
                     uiPickUpItemMessage.text = "Press E to open";
@@ -105,7 +185,16 @@ public class PlayerInteractions : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Fuse"))
                 {
-                    uiPickUpItemMessage.text = "Press E to interact with fuse";
+                    uiPickUpItemMessage.text = "Press E to collect fuse";
+                }
+
+                else if (hit.collider.CompareTag("Piece"))
+                {
+                    uiPickUpItemMessage.text = "Press E to collect piece";
+                }
+                else if (hit.collider.CompareTag("Pencil"))
+                {
+                    uiPickUpItemMessage.text = "Press E to collect pencil";
                 }
                 else
                 {
@@ -140,6 +229,10 @@ public class PlayerInteractions : MonoBehaviour
                             }
                         }
                     }
+                    else if (hit.collider.CompareTag("DoorOpen"))
+                    {
+                        hit.collider.gameObject.GetComponent<AnimationDoor>().ChangeDoorState();
+                    }
                     else if (hit.collider.CompareTag("Drawer"))
                     {
                         hit.collider.gameObject.GetComponent<SystemDrawer>().ChangeDrawerState();
@@ -159,12 +252,8 @@ public class PlayerInteractions : MonoBehaviour
                     }
                     else if (hit.collider.CompareTag("Fuse"))
                     {
-                        // Interact with the fuse
-                        FuseInteractable fuseInteractable = hit.collider.GetComponent<FuseInteractable>();
-                        if (fuseInteractable != null)
-                        {
-                            // Aquí puedes agregar lógica adicional si es necesario
-                        }
+                        // Collect the fuse
+                        CollectFuse(hit.collider.gameObject);
                     }
                     else
                     {
@@ -214,6 +303,78 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
+    private void CollectFuse(GameObject fuse)
+    {
+        fuseCollected = true;
+        Destroy(fuse);
+        fuseSound?.Play();
+        uiManagerInfoUser.ShowMessage("Fuse collected");
+
+        Inventory playerInventory = GetComponent<Inventory>();
+        if (playerInventory != null)
+        {
+            Item fuseItem = fuse.GetComponent<Item>();
+            if (fuseItem != null)
+            {
+                GameObject fuseCopy = Instantiate(fuse);
+                fuseCopy.SetActive(false);
+                playerInventory.AddItem(fuseCopy);
+                weaponSwitch.UpdateUsableItems(); // Updates the usable elements
+            }
+        }
+    }
+    private void PlaceFuse()
+    {
+        if (fusePuzzleController != null)
+        {
+            // Check if the player has a fuse in hand
+            bool hasFuseInHand = weaponSwitch.GetCurrentItemName() == "Fuse";
+
+            if (hasFuseInHand)
+            {
+                // Check which fuse is not active and place it
+                if (!isfuseGreenActive)
+                {
+                    fuseGreen.SetActive(true);
+                    isfuseGreenActive = true;
+                    weaponSwitch.RemoveItemFromInventory("Fuse", true);
+                    weaponSwitch.SwitchToNextItem();
+                }
+                else if (!isfuseBlueActive)
+                {
+                    fuseBlue.SetActive(true);
+                    isfuseBlueActive = true;
+                    weaponSwitch.RemoveItemFromInventory("Fuse", true);
+                    weaponSwitch.SwitchToNextItem();
+                }
+                else if (!isfuseRedActive)
+                {
+                    fuseRed.SetActive(true);
+                    isfuseRedActive = true;
+                    weaponSwitch.RemoveItemFromInventory("Fuse", true);
+                    weaponSwitch.SwitchToNextItem();
+                }
+                else
+                {
+                    uiManagerInfoUser.ShowMessage("All fuses are already placed");
+                }
+
+                // Check if all fuses are placed
+                if (isfuseGreenActive && isfuseBlueActive && isfuseRedActive)
+                {
+                    // All fuses are placed, disable convex on fuseBoxCollider
+                    if (fuseBoxCollider != null)
+                    {
+                        fuseBoxCollider.convex = false;
+                    }
+                }
+            }
+            else
+            {
+                uiManagerInfoUser.ShowMessage("You need to have a fuse in hand to place it");
+            }
+        }
+    }
     private void CollectItem()
     {
         Inventory playerInventory = GetComponent<Inventory>();
@@ -258,6 +419,15 @@ public class PlayerInteractions : MonoBehaviour
                 else if (itemComponent.itemName == "Fuse")
                 {
                     fuseCollected = true;
+                }
+                else if (itemComponent.itemName == "Piece")
+                {
+                    PuzzleManager.Instance.CollectPiece();
+                    pieceCollected = true;
+                }
+                else if (itemComponent.itemName == "Pencil")
+                {
+                    pencilCollected = true;
                 }
 
                 Destroy(currentItem);
@@ -307,6 +477,14 @@ public class PlayerInteractions : MonoBehaviour
         else if (currentItem.CompareTag("SpiderWeb") && spiderWebSound != null)
         {
             spiderWebSound.Play();
+        }
+        else if (currentItem.CompareTag("Piece") && pieceSound != null)
+        {
+            pieceSound.Play();
+        }
+        else if (currentItem.CompareTag("Pencil") && pencilSound != null)
+        {
+            pencilSound.Play();
         }
     }
 }

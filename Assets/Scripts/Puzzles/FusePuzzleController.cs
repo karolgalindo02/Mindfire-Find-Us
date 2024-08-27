@@ -1,23 +1,36 @@
 using UnityEngine;
-using System.Linq;
 
 public class FusePuzzleController : MonoBehaviour
 {
     public static FusePuzzleController Instance { get; private set; }
 
-    [SerializeField] public GameObject[] fuses;
-    [SerializeField] private Transform[] initialPositions;
-    [SerializeField] private Transform[] finalPositions;
+    [SerializeField] private GameObject fuseGreen;
+    [SerializeField] private GameObject fuseRed;
+    [SerializeField] private GameObject fuseBlue;
     [SerializeField] private GameObject[] lights;
-    [SerializeField] private Material lightMaterial;
-    [SerializeField] private Color correctColor = Color.green;
-    [SerializeField] private Color incorrectColor = Color.red;
+    [SerializeField] private Material correctMaterial;
+    [SerializeField] private Material incorrectMaterial;
 
     [SerializeField] private Transform fuseGreenPosition;
     [SerializeField] private Transform fuseRedPosition;
     [SerializeField] private Transform fuseBluePosition;
 
-    private bool[] isCorrectPosition;
+    [SerializeField] private LightingController lightingController;
+    [SerializeField] private GameObject lightCollider;
+    [SerializeField] private AudioSource fuseSound;
+    [SerializeField] private AudioSource lightOnSound;
+    [SerializeField] private GameObject electricEffect;
+    [SerializeField] private FusePuzzleController fusePuzzleController;
+
+    private bool allFusesLocked = false;
+private int fusesPlaced = 0;
+
+private GameObject currentFuse;
+
+public void PlaceFuse()
+{
+    fusesPlaced++;
+}
 
     private void Awake()
     {
@@ -30,83 +43,138 @@ public class FusePuzzleController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Start()
+    public void CheckFusePosition(GameObject fuse)
     {
-        isCorrectPosition = new bool[fuses.Length];
-        ShuffleFuses();
-    }
+        if (allFusesLocked) return; // Avoid checking if all fuses are already correct
 
-    private void ShuffleFuses()
-    {
-        System.Random rnd = new System.Random();
-        Transform[] shuffledPositions = initialPositions.OrderBy(x => rnd.Next()).ToArray();
-        for (int i = 0; i < fuses.Length; i++)
+        Fuse fuseScript = fuse.GetComponent<Fuse>();
+        if (fuseScript == null || fuseScript.IsLocked) return;
+
+        Transform correctPosition = GetCorrectPosition(fuse);
+
+        if (correctPosition != null && Vector3.Distance(fuse.transform.position, correctPosition.position) < 0.1f)
         {
-            fuses[i].transform.position = shuffledPositions[i].position;
+            // Snap fuse to correct position
+            fuse.transform.position = correctPosition.position;
+            fuseScript.IsCorrect = true;
+
+            // Lock fuse
+            fuseScript.LockFuse();
+
+            // Update light material to correct
+            int lightIndex = GetLightIndexByTag(fuse.tag);
+            if (lightIndex >= 0 && lightIndex < lights.Length)
+            {
+                lights[lightIndex].GetComponent<Renderer>().material = correctMaterial;
+            }
+
+            // Play sound effect
+            fuseSound?.Play();
+
+            // Keep emission active
+            EnableEmission(fuse);
+
+            // Check if all fuses are in correct positions
+            if (AreAllFusesCorrect())
+            {
+                allFusesLocked = true; // Block further checks
+                OnAllFusesCorrect();
+            }
+        }
+        else
+        {
+            fuseScript.IsCorrect = false;
+
+            // Update light material to incorrect
+            int lightIndex = GetLightIndexByTag(fuse.tag);
+            if (lightIndex >= 0 && lightIndex < lights.Length)
+            {
+                lights[lightIndex].GetComponent<Renderer>().material = incorrectMaterial;
+            }
+
+            // Disable emission if not correct
+            DisableEmission(fuse);
         }
     }
 
-    public void MoveFuseToPosition(GameObject fuse)
+    private Transform GetCorrectPosition(GameObject fuse)
     {
-        for (int i = 0; i < finalPositions.Length; i++)
+        if (fuse.CompareTag("FuseGreen"))
         {
-            bool positionOccupied = false;
-            for (int j = 0; j < fuses.Length; j++)
-            {
-                if (fuses[j].transform.position == finalPositions[i].position)
-                {
-                    positionOccupied = true;
-                    break;
-                }
-            }
+            return fuseGreenPosition;
+        }
+        else if (fuse.CompareTag("FuseRed"))
+        {
+            return fuseRedPosition;
+        }
+        else if (fuse.CompareTag("FuseBlue"))
+        {
+            return fuseBluePosition;
+        }
+        return null;
+    }
 
-            if (!positionOccupied && Vector3.Distance(fuse.transform.position, finalPositions[i].position) < 0.1f)
-            {
-                fuse.transform.position = finalPositions[i].position;
-                CheckFuses();
-                return;
-            }
+    private bool AreAllFusesCorrect()
+    {
+        return fuseGreen.GetComponent<Fuse>().IsCorrect &&
+               fuseRed.GetComponent<Fuse>().IsCorrect &&
+               fuseBlue.GetComponent<Fuse>().IsCorrect;
+    }
+
+    private void OnAllFusesCorrect()
+    {
+        // Disable fog effect
+        RenderSettings.fog = false;
+
+        // Disable LightCollider
+        lightCollider?.SetActive(false);
+
+        // Play all fuses correct sound
+        lightOnSound?.Play();
+
+        // Activate electric effect
+        if (electricEffect != null)
+        {
+            electricEffect.SetActive(true);
+            Invoke(nameof(DeactivateAnimationPrefab), 3f); // Desactivate after 3 seconds
         }
     }
 
-    private void CheckFuses()
+    private int GetLightIndexByTag(string tag)
     {
-        for (int i = 0; i < fuses.Length; i++)
+        switch (tag)
         {
-            Transform correctPosition = null;
-            if (fuses[i].name.Contains("Green"))
-            {
-                correctPosition = fuseGreenPosition;
-            }
-            else if (fuses[i].name.Contains("Red"))
-            {
-                correctPosition = fuseRedPosition;
-            }
-            else if (fuses[i].name.Contains("Blue"))
-            {
-                correctPosition = fuseBluePosition;
-            }
-
-            if (correctPosition != null && Vector3.Distance(fuses[i].transform.position, correctPosition.position) < 0.1f)
-            {
-                isCorrectPosition[i] = true;
-                lights[i].GetComponent<Renderer>().material.color = correctColor;
-            }
-            else
-            {
-                isCorrectPosition[i] = false;
-                lights[i].GetComponent<Renderer>().material.color = incorrectColor;
-            }
+            case "FuseGreen":
+                return 0;
+            case "FuseRed":
+                return 1;
+            case "FuseBlue":
+                return 2;
+            default:
+                return -1;
         }
     }
 
-    private void ResetFuses()
+    private void DeactivateAnimationPrefab()
     {
-        ShuffleFuses();
-        foreach (var light in lights)
+        electricEffect?.SetActive(false);
+    }
+
+    private void EnableEmission(GameObject fuse)
+    {
+        Renderer renderer = fuse.GetComponent<Renderer>();
+        if (renderer != null)
         {
-            light.GetComponent<Renderer>().material.color = Color.black;
+            renderer.material.EnableKeyword("_EMISSION");
+        }
+    }
+
+    private void DisableEmission(GameObject fuse)
+    {
+        Renderer renderer = fuse.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.DisableKeyword("_EMISSION");
         }
     }
 }

@@ -26,6 +26,14 @@ TagManager:
   - FuseBlue
   - FuseRed
   - Center
+  - FusePosition
+  - DoorOpen
+  - Minimap
+  - PuzzlePiece
+  - FPCamera
+  - Piece
+  - Paints
+  - Pencil
   layers:
   - Default
   - TransparentFX
@@ -39,11 +47,9 @@ TagManager:
   - Fuse
   - Enemy
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
+  - MinimapTile
+  - Piece
+  - Pencil
   - 
   - 
   - 

@@ -15,6 +15,7 @@ public class SystemDoor : MonoBehaviour
     public bool IsDoorOpen => doorOpen;
     public bool IsDoorUnlocked => doorUnlocked;
 
+    // Changes the door state if the conditions are met
     public bool ChangeDoorState(bool hasKey, bool keyInHand, string keyName)
     {
         bool stateChanged = false;
@@ -24,22 +25,10 @@ public class SystemDoor : MonoBehaviour
             doorOpen = !doorOpen;
             stateChanged = true;
             PlayDoorSound();
-            if (doorOpen)
-            {
-                Debug.Log("Door is now open.");
-            }
             if (hasKey && keyInHand && keyName == requiredKey)
             {
                 doorUnlocked = true;
             }
-        }
-        else if (!hasKey)
-        {
-            Debug.Log("Door is locked. You need a key to open it.");
-        }
-        else if (!keyInHand || keyName != requiredKey)
-        {
-            Debug.Log("You need the correct key to open the door.");
         }
 
         return stateChanged;
@@ -47,6 +36,7 @@ public class SystemDoor : MonoBehaviour
 
     void Update()
     {
+        // Rotate the door to the open or closed position smoothly
         if (doorOpen)
         {
             Quaternion targetRotation = Quaternion.Euler(0, 0, doorOpenAngle);
@@ -59,6 +49,7 @@ public class SystemDoor : MonoBehaviour
         }
     }
 
+    // Plays the appropriate sound based on the door state
     private void PlayDoorSound()
     {
         if (doorOpen && openDoor != null && !openDoor.isPlaying)

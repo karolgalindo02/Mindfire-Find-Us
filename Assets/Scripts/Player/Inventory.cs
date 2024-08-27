@@ -19,8 +19,11 @@ public class Inventory : MonoBehaviour
         {
             collectedItems.Remove(itemToRemove);
             Destroy(itemToRemove);
-            Debug.Log($"{item.name} Has been removed from inventory");
         }
+    }
+    public void DeactivateItem(Item item)
+    {
+        item.gameObject.SetActive(false);
     }
 
     //Each Item must have the item component added
