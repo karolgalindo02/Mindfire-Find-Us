@@ -9,8 +9,6 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
     [SerializeField] private GameObject uiPickUpItemContainer;
     [SerializeField] private TextMeshProUGUI uiPickUpItemMessage;
-    [SerializeField] private GameObject uiInfoPaintContainer;
-    [SerializeField] private TextMeshProUGUI uiInfoPaintMessage;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private KeyActivator keyActivator;
 
@@ -27,10 +25,9 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] public WeaponSwitch weaponSwitch;
 
     [Header("Paints Puzzle")]
-    [SerializeField] private AudioSource footstepsSound;
-    [SerializeField] private AudioSource backgroundSound;
-    [SerializeField] private AudioSource classicMusicSound;
     private HashSet<GameObject> checkedPaints = new HashSet<GameObject>();
+    [SerializeField] private GameObject uiInfoPaintContainer;
+    [SerializeField] private TextMeshProUGUI uiInfoPaintMessage;
 
     [Header("FuseBox Puzzle")]
     [SerializeField] private FusePuzzleController fusePuzzleController;
@@ -62,47 +59,6 @@ public class PlayerInteractions : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 2f))
         {
-            if (hit.collider.CompareTag("Paints"))
-            {
-                PaintInteractable paintInteractable = hit.collider.GetComponent<PaintInteractable>();
-                if (paintInteractable != null && !checkedPaints.Contains(hit.collider.gameObject))
-                {
-                    uiPickUpItemContainer.SetActive(true);
-                    uiPickUpItemMessage.text = "Press E to inspect the painting";
-
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-                        checkedPaints.Add(hit.collider.gameObject); // Check the painting as visited
-                        PuzzleManager.Instance.ShowPaintInfo(paintInteractable.paintName, paintInteractable.artistName);
-
-                        // Stop the footsteps sound and play the classic music sound
-                        if (footstepsSound.isPlaying)
-                        {
-                            footstepsSound.Stop();
-                        }
-                        if (backgroundSound.isPlaying)
-                        {
-                            backgroundSound.Stop();
-                        }
-                        if (!classicMusicSound.isPlaying)
-                        {
-                            classicMusicSound.Play();
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // If not inspecting a painting, ensure the classic music stops and background sound resumes
-                if (classicMusicSound.isPlaying)
-                {
-                    classicMusicSound.Stop();
-                }
-                if (!backgroundSound.isPlaying)
-                {
-                    backgroundSound.Play();
-                }
-            }
             if (hit.collider.CompareTag("FuseBox"))
             {
                 uiPickUpItemContainer.SetActive(true);
@@ -113,7 +69,7 @@ public class PlayerInteractions : MonoBehaviour
                     PlaceFuse();
                 }
             }
-            else if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("Pencil") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+            else if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("Paints") || hit.collider.CompareTag("Pencil") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
             {
                 if (currentItem != hit.collider.gameObject)
                 {
@@ -195,6 +151,20 @@ public class PlayerInteractions : MonoBehaviour
                 else if (hit.collider.CompareTag("Pencil"))
                 {
                     uiPickUpItemMessage.text = "Press E to collect pencil";
+                }
+                else if (hit.collider.CompareTag("Paints"))
+                {
+                    PaintInteractable paintInteractable = hit.collider.GetComponent<PaintInteractable>();
+                    if (paintInteractable != null && !checkedPaints.Contains(hit.collider.gameObject) && !PuzzleManager.Instance.IsPuzzleSolved())
+                    {
+                        uiPickUpItemContainer.SetActive(true);
+                        uiPickUpItemMessage.text = "Press E to inspect the painting";
+
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            StartCoroutine(ShowPaintInfoWithDelay(paintInteractable));
+                        }
+                    }
                 }
                 else
                 {
@@ -301,6 +271,17 @@ public class PlayerInteractions : MonoBehaviour
             }
             uiPickUpItemContainer.gameObject.SetActive(false);
         }
+    }
+    private IEnumerator ShowPaintInfoWithDelay(PaintInteractable paintInteractable)
+    {
+        yield return new WaitForSeconds(1); // Esperar 2 segundos
+
+        uiPickUpItemContainer.SetActive(false); // Ocultar el mensaje de inspección
+        uiInfoPaintContainer.SetActive(true);
+        uiInfoPaintMessage.text = $"Painting: {paintInteractable.paintName}\nArtist: {paintInteractable.artistName}";
+
+        PaintManager.Instance.SetCurrentPaintInfo(paintInteractable.paintName, paintInteractable.artistName);
+        PuzzleManager.Instance.ShowPaintInfo(paintInteractable.paintName, paintInteractable.artistName);
     }
 
     private void CollectFuse(GameObject fuse)

@@ -18,7 +18,10 @@ public class PuzzleManager : MonoBehaviour
     private string currentArtistName;
     private int collectedPieces = 0;
     public AudioSource switchSound;
-
+    public bool IsPuzzleSolved()
+    {
+        return currentStep >= correctOrder.Length;
+    }
     private string[] correctOrder = new string[]
     {
         "The Last Supper",
@@ -29,8 +32,8 @@ public class PuzzleManager : MonoBehaviour
         "The Persistence of Memory"
     };
 
-    private int currentStep = 0; // Índice para rastrear el paso actual en el orden
-    private HashSet<string> checkedPaintings = new HashSet<string>(); // Conjunto para rastrear las pinturas revisadas
+    private int currentStep = 0; // Order of the puzzle
+    private HashSet<string> checkedPaintings = new HashSet<string>(); // Group of checked paintings
 
     private void Awake()
     {
@@ -60,10 +63,9 @@ public class PuzzleManager : MonoBehaviour
 
     private IEnumerator DisplayPaintInfo(string paintName, string artistName)
     {
-        // Pausar el juego
         Time.timeScale = 0f;
 
-        uiInfoPaintMessage.text = $"The painting is called {paintName} by {artistName}.";
+        uiInfoPaintMessage.text = $"{paintName} by {artistName}.";
         uiInfoPaintContainer.SetActive(true);
         yield return new WaitForSecondsRealtime(2);
         uiInfoPaintMessage.text = "There's a switch below. Will you push it?";
@@ -75,36 +77,40 @@ public class PuzzleManager : MonoBehaviour
 
     public void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             yesButtonText.text = "Yes<";
             noButtonText.text = "No";
         }
-        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             yesButtonText.text = "Yes";
             noButtonText.text = "No<";
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             if (yesButtonText.text == "Yes<")
             {
                 Debug.Log("Select Yes");
-                switchSound.Play(); // Reproduce el sonido del switch
+                switchSound.Play(); // Play the sound effect
+
+                // Add the painting to the checkedPaints set only if the player selects Yes
+                PaintManager.Instance.AddCheckedPainting(PaintManager.Instance.GetCurrentPaintName());
+
                 CheckPuzzleOrder();
             }
             else if (noButtonText.text == "No<")
             {
                 Debug.Log("Select No");
-                ResetPuzzle();
+                // The pinture is not added to the checkedPaints set
             }
+
             uiInfoPaintContainer.SetActive(false);
             yesButton.SetActive(false);
             noButton.SetActive(false);
             yesButtonText.text = "Yes";
             noButtonText.text = "No";
 
-            // Reanudar el juego
             Time.timeScale = 1f;
         }
     }
@@ -118,7 +124,7 @@ public class PuzzleManager : MonoBehaviour
             if (currentStep >= correctOrder.Length)
             {
                 Debug.Log("Puzzle solved!");
-                // Aquí podrías implementar lo que sucede cuando se resuelve el puzzle
+                // Logic for puzzle solved
             }
         }
         else
@@ -127,12 +133,15 @@ public class PuzzleManager : MonoBehaviour
             ResetPuzzle();
         }
     }
+    public void AddToCheckedPaintings(string paintName)
+    {
+        checkedPaintings.Add(paintName);
+    }
 
     private void ResetPuzzle()
     {
         currentStep = 0;
-        checkedPaintings.Clear(); // Limpiar el conjunto de pinturas revisadas
-        // Aquí podrías implementar lo que sucede al reiniciar el puzzle
+        checkedPaintings.Clear(); // Clean the set
     }
 
     public void CollectPiece()

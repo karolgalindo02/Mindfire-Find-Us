@@ -34,4 +34,8 @@ public class PaintManager : MonoBehaviour
     {
         return currentArtistName;
     }
+    public void AddCheckedPainting(string paintName)
+    {
+        PuzzleManager.Instance.AddToCheckedPaintings(paintName);
+    }
 }
