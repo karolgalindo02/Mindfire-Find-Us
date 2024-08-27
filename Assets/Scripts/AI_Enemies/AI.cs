@@ -27,16 +27,28 @@ public class AI : MonoBehaviour
 
     public float distanceToFollowPath = 2;
 
+    private Animator animator;
+    [Header("Enemy Weapon")]
+    public GameObject weapon;
+    public bool isDead = false;
 
     void Start()
     {
         agent.destination = destinations[index].position;
         //Search the player, reference
         player = FindObjectOfType<PlayerControllerMF>().gameObject;
+        animator = GetComponent<Animator>();
+
     }
 
     void Update()
     {
+        if (isDead)
+        {
+            // Detener todo comportamiento y activar animación de muerte
+            Die();
+            return;
+        }
         //Vector3.Distance() need 2 parameters for the calculation, in this case the position of the enemy and the position of the player
         distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
@@ -54,6 +66,15 @@ public class AI : MonoBehaviour
     {
         agent.destination = destinations[index].position;
 
+        // Set walking animation when the enemy is moving along the path
+        animator.SetBool("isWalking", true);
+        animator.SetBool("isAiming", false);
+
+         // Desactivate the weapon when is walking
+        if (weapon != null)
+        {
+            weapon.SetActive(false);
+        }
         if(Vector3.Distance(transform.position, destinations[index].position) <= distanceToFollowPath)
         {
             if (destinations[index] != destinations[destinations.Length - 1])
@@ -70,6 +91,19 @@ public class AI : MonoBehaviour
     public void FollowPlayer()
     {
         agent.destination = player.transform.position;
+        // Set aiming animation when the enemy is following the player
+        animator.SetBool("isAiming", true);
+        animator.SetBool("isWalking", false);
+        //Activate the weapon when is following player
+        if (weapon != null)
+        {
+            weapon.SetActive(true); 
+        }
     }
-
+ public void Die()
+    {
+        animator.SetBool("isDead", true);
+        agent.isStopped = true;
+        Destroy(gameObject, 2f); 
+    }
 }

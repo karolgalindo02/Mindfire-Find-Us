@@ -59,6 +59,7 @@ public class PlayerControllerMF : MonoBehaviour
 
     void HandleMovement()
     {
+        if (Time.timeScale==0) return;
         isGrounded = Physics.CheckSphere(groundCheck.position, shpereRadius, groundMask);
 
         if (isGrounded && velocity.y < 0)
