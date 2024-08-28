@@ -15,6 +15,8 @@ public class WeaponSwitch : MonoBehaviour
     [SerializeField] private GameObject inactiveKey;
     [SerializeField] private GameObject inactiveFuse;
     [SerializeField] private GameObject inactiveKeyBasement;
+    [SerializeField] private GameObject inactivePiece;
+    [SerializeField] private GameObject inactivePencil;
 
     // flag for check is gun is picked up
     [SerializeField] private PlayerInteractions playerInteractions;
@@ -57,15 +59,15 @@ public class WeaponSwitch : MonoBehaviour
 
             SwitchWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+
+        // Check for number keys 1-6
+        for (int i = 0; i < 6; i++)
         {
-            currentIndex = 0;
-            SwitchWeapon();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && usableItems.Count >= 2)
-        {
-            currentIndex = 1;
-            SwitchWeapon();
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i) && usableItems.Count > i)
+            {
+                currentIndex = i;
+                SwitchWeapon();
+            }
         }
     }
 
@@ -76,6 +78,8 @@ public class WeaponSwitch : MonoBehaviour
         if (inactiveKey != null) inactiveKey.SetActive(false);
         if (inactiveFuse != null) inactiveFuse.SetActive(false);
         if (inactiveKeyBasement != null) inactiveKeyBasement.SetActive(false);
+        if (inactivePiece != null) inactivePiece.SetActive(false);
+        if (inactivePencil != null) inactivePencil.SetActive(false);
 
         if (currentIndex >= 0 && currentIndex < usableItems.Count)
         {
@@ -96,7 +100,17 @@ public class WeaponSwitch : MonoBehaviour
                 // Key activated
                 inactiveKey.SetActive(true);
             }
-            else if (currentItem.itemName == "Fuse")
+            else if (currentItem.itemName == "Fuse" && playerInteractions.fuseCollected)
+            {
+                // Fuse activated
+                inactiveFuse.SetActive(true);
+            }
+            else if (currentItem.itemName == "Fuse1" && playerInteractions.fuseCollected)
+            {
+                // Fuse activated
+                inactiveFuse.SetActive(true);
+            }
+            else if (currentItem.itemName == "Fuse2" && playerInteractions.fuseCollected)
             {
                 // Fuse activated
                 inactiveFuse.SetActive(true);
@@ -106,21 +120,31 @@ public class WeaponSwitch : MonoBehaviour
                 // Key Basement activated
                 inactiveKeyBasement.SetActive(true);
             }
+            else if (currentItem.itemName == "Piece")
+            {
+                // Piece activated
+                inactivePiece.SetActive(true);
+            }
+            else if (currentItem.itemName == "Pencil")
+            {
+                // Pencil activated
+                inactivePencil.SetActive(true);
+            }
         }
     }
 
-public void RemoveItemFromInventory(string itemName, bool correctDoor)
-{
-    if (correctDoor)
+    public void RemoveItemFromInventory(string itemName, bool correctDoor)
     {
-        Item itemToRemove = usableItems.Find(item => item.itemName == itemName);
-        if (itemToRemove != null)
+        if (correctDoor)
         {
-            usableItems.Remove(itemToRemove);
-            playerInventory.RemoveItem(itemToRemove);
+            Item itemToRemove = usableItems.Find(item => item.itemName == itemName);
+            if (itemToRemove != null)
+            {
+                usableItems.Remove(itemToRemove);
+                playerInventory.RemoveItem(itemToRemove);
+            }
         }
     }
-}
 
     public string GetCurrentItemName()
     {

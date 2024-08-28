@@ -6,7 +6,7 @@ public class Knife : MonoBehaviour
 {
 
     [Header("Settings")]
-
+    [SerializeField] private AudioSource knifeHit;
     [SerializeField] private int damage = 10;
 
     [SerializeField] private float attackRange = 1.5f;
@@ -33,6 +33,7 @@ public class Knife : MonoBehaviour
         {
             if (enemy.CompareTag("Enemy"))
             {
+                knifeHit.Play();
                 enemy.GetComponent<Enemy>().TakeDamage(damage);
                 Debug.Log("You hit your enemy");
             }

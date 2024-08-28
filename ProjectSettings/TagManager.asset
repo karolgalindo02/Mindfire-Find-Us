@@ -26,6 +26,14 @@ TagManager:
   - FuseBlue
   - FuseRed
   - Center
+  - FusePosition
+  - DoorOpen
+  - Minimap
+  - PuzzlePiece
+  - FPCamera
+  - Piece
+  - Paints
+  - Pencil
   - MainCamera3P
   layers:
   - Default
@@ -43,7 +51,9 @@ TagManager:
   - Interactable
   - Wall
   - Obstacles
-  - 
+  - MinimapTile
+  - Piece
+  - Pencil
   - 
   - 
   - 
