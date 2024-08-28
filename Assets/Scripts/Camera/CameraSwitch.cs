@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class CameraSwitch : MonoBehaviour
 {
+    [Header("Cameras")]
     [SerializeField] private Camera thirdPersonCamera;
     [SerializeField] private Camera child3PCamera;
     [SerializeField] private Camera firstPersonCamera;
     [SerializeField] private Camera childFPCamera;
+
+
     [SerializeField] public bool isFirstPesonEnable = true;
     [SerializeField] private CameraLook cameraLookScript; // Reference to the CameraLook script
     [SerializeField] public int gameMode = 1; //Can be 1 or 3 first person and third person mode
@@ -15,8 +18,13 @@ public class CameraSwitch : MonoBehaviour
 
     private Vector3 lastPlayerPosition;
     private Quaternion lastPlayerRotation;
-   
+
+    [Header("Items usables position")]
+    [SerializeField] private Transform fp_ItemUsableMount;
+    [SerializeField] private Transform tp_ItemUsableMount;
+    [SerializeField] private Transform weaponPositionTest;
     
+
 
     private void Start()
     {
@@ -70,5 +78,21 @@ public class CameraSwitch : MonoBehaviour
 
         RestoreLastTransform();
         
+    }
+    private void UpdateItemsPosition()
+    {
+        if (isFirstPesonEnable)
+        {
+            weaponPositionTest.SetParent(fp_ItemUsableMount);
+            weaponPositionTest.localPosition = Vector3.zero;
+            weaponPositionTest.localRotation = Quaternion.identity;
+
+        }
+        else
+        {
+            weaponPositionTest.SetParent(tp_ItemUsableMount);
+            weaponPositionTest.localPosition = Vector3.zero;
+            weaponPositionTest.localRotation = Quaternion.identity;
+        }
     }
 }
