@@ -55,10 +55,10 @@ public class GunShoot : MonoBehaviour
                 GameManager.Instance.ammo--;
                 //Calls animation on the gun that has the relevant animation events that will fire
                 gunAnimator.SetTrigger("Fire");
-                if (GameManager.Instance.ammo >= 0)
-                {
-                    Shoot();
-                }
+
+                //Shoot();
+
+                shotRateTime = Time.time + shotRate;
             } else{       
                 // Play empty sound when no ammo
                 if (GameManager.Instance.ammo==0){
@@ -88,9 +88,8 @@ public class GunShoot : MonoBehaviour
         //cancels if there's no bullet prefeb
         if (!bulletPrefab)
         { return; }
-        if( GameManager.Instance.ammo > 0 )
-        {
-            
+        
+         
             // Create a bullet and add force on it in direction of the barrel
             //Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
             GameObject newBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
@@ -116,10 +115,10 @@ public class GunShoot : MonoBehaviour
 
             newBullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shotPower);
 
-            shotRateTime = Time.time + shotRate;
+            //shotRateTime = Time.time + shotRate;
             Destroy(newBullet, 2f);
 
-        }            
+                   
 
     }
 

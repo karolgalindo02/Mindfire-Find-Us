@@ -20,9 +20,12 @@ public class CameraSwitch : MonoBehaviour
     private Quaternion lastPlayerRotation;
 
     [Header("Items usables position")]
-    [SerializeField] private Transform fp_ItemUsableMount;
+    [SerializeField] private Transform fp_ParentCamera;
     [SerializeField] private Transform tp_ItemUsableMount;
-    [SerializeField] private Transform weaponPositionTest;
+    [SerializeField] private List<Transform> itemsToManage;
+    //[SerializeField] private Transform initialWeaponPosition;
+    [SerializeField] private List<Vector3> originalItemPositions;
+    [SerializeField] private List<Quaternion> originalItemRotations;
     
 
 
@@ -30,6 +33,19 @@ public class CameraSwitch : MonoBehaviour
     {
         activeCamera = firstPersonCamera;
         SaveCurrentTransform();
+        originalItemPositions = new List<Vector3>();
+        originalItemRotations = new List<Quaternion>();
+        /*
+        originalWeaponPosition = initialWeaponPosition.localPosition;
+        originalWeaponRotation = initialWeaponPosition.localRotation;
+        */
+
+        foreach(Transform item in itemsToManage)
+        {
+            originalItemPositions.Add(item.localPosition);
+            originalItemRotations.Add(item.localRotation);
+        }
+
     }
     private void Update()
     {
@@ -37,6 +53,7 @@ public class CameraSwitch : MonoBehaviour
         {
            isFirstPesonEnable = !isFirstPesonEnable;
            ChangeCamera();
+           UpdateItemsPosition();
         }
     }
 
@@ -61,7 +78,7 @@ public class CameraSwitch : MonoBehaviour
             firstPersonCamera.enabled = true;
             childFPCamera.enabled = true;
             thirdPersonCamera.enabled = false;
-            //child3PCamera.enabled = false;
+            child3PCamera.enabled = false;
             activeCamera = firstPersonCamera;
             gameMode = 1;
         }
@@ -70,7 +87,7 @@ public class CameraSwitch : MonoBehaviour
             firstPersonCamera.enabled = false;
             childFPCamera.enabled = false;
             thirdPersonCamera.enabled = true;
-            //child3PCamera.enabled = true;
+            child3PCamera.enabled = true;
             activeCamera = thirdPersonCamera;
             gameMode = 3;
            
@@ -81,18 +98,36 @@ public class CameraSwitch : MonoBehaviour
     }
     private void UpdateItemsPosition()
     {
+        /*
         if (isFirstPesonEnable)
         {
-            weaponPositionTest.SetParent(fp_ItemUsableMount);
-            weaponPositionTest.localPosition = Vector3.zero;
-            weaponPositionTest.localRotation = Quaternion.identity;
-
+            initialWeaponPosition.SetParent(fp_ParentCamera);
+            initialWeaponPosition.localPosition = originalWeaponPosition;
+            initialWeaponPosition.localRotation = originalWeaponRotation;
         }
         else
         {
-            weaponPositionTest.SetParent(tp_ItemUsableMount);
-            weaponPositionTest.localPosition = Vector3.zero;
-            weaponPositionTest.localRotation = Quaternion.identity;
+            initialWeaponPosition.SetParent(tp_ItemUsableMount);
+            initialWeaponPosition.localPosition = Vector3.zero;
+            initialWeaponPosition.localRotation = Quaternion.identity;
         }
+        */
+
+        for (int i = 0; i < itemsToManage.Count; i++)
+        {
+            if (isFirstPesonEnable)
+            {
+                itemsToManage[i].SetParent(fp_ParentCamera);
+                itemsToManage[i].localPosition = originalItemPositions[i];
+                itemsToManage[i].localRotation = originalItemRotations[i];
+            }
+            else
+            {
+                itemsToManage[i].SetParent(tp_ItemUsableMount);
+                itemsToManage[i].localPosition = Vector3.zero;
+                itemsToManage[i].localRotation = Quaternion.identity;
+            }
+        }
+
     }
 }
