@@ -64,7 +64,9 @@ public class PlayerControllerMF : MonoBehaviour
         
     [Header("Weapon")]
     [SerializeField] private GameObject gun;
+    [SerializeField] private GameObject knife;
     [SerializeField] private bool isGunActive = false;
+    [SerializeField] private bool isKnifeActive = false;
     private bool isThirdPersonView;
 
     void Start()
@@ -75,6 +77,7 @@ public class PlayerControllerMF : MonoBehaviour
         originalCameraLocalPositionFP = cameraHolderFP.localPosition;
         originalCameraLocalPositionTP = cameraHolderTP.localPosition;    
         isGunActive = gun.activeSelf;
+        isKnifeActive = knife.activeSelf;
     }
 
     void Update()
@@ -83,9 +86,20 @@ public class PlayerControllerMF : MonoBehaviour
         HandleCrouch();
         AdjustCameraPosition();
         CheckGunStatus();
+        CheckKnifeStatus();
         CheckViewStatus();
+        UpdateViewStatus();
         HandleAimingAndCrouching();
+        HandleInput();
 
+    }
+     void CheckKnifeStatus()
+    {
+        // Actualiza el estado de si el cuchillo está activo o no
+        isKnifeActive = knife.activeSelf;
+    }    void UpdateViewStatus()
+    {
+        isThirdPersonView = !cameraSwitch.isFirstPesonEnable;
     }
     void CheckViewStatus()
     {
@@ -192,32 +206,80 @@ public class PlayerControllerMF : MonoBehaviour
                 Vector3.Lerp(cameraHolderTP.localPosition, originalCameraLocalPositionTP + standingCameraPositionOffsetTP, Time.deltaTime * 8f);
         }
     }
+    void HandleInput()
+    {
+        // Check if right mouse button is pressed and in third person view
+        if (Input.GetButtonDown("Fire1") && isThirdPersonView)
+        {
+            // Check if knife is active
+            if (isKnifeActive)
+            {
+                animator.SetBool("isKnifeAttacking", true); // Activar animación de ataque con cuchillo
+                Debug.Log("Knife attack animation triggered");
+            }
+            else
+            {
+                animator.SetBool("isAttacking", true); // Si no hay cuchillo, activa otra animación de ataque
+                Debug.Log("General attack animation triggered");
+            }
+        }
+
+        // Reset attack state when button is released or not in third person view
+        if (Input.GetButtonUp("Fire1") || !isThirdPersonView)
+        {
+            animator.SetBool("isKnifeAttacking", false); // Desactivar animación de ataque con cuchillo
+            animator.SetBool("isAttacking", false); // Desactivar animación de ataque general
+            Debug.Log("Attack animation reset");
+        }
+    }
 
     void HandleAimingAndCrouching()
     {
-        // Verificar si la pistola está activa
         isGunActive = gun.activeSelf;
+        isKnifeActive = knife.activeSelf;  // Verificamos el estado del cuchillo
 
         if (isThirdPersonView)
         {
             animator.SetBool("isAiming", isGunActive);
+            animator.SetBool("isKnifeActive", isKnifeActive);
 
             if (isCrouching && isGunActive)
             {
                 animator.SetBool("isCrouching", true);
                 animator.SetBool("isAiming", true);
             }
+            else if (isCrouching && isKnifeActive)
+            {
+                animator.SetBool("isCrouching", true);
+                animator.SetBool("isKnifeActive", true);
+                animator.SetBool("isCrouchingWithKnife", true); // Nueva animación de agachado con cuchillo
+            }
+            else if (isKnifeActive)
+            {
+                animator.SetBool("isKnifeActive", true);
+                animator.SetBool("isWalkingWithKnife", isMoving); // Nueva animación de caminando con cuchillo
+            }
             else
             {
                 animator.SetBool("isCrouching", isCrouching);
                 animator.SetBool("isAiming", isGunActive);
+                animator.SetBool("isKnifeActive", isKnifeActive);
+                animator.SetBool("isWalkingWithKnife", false);
+                animator.SetBool("isCrouchingWithKnife", false);
             }
         }
         else
         {
-            // Desactivar animaciones relacionadas con la pistola en primera persona
             animator.SetBool("isAiming", false);
+            animator.SetBool("isKnifeActive", false);
             animator.SetBool("isCrouching", isCrouching);
+            animator.SetBool("isWalkingWithKnife", false);
+            animator.SetBool("isCrouchingWithKnife", false);
         }
+    }
+    public void Attack()
+    {
+        // Lógica de ataque aquí
+        Debug.Log("El personaje está atacando.");
     }
 }

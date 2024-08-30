@@ -26,12 +26,16 @@ public class CameraSwitch : MonoBehaviour
     [SerializeField] private Transform tp_ItemPointKey;
     [SerializeField] private Transform tp_ItemPointPiece;
     [SerializeField] private Transform tp_ItemPointPencil;
+    [SerializeField] private Transform tp_ItemPointGun;
+    [SerializeField] private Transform tp_ItemPointKnife;
     [SerializeField] private List<Transform> itemsToManage;
     [SerializeField] private LayerMask pieceMask;
     [SerializeField] private LayerMask pencilMask;
     [SerializeField] private LayerMask fuseMask;
     [SerializeField] private LayerMask keyMask;
-
+    [SerializeField] private LayerMask gunMask;
+    [SerializeField] private LayerMask knifeMask;
+    public bool isGunActive = false;
     private Dictionary<Transform, Vector3> originalPositions = new Dictionary<Transform, Vector3>();
     private Dictionary<Transform, Quaternion> originalRotations = new Dictionary<Transform, Quaternion>();
 
@@ -126,9 +130,14 @@ public class CameraSwitch : MonoBehaviour
                 {
                     item.SetParent(tp_ItemPointKey);
                 }
-                else
-                {
-                    item.SetParent(tp_ItemUsableMount);
+                else if((gunMask.value & (1 << item.gameObject.layer)) != 0){
+                    
+                    item.SetParent(tp_ItemPointGun); 
+                    isGunActive=true;
+                }
+
+                 else if((knifeMask.value & (1 << item.gameObject.layer)) != 0){
+                    item.SetParent(tp_ItemPointKnife);
                 }
 
                 item.localPosition = Vector3.zero;

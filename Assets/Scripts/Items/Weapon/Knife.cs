@@ -10,15 +10,21 @@ public class Knife : MonoBehaviour
     [SerializeField] private int damage = 10;
     [SerializeField] private Vector3 attackBoxSize = new Vector3(1.5f, 1.0f, 1.5f);
     [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private CameraSwitch cameraSwitch;
 
     [SerializeField] private Animator animator;
 
-
+    private void Start()
+    {
+        if (cameraSwitch == null)
+        {
+            cameraSwitch = FindObjectOfType<CameraSwitch>(); // Encuentra el componente en la escena si no se asignó en el inspector
+        }
+    }
     private void Update()
     {
-        // Check if player presses the attack button and can attack
-
-        if (Input.GetButtonDown("Fire1"))
+        // Verifica si el botón de ataque se presiona y si está en vista en primera persona
+        if (Input.GetButtonDown("Fire1") && cameraSwitch != null && cameraSwitch.isFirstPesonEnable)
         {
             Attack();
         }
