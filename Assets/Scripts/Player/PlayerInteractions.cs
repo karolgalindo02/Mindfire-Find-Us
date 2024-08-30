@@ -9,7 +9,6 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private UIManagerInfoUser uiManagerInfoUser;
     [SerializeField] private GameObject uiPickUpItemContainer;
     [SerializeField] private TextMeshProUGUI uiPickUpItemMessage;
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private KeyActivator keyActivator;
 
     [Header("Sounds")]
@@ -64,7 +63,7 @@ public class PlayerInteractions : MonoBehaviour
         if(cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "FPCamera" || !cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "ThirdPersonCamera_")
         {
             float rayDistance = cameraSwitch.isFirstPesonEnable ? firstPersonDistance : thirdPersonDistance;
-            //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+           
             Vector3 crosshairWorldPostion = CameraSwitch.activeCamera.ScreenToViewportPoint(new Vector3(crosshair.position.x, crosshair.position.y, CameraSwitch.activeCamera.nearClipPlane));
 
             Ray ray = CameraSwitch.activeCamera.ScreenPointToRay(crosshair.position);
