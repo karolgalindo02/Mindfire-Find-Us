@@ -48,7 +48,7 @@ public class ConfigPause : MonoBehaviour
         menuObjPause.SetActive(true);
         pause = true;
 
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 

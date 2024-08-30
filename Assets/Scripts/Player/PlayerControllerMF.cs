@@ -92,7 +92,6 @@ public class PlayerControllerMF : MonoBehaviour
 
         if (!cameraSwitch.isFirstPesonEnable)
         {
-            Debug.Log("I´m with on 3camera mode");
             // Rotation of de body player in Y axis
             playerBody.Rotate(Vector3.up * mouseX * rotationSpeed * Time.deltaTime);
             

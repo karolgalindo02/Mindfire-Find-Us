@@ -35,6 +35,11 @@ TagManager:
   - Paints
   - Pencil
   - MainCamera3P
+  - LightCollider
+  - Interactive
+  - Fire
+  - FireExtinguisher
+  - MetalDoorOpen
   layers:
   - Default
   - TransparentFX
@@ -54,10 +59,8 @@ TagManager:
   - MinimapTile
   - Piece
   - Pencil
-  - 
-  - 
-  - 
-  - 
+  - FireLayer
+  - Fire Extinguisher
   - 
   - 
   - 

@@ -23,6 +23,7 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private AudioSource pieceSound;
     [SerializeField] private AudioSource pencilSound;
     [SerializeField] public WeaponSwitch weaponSwitch;
+    [SerializeField] private AudioSource FireExtinguisherSound;
 
     [Header("Paints Puzzle")]
     private HashSet<GameObject> checkedPaints = new HashSet<GameObject>();
@@ -35,6 +36,7 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private GameObject fuseGreen;
     [SerializeField] private GameObject fuseBlue;
     [SerializeField] private GameObject fuseRed;
+    private GameObject currentPiece;
 
     public bool isfuseGreenActive = false;
     public bool isfuseBlueActive = false;
@@ -46,11 +48,11 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private float thirdPersonDistance = 5f;
     [SerializeField] private RectTransform crosshair;
 
-
     public bool weaponCollected = false;
     public bool knifeCollected = false;
     public bool keyCollected = false;
     public bool fuseCollected = false;
+    public bool fireExtinguisherCollected = false;
     public bool keyBasementCollected = false;
     public bool pieceCollected = false;
     public bool pencilCollected = false;
@@ -61,7 +63,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             return; // Not interactable when the game is paused
         }
-        if(cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "FPCamera" || !cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "ThirdPersonCamera_")
+        if (cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "FPCamera" || !cameraSwitch.isFirstPesonEnable && CameraSwitch.activeCamera.name == "ThirdPersonCamera_")
         {
             float rayDistance = cameraSwitch.isFirstPesonEnable ? firstPersonDistance : thirdPersonDistance;
             //Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -76,16 +78,16 @@ public class PlayerInteractions : MonoBehaviour
             if (Physics.Raycast(ray, out hit, rayDistance))
             {
                 if (hit.collider.CompareTag("FuseBox"))
-            {
-                uiPickUpItemContainer.SetActive(true);
-                uiPickUpItemMessage.text = "Press E to set fuse";
-
-                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    PlaceFuse();
+                    uiPickUpItemContainer.SetActive(true);
+                    uiPickUpItemMessage.text = "Press E to set fuse";
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        PlaceFuse();
+                    }
                 }
-            }
-            else if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("Pencil") || hit.collider.CompareTag("Paints") || hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("SpiderWeb") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+                else if (hit.collider.CompareTag("Ammunition") || hit.collider.CompareTag("Weapon") || hit.collider.CompareTag("Knife") || hit.collider.CompareTag("Health") || hit.collider.CompareTag("Door") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("Interactive") || hit.collider.CompareTag("FireExtinguisher") || hit.collider.CompareTag("Pencil") || hit.collider.CompareTag("Paints") || hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("Key") || hit.collider.CompareTag("Fuse") || hit.collider.CompareTag("PuzzlePiece") || hit.collider.CompareTag("MetalDoorOpen") || hit.collider.CompareTag("SpiderWeb") || hit.collider.GetComponent<NavKeypad.Keypad>() != null)
                 {
                     if (currentItem != hit.collider.gameObject)
                     {
@@ -126,66 +128,108 @@ public class PlayerInteractions : MonoBehaviour
                         bool isDoorOpen = hit.collider.gameObject.GetComponent<SystemDoor>().IsDoorOpen;
                         bool isDoorUnlocked = hit.collider.gameObject.GetComponent<SystemDoor>().IsDoorUnlocked;
 
-                    if (isDoorOpen || isDoorUnlocked)
+                        if (isDoorOpen || isDoorUnlocked)
+                        {
+                            uiPickUpItemMessage.text = "Press E to open";
+                        }
+                        else if (hasKey)
+                        {
+                            uiPickUpItemMessage.text = "Use the key to open the door";
+                        }
+                        else
+                        {
+                            uiPickUpItemMessage.text = "Door is locked. You need a key to open it.";
+                        }
+                    }
+                    else if (hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("Drawer") || hit.collider.CompareTag("MetalDoorOpen"))
                     {
                         uiPickUpItemMessage.text = "Press E to open";
                     }
-                    else if (hasKey)
+                    else if (hit.collider.CompareTag("Interactive"))
                     {
-                        uiPickUpItemMessage.text = "Use the key to open the door";
+                        OpenInteractive openInteractive = hit.collider.GetComponent<OpenInteractive>();
+                        if (openInteractive != null)
+                        {
+                            uiPickUpItemMessage.text = openInteractive.IsOpen() ? "Press E to close" : "Press E to open";
+
+                            if (Input.GetKeyDown(KeyCode.E))
+                            {
+                                bool isOpen = openInteractive.ToggleOpenClose();
+                                uiPickUpItemMessage.text = isOpen ? "Press E to close" : "Press E to open";
+                            }
+                        }
+                    }
+                    else if (hit.collider.CompareTag("SpiderWeb"))
+                    {
+                        uiPickUpItemMessage.text = "Press E to remove web";
+                    }
+                    else if (hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+                    {
+                        uiPickUpItemMessage.text = "Press E to interact with keypad";
+                    }
+                    else if (hit.collider.CompareTag("Fuse"))
+                    {
+                        uiPickUpItemMessage.text = "Press E to collect fuse";
+                    }
+                    else if (hit.collider.CompareTag("FireExtinguisher"))
+                    {
+                        uiPickUpItemMessage.text = "Press E to collect fire extinguisher";
+                    }
+                    else if (hit.collider.CompareTag("Piece"))
+                    {
+                        uiPickUpItemMessage.text = "Press E to collect piece";
+                    }
+                    else if (hit.collider.CompareTag("Pencil"))
+                    {
+                        uiPickUpItemMessage.text = "Press E to collect pencil";
+                    }
+                    else if (hit.collider.CompareTag("Paints"))
+                    {
+                        if (!PuzzleManager.Instance.IsPuzzleSolved())
+                        {
+                            PaintInteractable paintInteractable = hit.collider.GetComponent<PaintInteractable>();
+                            if (paintInteractable != null && !checkedPaints.Contains(hit.collider.gameObject))
+                            {
+                                uiPickUpItemContainer.SetActive(true);
+                                uiPickUpItemMessage.text = "Press E to inspect the painting";
+
+                                if (Input.GetKeyDown(KeyCode.E))
+                                {
+                                    StartCoroutine(ShowPaintInfoWithDelay(paintInteractable));
+                                }
+                            }
+                        }
+                    }
+                    else if (hit.collider.CompareTag("PuzzlePiece"))
+                    {
+                        if (!JigsawPuzzle.Instance.IsPuzzleSolved())
+                        {
+                            currentPiece = hit.collider.gameObject;
+                            uiPickUpItemContainer.SetActive(true);
+
+                            // Check if the piece already has the jigsaw material
+                            if (currentPiece.GetComponent<Renderer>().material == PuzzleManager.Instance.jigsawMaterial)
+                            {
+                                uiPickUpItemMessage.text = "This piece already has the jigsaw material";
+                            }
+                            else if (currentPiece.GetComponent<PieceInteractable>() == null)
+                            {
+                                uiPickUpItemMessage.text = "Press E to change piece";
+                                if (Input.GetKeyDown(KeyCode.E))
+                                {
+                                    PuzzleManager.Instance.ChangePieceMaterial(currentPiece);
+                                }
+                            }
+                            else
+                            {
+                                uiPickUpItemContainer.SetActive(false);
+                            }
+                        }
                     }
                     else
                     {
-                        uiPickUpItemMessage.text = "Door is locked. You need a key to open it.";
+                        uiPickUpItemMessage.text = "Press E to pick up item";
                     }
-                }
-                else if (hit.collider.CompareTag("DoorOpen"))
-                {
-                    uiPickUpItemMessage.text = "Press E to open";
-                }
-                else if (hit.collider.CompareTag("Drawer"))
-                {
-                    uiPickUpItemMessage.text = "Press E to open";
-                }
-                else if (hit.collider.CompareTag("SpiderWeb"))
-                {
-                    uiPickUpItemMessage.text = "Press E to remove web";
-                }
-                else if (hit.collider.GetComponent<NavKeypad.Keypad>() != null)
-                {
-                    uiPickUpItemMessage.text = "Press E to interact with keypad";
-                }
-                else if (hit.collider.CompareTag("Fuse"))
-                {
-                    uiPickUpItemMessage.text = "Press E to collect fuse";
-                }
-
-                else if (hit.collider.CompareTag("Piece"))
-                {
-                    uiPickUpItemMessage.text = "Press E to collect piece";
-                }
-                else if (hit.collider.CompareTag("Pencil"))
-                {
-                    uiPickUpItemMessage.text = "Press E to collect pencil";
-                }
-                else if (hit.collider.CompareTag("Paints"))
-                {
-                    PaintInteractable paintInteractable = hit.collider.GetComponent<PaintInteractable>();
-                    if (paintInteractable != null && !checkedPaints.Contains(hit.collider.gameObject) && !PuzzleManager.Instance.IsPuzzleSolved())
-                    {
-                        uiPickUpItemContainer.SetActive(true);
-                        uiPickUpItemMessage.text = "Press E to inspect the painting";
-
-                        if (Input.GetKeyDown(KeyCode.E))
-                        {
-                            StartCoroutine(ShowPaintInfoWithDelay(paintInteractable));
-                        }
-                    }
-                }
-                else
-                {
-                    uiPickUpItemMessage.text = "Press E to pick up item";
-                }
 
                     if (Input.GetKeyDown(KeyCode.E))
                     {
@@ -196,56 +240,77 @@ public class PlayerInteractions : MonoBehaviour
                             string keyName = weaponSwitch.GetCurrentItemName();
                             bool correctDoor = hit.collider.gameObject.GetComponent<SystemDoor>().ChangeDoorState(hasKey, keyInHand, keyName);
 
-                        if (hasKey && keyInHand && correctDoor)
-                        {
-                            if (keyName == "Key")
+                            if (hasKey && keyInHand && correctDoor)
                             {
-                                keyCollected = false;
-                                weaponSwitch.RemoveItemFromInventory("Key", true);
-                                weaponSwitch.SwitchToNextItem();
-                                uiPickUpItemMessage.text = "Press E to open";
-                                keyActivator.ActivateKey();
-                            }
-                            else if (keyName == "KeyBasement")
-                            {
-                                keyBasementCollected = false;
-                                weaponSwitch.RemoveItemFromInventory("KeyBasement", true);
-                                weaponSwitch.SwitchToNextItem();
-                                uiPickUpItemMessage.text = "Press E to open";
+                                if (keyName == "Key")
+                                {
+                                    keyCollected = false;
+                                    weaponSwitch.RemoveItemFromInventory("Key", true);
+                                    weaponSwitch.SwitchToNextItem();
+                                    uiPickUpItemMessage.text = "Press E to open";
+                                    keyActivator.ActivateKey();
+                                }
+                                else if (keyName == "KeyBasement")
+                                {
+                                    keyBasementCollected = false;
+                                    weaponSwitch.RemoveItemFromInventory("KeyBasement", true);
+                                    weaponSwitch.SwitchToNextItem();
+                                    uiPickUpItemMessage.text = "Press E to open";
+                                }
                             }
                         }
-                    }
-                    else if (hit.collider.CompareTag("DoorOpen"))
-                    {
-                        hit.collider.gameObject.GetComponent<AnimationDoor>().ChangeDoorState();
-                    }
-                    else if (hit.collider.CompareTag("Drawer"))
-                    {
-                        hit.collider.gameObject.GetComponent<SystemDrawer>().ChangeDrawerState();
-                    }
-                    else if (hit.collider.CompareTag("SpiderWeb"))
-                    {
-                        if (spiderWebSound != null)
+                        else if (hit.collider.CompareTag("DoorOpen") || hit.collider.CompareTag("MetalDoorOpen"))
                         {
-                            spiderWebSound.Play();
+                            hit.collider.gameObject.GetComponent<AnimationDoor>().ChangeDoorState();
                         }
-                        Destroy(hit.collider.gameObject);
+                        else if (hit.collider.CompareTag("Drawer"))
+                        {
+                            hit.collider.gameObject.GetComponent<SystemDrawer>().ChangeDrawerState();
+                        }
+                        else if (hit.collider.CompareTag("SpiderWeb"))
+{
+    if (spiderWebSound != null)
+    {
+        spiderWebSound.Play();
+    }
+    Destroy(hit.collider.gameObject);
+    AchievementManager.Instance.IncrementSpiderWebsDestroyed(); // Incrementar el contador y verificar el logro
+}
+                        else if (hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+                        {
+                            // Interact with the keypad
+                            hit.collider.GetComponent<NavKeypad.Keypad>().AddInput("enter");
+                        }
+                        else if (hit.collider.CompareTag("Fuse"))
+                        {
+                            // Collect the fuse
+                            CollectFuse(hit.collider.gameObject);
+                        }
+                        else
+                        {
+                            PlaySoundForCurrentItem();
+                            CollectItem();
+                        }
                     }
-                    else if (hit.collider.GetComponent<NavKeypad.Keypad>() != null)
+                }
+                else
+                {
+                    if (currentItem != null)
                     {
-                        // Interact with the keypad
-                        hit.collider.GetComponent<NavKeypad.Keypad>().AddInput("enter");
+                        if (currentItem.CompareTag("Weapon"))
+                        {
+                            foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
+                            {
+                                renderer.material.DisableKeyword("_EMISSION");
+                            }
+                        }
+                        else
+                        {
+                            currentItem.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                        }
+                        currentItem = null;
                     }
-                    else if (hit.collider.CompareTag("Fuse"))
-                    {
-                        // Collect the fuse
-                        CollectFuse(hit.collider.gameObject);
-                    }
-                    else
-                    {
-                        PlaySoundForCurrentItem();
-                        CollectItem();
-                    }
+                    uiPickUpItemContainer.gameObject.SetActive(false);
                 }
             }
             else
@@ -268,31 +333,14 @@ public class PlayerInteractions : MonoBehaviour
                 uiPickUpItemContainer.gameObject.SetActive(false);
             }
         }
-        else
-        {
-            if (currentItem != null)
-            {
-                if (currentItem.CompareTag("Weapon"))
-                {
-                    foreach (Renderer renderer in currentItem.GetComponentsInChildren<Renderer>())
-                    {
-                        renderer.material.DisableKeyword("_EMISSION");
-                    }
-                }
-                else
-                {
-                    currentItem.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
-                }
-                currentItem = null;
-            }
-            uiPickUpItemContainer.gameObject.SetActive(false);
-        }}
+        
     }
+    
     private IEnumerator ShowPaintInfoWithDelay(PaintInteractable paintInteractable)
     {
-        yield return new WaitForSeconds(1); // Esperar 2 segundos
+        yield return new WaitForSeconds(1);
 
-        uiPickUpItemContainer.SetActive(false); // Ocultar el mensaje de inspección
+        uiPickUpItemContainer.SetActive(false);
         uiInfoPaintContainer.SetActive(true);
         uiInfoPaintMessage.text = $"Painting: {paintInteractable.paintName}\nArtist: {paintInteractable.artistName}";
 
@@ -372,6 +420,11 @@ public class PlayerInteractions : MonoBehaviour
             }
         }
     }
+    private void ClearCurrentPiece()
+    {
+        currentPiece = null;
+        uiPickUpItemContainer.SetActive(false);
+    }
     private void CollectItem()
     {
         Inventory playerInventory = GetComponent<Inventory>();
@@ -416,6 +469,10 @@ public class PlayerInteractions : MonoBehaviour
                 else if (itemComponent.itemName == "Fuse")
                 {
                     fuseCollected = true;
+                }
+                else if (itemComponent.itemName == "FireExtinguisher")
+                {
+                    fireExtinguisherCollected = true;
                 }
                 else if (itemComponent.itemName == "Piece")
                 {
@@ -478,6 +535,10 @@ public class PlayerInteractions : MonoBehaviour
         else if (currentItem.CompareTag("Piece") && pieceSound != null)
         {
             pieceSound.Play();
+        }
+        else if (currentItem.CompareTag("FireExtinguisher") && FireExtinguisherSound != null)
+        {
+            FireExtinguisherSound.Play();
         }
         else if (currentItem.CompareTag("Pencil") && pencilSound != null)
         {

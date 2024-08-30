@@ -17,6 +17,7 @@ public class WeaponSwitch : MonoBehaviour
     [SerializeField] private GameObject inactiveKeyBasement;
     [SerializeField] private GameObject inactivePiece;
     [SerializeField] private GameObject inactivePencil;
+    [SerializeField] private GameObject inactiveFireExtinguisher;
 
     // flag for check is gun is picked up
     [SerializeField] private PlayerInteractions playerInteractions;
@@ -80,6 +81,7 @@ public class WeaponSwitch : MonoBehaviour
         if (inactiveKeyBasement != null) inactiveKeyBasement.SetActive(false);
         if (inactivePiece != null) inactivePiece.SetActive(false);
         if (inactivePencil != null) inactivePencil.SetActive(false);
+        if (inactiveFireExtinguisher != null) inactiveFireExtinguisher.SetActive(false);
 
         if (currentIndex >= 0 && currentIndex < usableItems.Count)
         {
@@ -129,6 +131,11 @@ public class WeaponSwitch : MonoBehaviour
             {
                 // Pencil activated
                 inactivePencil.SetActive(true);
+            }
+            else if (currentItem.itemName == "FireExtinguisher")
+            {
+                // Fire Extinguisher activated
+                inactiveFireExtinguisher.SetActive(true);
             }
         }
     }
