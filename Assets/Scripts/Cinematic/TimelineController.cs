@@ -18,7 +18,10 @@ public class TimelineController : MonoBehaviour
     public GameObject player; 
     public List<GameObject> objectsToDestroy;
     private Coroutine musicCoroutine;
-        void Start()
+    private bool canSkip = false;  // Variable to controll when de player can push E
+    private float skipDelayTime = 1.5f;
+    
+    void Start()
     {
         SetCanvasesActive(false);
         timelineDirector.stopped += OnTimelineStopped;
@@ -34,12 +37,13 @@ public class TimelineController : MonoBehaviour
         }
         StartCoroutine(StartAmbientMusicAfterDelay());
         musicCoroutine = StartCoroutine(StartAmbientMusicAfterDelay());
+        StartCoroutine(EnableSkipAndCanvasAfterDelay());
 
     }
     void Update()
     {
         // Detect if the player presses the key to skip the cinematic
-        if (Input.GetKeyDown(skipKey))
+        if (canSkip && Input.GetKeyDown(skipKey))
         {
             SkipCinematic();
         }
@@ -114,6 +118,14 @@ public class TimelineController : MonoBehaviour
         {
             ambientMusicSource.Play();
         }
+    }
+    IEnumerator EnableSkipAndCanvasAfterDelay()
+    {
+        // Esperar 2 segundos antes de permitir que el jugador presione "E" y mostrar el Canvas
+        yield return new WaitForSeconds(skipDelayTime);
+
+        canSkip = true;  
+        
     }
     void DestroyObjectsAfterCinematic()
     {

@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
         // // AudioManager.Instance.PlayMusic(gameMusic);
 
         // Cambiar la escena a Story
-        SceneManager.LoadSceneAsync("GymKarolNew");
+        SceneManager.LoadSceneAsync("BrayanV3.0");
     }
 
     public void QuitGame()

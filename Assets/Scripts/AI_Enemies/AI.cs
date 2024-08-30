@@ -28,24 +28,37 @@ public class AI : MonoBehaviour
     public float distanceToFollowPath = 2;
 
     private Animator animator;
+
     [Header("Enemy Weapon")]
     public GameObject weapon;
     public bool isDead = false;
 
     void Start()
     {
+        if (destinations.Length == 0)
+        {
+            Debug.LogError("No destinations set for AI.");
+            return;
+        }
         agent.destination = destinations[index].position;
         //Search the player, reference
         player = FindObjectOfType<PlayerControllerMF>().gameObject;
         animator = GetComponent<Animator>();
+        if (!animator)
+        {
+            Debug.LogError("Animator component not found on " + gameObject.name);
+        }
 
+        if (!agent)
+        {
+            Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
+        }
     }
 
     void Update()
     {
         if (isDead)
         {
-            // Detener todo comportamiento y activar animación de muerte
             Die();
             return;
         }
@@ -67,8 +80,7 @@ public class AI : MonoBehaviour
         agent.destination = destinations[index].position;
 
         // Set walking animation when the enemy is moving along the path
-        animator.SetBool("isWalking", true);
-        animator.SetBool("isAiming", false);
+        SetAnimatorState(isWalking: true, isAiming: false, isDead: false);
 
          // Desactivate the weapon when is walking
         if (weapon != null)
@@ -90,20 +102,24 @@ public class AI : MonoBehaviour
 
     public void FollowPlayer()
     {
+        agent.ResetPath(); 
         agent.destination = player.transform.position;
         // Set aiming animation when the enemy is following the player
-        animator.SetBool("isAiming", true);
-        animator.SetBool("isWalking", false);
+        SetAnimatorState(isWalking: false, isAiming: true, isDead: false);
         //Activate the weapon when is following player
         if (weapon != null)
         {
             weapon.SetActive(true); 
         }
     }
- public void Die()
+    public void Die()
     {
-        animator.SetBool("isDead", true);
+        SetAnimatorState(isWalking: false, isAiming: false, isDead: true);
         agent.isStopped = true;
-        Destroy(gameObject, 2f); 
+    }    private void SetAnimatorState(bool isWalking, bool isAiming, bool isDead)
+    {
+        animator.SetBool("isWalking", isWalking);
+        animator.SetBool("isAiming", isAiming);
+        animator.SetBool("isDead", isDead);
     }
 }
