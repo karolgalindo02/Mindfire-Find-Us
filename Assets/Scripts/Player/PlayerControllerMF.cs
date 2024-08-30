@@ -13,7 +13,8 @@ public class PlayerControllerMF : MonoBehaviour
     [SerializeField] private CharacterController controller;
     [SerializeField] private AudioSource steps;
     [SerializeField] private Transform playerBody;
-    [SerializeField] private Transform cameraHolder;
+    [SerializeField] private Transform cameraHolderFP; 
+    [SerializeField] private Transform cameraHolderTP;
     [SerializeField] private float rotationSpeed = 80f;
 
     [Header("Activate rotation 3P")]
@@ -26,6 +27,13 @@ public class PlayerControllerMF : MonoBehaviour
     [SerializeField] private float crouchSpeed = 3.0f; // Crouching Speed
     [SerializeField] private float crouchHeight = 1.0f; // Height when crouching
     [SerializeField] private float standingHeight = 1.7f; // Standing height
+    [SerializeField] private Vector3 crouchCameraPositionOffsetFP = new Vector3(0, -0.5f, 0); 
+    [SerializeField] private Vector3 standingCameraPositionOffsetFP = new Vector3(0, 0.0f, 0);
+    [SerializeField] private Vector3 crouchCameraPositionOffsetTP = new Vector3(0, -0.5f, 0); 
+    [SerializeField] private Vector3 standingCameraPositionOffsetTP = new Vector3(0, 0.0f, 0); 
+    private float originalCenterY; // Original Y center of the CharacterController
+    private Vector3 originalCameraLocalPositionFP;
+    private Vector3 originalCameraLocalPositionTP;
     //[Header("Canvas")]
 
   
@@ -53,21 +61,40 @@ public class PlayerControllerMF : MonoBehaviour
     Transform cameraObject;
     public Animator animator;
     public float moveHorizontal, moveVertical;
-    
+        
+    [Header("Weapon")]
+    [SerializeField] private GameObject gun;
+    [SerializeField] private bool isGunActive = false;
+    private bool isThirdPersonView;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        
         animator =GetComponent<Animator>();
+        originalCenterY = controller.center.y;
+        originalCameraLocalPositionFP = cameraHolderFP.localPosition;
+        originalCameraLocalPositionTP = cameraHolderTP.localPosition;    
+        isGunActive = gun.activeSelf;
     }
 
     void Update()
     {
         HandleMovement();
-
         HandleCrouch();
-        
+        AdjustCameraPosition();
+        CheckGunStatus();
+        CheckViewStatus();
+        HandleAimingAndCrouching();
+
+    }
+    void CheckViewStatus()
+    {
+        // Actualizar el estado de la vista en cada actualización
+        isThirdPersonView = !cameraSwitch.isFirstPesonEnable;
+    }
+    void CheckGunStatus()
+    {
+        isGunActive = gun.activeSelf;
     }
 
     void HandleMovement()
@@ -92,7 +119,6 @@ public class PlayerControllerMF : MonoBehaviour
 
         if (!cameraSwitch.isFirstPesonEnable)
         {
-            Debug.Log("I�m with on 3camera mode");
             // Rotation of de body player in Y axis
             playerBody.Rotate(Vector3.up * mouseX * rotationSpeed * Time.deltaTime);
             
@@ -106,6 +132,10 @@ public class PlayerControllerMF : MonoBehaviour
         animator.SetFloat("VelX", moveHorizontal);
         animator.SetFloat("VelY", moveVertical);
         isMoving = move.magnitude > 0.1f;
+
+        animator.SetBool("isCrouching", isCrouching);
+        animator.SetBool("isWalkingCrouched", isCrouching && isMoving);
+
 
         if (isMoving)
         {
@@ -138,15 +168,56 @@ public class PlayerControllerMF : MonoBehaviour
 
     void HandleCrouch()
     {
-        // Logic for crouching
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             isCrouching = !isCrouching;
             controller.height = isCrouching ? crouchHeight : standingHeight;
+
+            float newCenterY = originalCenterY - (standingHeight - controller.height) / 2;
+            controller.center = new Vector3(controller.center.x, newCenterY, controller.center.z);
+        }
+    }
+    void AdjustCameraPosition()
+    {
+        if (cameraSwitch.isFirstPesonEnable)
+        {
+            cameraHolderFP.localPosition = isCrouching ?
+                Vector3.Lerp(cameraHolderFP.localPosition, originalCameraLocalPositionFP + crouchCameraPositionOffsetFP, Time.deltaTime * 8f) :
+                Vector3.Lerp(cameraHolderFP.localPosition, originalCameraLocalPositionFP + standingCameraPositionOffsetFP, Time.deltaTime * 8f);
+        }
+        else
+        {
+            cameraHolderTP.localPosition = isCrouching ?
+                Vector3.Lerp(cameraHolderTP.localPosition, originalCameraLocalPositionTP + crouchCameraPositionOffsetTP, Time.deltaTime * 8f) :
+                Vector3.Lerp(cameraHolderTP.localPosition, originalCameraLocalPositionTP + standingCameraPositionOffsetTP, Time.deltaTime * 8f);
         }
     }
 
-    
+    void HandleAimingAndCrouching()
+    {
+        // Verificar si la pistola está activa
+        isGunActive = gun.activeSelf;
 
+        if (isThirdPersonView)
+        {
+            animator.SetBool("isAiming", isGunActive);
 
+            if (isCrouching && isGunActive)
+            {
+                animator.SetBool("isCrouching", true);
+                animator.SetBool("isAiming", true);
+            }
+            else
+            {
+                animator.SetBool("isCrouching", isCrouching);
+                animator.SetBool("isAiming", isGunActive);
+            }
+        }
+        else
+        {
+            // Desactivar animaciones relacionadas con la pistola en primera persona
+            animator.SetBool("isAiming", false);
+            animator.SetBool("isCrouching", isCrouching);
+        }
+    }
 }
