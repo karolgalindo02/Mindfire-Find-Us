@@ -22,28 +22,30 @@ public class CameraSwitch : MonoBehaviour
     [Header("Items usables position")]
     [SerializeField] private Transform fp_ParentCamera;
     [SerializeField] private Transform tp_ItemUsableMount;
+    [SerializeField] private Transform tp_ItemPointFuse;
+    [SerializeField] private Transform tp_ItemPointKey;
+    [SerializeField] private Transform tp_ItemPointPiece;
+    [SerializeField] private Transform tp_ItemPointPencil;
     [SerializeField] private List<Transform> itemsToManage;
-    //[SerializeField] private Transform initialWeaponPosition;
-    [SerializeField] private List<Vector3> originalItemPositions;
-    [SerializeField] private List<Quaternion> originalItemRotations;
-    
+    [SerializeField] private LayerMask pieceMask;
+    [SerializeField] private LayerMask pencilMask;
+    [SerializeField] private LayerMask fuseMask;
+    [SerializeField] private LayerMask keyMask;
+
+    private Dictionary<Transform, Vector3> originalPositions = new Dictionary<Transform, Vector3>();
+    private Dictionary<Transform, Quaternion> originalRotations = new Dictionary<Transform, Quaternion>();
+
 
 
     private void Start()
     {
         activeCamera = firstPersonCamera;
         SaveCurrentTransform();
-        originalItemPositions = new List<Vector3>();
-        originalItemRotations = new List<Quaternion>();
-        /*
-        originalWeaponPosition = initialWeaponPosition.localPosition;
-        originalWeaponRotation = initialWeaponPosition.localRotation;
-        */
 
-        foreach(Transform item in itemsToManage)
+        foreach (Transform item in itemsToManage)
         {
-            originalItemPositions.Add(item.localPosition);
-            originalItemRotations.Add(item.localRotation);
+            originalPositions[item] = item.localPosition;
+            originalRotations[item] = item.localRotation;
         }
 
     }
@@ -98,36 +100,42 @@ public class CameraSwitch : MonoBehaviour
     }
     private void UpdateItemsPosition()
     {
-        /*
-        if (isFirstPesonEnable)
-        {
-            initialWeaponPosition.SetParent(fp_ParentCamera);
-            initialWeaponPosition.localPosition = originalWeaponPosition;
-            initialWeaponPosition.localRotation = originalWeaponRotation;
-        }
-        else
-        {
-            initialWeaponPosition.SetParent(tp_ItemUsableMount);
-            initialWeaponPosition.localPosition = Vector3.zero;
-            initialWeaponPosition.localRotation = Quaternion.identity;
-        }
-        */
-
-        for (int i = 0; i < itemsToManage.Count; i++)
+        foreach (Transform item in itemsToManage)
         {
             if (isFirstPesonEnable)
             {
-                itemsToManage[i].SetParent(fp_ParentCamera);
-                itemsToManage[i].localPosition = originalItemPositions[i];
-                itemsToManage[i].localRotation = originalItemRotations[i];
+                item.SetParent(fp_ParentCamera);
+                item.localPosition = originalPositions[item];
+                item.localRotation = originalRotations[item];
             }
             else
             {
-                itemsToManage[i].SetParent(tp_ItemUsableMount);
-                itemsToManage[i].localPosition = Vector3.zero;
-                itemsToManage[i].localRotation = Quaternion.identity;
+                if ((pencilMask.value & (1 << item.gameObject.layer)) != 0)
+                {
+                    item.SetParent(tp_ItemPointPencil);
+                }else if ((pieceMask.value & (1 << item.gameObject.layer)) != 0)
+                {
+                    item.SetParent(tp_ItemPointPiece);
+                }
+                else if ((fuseMask.value & (1 << item.gameObject.layer)) != 0)
+                {
+                    item.SetParent(tp_ItemPointFuse);
+
+                }
+                else if ((keyMask.value & (1 << item.gameObject.layer)) != 0)
+                {
+                    item.SetParent(tp_ItemPointKey);
+                }
+                else
+                {
+                    item.SetParent(tp_ItemUsableMount);
+                }
+
+                item.localPosition = Vector3.zero;
+                item.localRotation = Quaternion.identity;
             }
         }
+
 
     }
 }
