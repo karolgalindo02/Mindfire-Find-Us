@@ -52,7 +52,7 @@ public class ConfigPause : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        // Pause all the sounds
+        // Pausar todos los sonidos
         foreach (AudioSource sonido in sonidos)
         {
             sonido.Pause();
@@ -94,12 +94,5 @@ public void Resume()
     public void GoToMenu()
     {
         SceneManager.LoadSceneAsync("MainMenu");
-        ResumeGameAndLoadScene();
-    }
-    private void ResumeGameAndLoadScene()
-    {
-        // Restablece el estado del juego antes de cargar una nueva escena
-        Time.timeScale = 1;
-        pause = false;
     }
 }
