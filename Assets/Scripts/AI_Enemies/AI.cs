@@ -106,9 +106,6 @@ public class AI : MonoBehaviour
         agent.destination = player.transform.position;
         // Set aiming animation when the enemy is following the player
         SetAnimatorState(isWalking: false, isAiming: true, isDead: false);
-        Debug.Log("Enemy is following the player.");
-        Debug.Log("Agent remaining distance: " + agent.remainingDistance);
-
         //Activate the weapon when is following player
         if (weapon != null)
         {

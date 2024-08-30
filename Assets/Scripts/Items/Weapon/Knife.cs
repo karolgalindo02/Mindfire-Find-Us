@@ -10,6 +10,7 @@ public class Knife : MonoBehaviour
     [SerializeField] private int damage = 10;
     [SerializeField] private Vector3 attackBoxSize = new Vector3(1.5f, 1.0f, 1.5f);
     [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float lateralOffset = 0.5f;
     [SerializeField] private CameraSwitch cameraSwitch;
 
     [SerializeField] private Animator animator;
@@ -24,7 +25,7 @@ public class Knife : MonoBehaviour
     private void Update()
     {
         // Verifica si el botón de ataque se presiona y si está en vista en primera persona
-        if (Input.GetButtonDown("Fire1") && cameraSwitch != null && cameraSwitch.isFirstPesonEnable)
+        if (Input.GetButtonDown("Fire1") )
         {
             Attack();
         }
@@ -32,12 +33,15 @@ public class Knife : MonoBehaviour
 
     private void Attack()
     {
+        if (Time.timeScale==0) return;
+        if(cameraSwitch != null && cameraSwitch.isFirstPesonEnable){
         animator.SetTrigger("Attack");
-
+        }
         // Calculate the center point of the attack area
         Vector3 attackPoint = transform.position + transform.forward * attackRange;
+        
         Quaternion attackRotation = transform.rotation;
-
+        attackPoint += transform.right * lateralOffset;
         // Define the collision area using a BoxCollider
         Collider[] hitEnemies = Physics.OverlapBox(attackPoint, attackBoxSize / 2, transform.rotation);
 
@@ -57,6 +61,7 @@ public class Knife : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Vector3 attackPoint = transform.position + transform.forward * attackRange;
+        attackPoint += transform.right * lateralOffset;
 
         Gizmos.matrix = Matrix4x4.TRS(attackPoint, transform.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, attackBoxSize);

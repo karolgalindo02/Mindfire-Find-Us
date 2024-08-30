@@ -208,6 +208,7 @@ public class PlayerControllerMF : MonoBehaviour
     }
     void HandleInput()
     {
+        if (Time.timeScale==0) return;
         // Check if right mouse button is pressed and in third person view
         if (Input.GetButtonDown("Fire1") && isThirdPersonView)
         {
@@ -220,23 +221,21 @@ public class PlayerControllerMF : MonoBehaviour
             else
             {
                 animator.SetBool("isAttacking", true); // Si no hay cuchillo, activa otra animación de ataque
-                Debug.Log("General attack animation triggered");
             }
         }
 
         // Reset attack state when button is released or not in third person view
         if (Input.GetButtonUp("Fire1") || !isThirdPersonView)
         {
-            animator.SetBool("isKnifeAttacking", false); // Desactivar animación de ataque con cuchillo
-            animator.SetBool("isAttacking", false); // Desactivar animación de ataque general
-            Debug.Log("Attack animation reset");
+            animator.SetBool("isKnifeAttacking", false); 
+            animator.SetBool("isAttacking", false); 
         }
     }
 
     void HandleAimingAndCrouching()
     {
         isGunActive = gun.activeSelf;
-        isKnifeActive = knife.activeSelf;  // Verificamos el estado del cuchillo
+        isKnifeActive = knife.activeSelf;  
 
         if (isThirdPersonView)
         {
@@ -252,20 +251,16 @@ public class PlayerControllerMF : MonoBehaviour
             {
                 animator.SetBool("isCrouching", true);
                 animator.SetBool("isKnifeActive", true);
-                animator.SetBool("isCrouchingWithKnife", true); // Nueva animación de agachado con cuchillo
             }
             else if (isKnifeActive)
             {
                 animator.SetBool("isKnifeActive", true);
-                animator.SetBool("isWalkingWithKnife", isMoving); // Nueva animación de caminando con cuchillo
             }
             else
             {
                 animator.SetBool("isCrouching", isCrouching);
                 animator.SetBool("isAiming", isGunActive);
                 animator.SetBool("isKnifeActive", isKnifeActive);
-                animator.SetBool("isWalkingWithKnife", false);
-                animator.SetBool("isCrouchingWithKnife", false);
             }
         }
         else
@@ -273,8 +268,6 @@ public class PlayerControllerMF : MonoBehaviour
             animator.SetBool("isAiming", false);
             animator.SetBool("isKnifeActive", false);
             animator.SetBool("isCrouching", isCrouching);
-            animator.SetBool("isWalkingWithKnife", false);
-            animator.SetBool("isCrouchingWithKnife", false);
         }
     }
     public void Attack()
