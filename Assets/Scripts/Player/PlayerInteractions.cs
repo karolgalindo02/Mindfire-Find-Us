@@ -268,13 +268,14 @@ public class PlayerInteractions : MonoBehaviour
                             hit.collider.gameObject.GetComponent<SystemDrawer>().ChangeDrawerState();
                         }
                         else if (hit.collider.CompareTag("SpiderWeb"))
-                        {
-                            if (spiderWebSound != null)
-                            {
-                                spiderWebSound.Play();
-                            }
-                            Destroy(hit.collider.gameObject);
-                        }
+{
+    if (spiderWebSound != null)
+    {
+        spiderWebSound.Play();
+    }
+    Destroy(hit.collider.gameObject);
+    AchievementManager.Instance.IncrementSpiderWebsDestroyed(); // Incrementar el contador y verificar el logro
+}
                         else if (hit.collider.GetComponent<NavKeypad.Keypad>() != null)
                         {
                             // Interact with the keypad
@@ -332,9 +333,9 @@ public class PlayerInteractions : MonoBehaviour
                 uiPickUpItemContainer.gameObject.SetActive(false);
             }
         }
-
+        
     }
-
+    
     private IEnumerator ShowPaintInfoWithDelay(PaintInteractable paintInteractable)
     {
         yield return new WaitForSeconds(1);
