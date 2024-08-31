@@ -6,22 +6,17 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 50;
-
     private AI enemyAI; //AI script Reference
-
-    void Start()
-    {
-        enemyAI = GetComponent<AI>(); 
-    }
     [SerializeField] private float currentHealth;
     [SerializeField] private Image healthBar;
 
-    public void Start()
+    void Start()
     {
+        enemyAI = GetComponent<AI>();
         currentHealth = maxHealth;
-        
         UpdateHealthBar();
     }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
