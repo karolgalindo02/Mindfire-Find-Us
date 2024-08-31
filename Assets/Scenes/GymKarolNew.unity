@@ -2437,7 +2437,7 @@ PrefabInstance:
     - target: {fileID: 5020010204021533192, guid: 21cab3626d7739a4bb3d6449856bafdc, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1035189272}
     - target: {fileID: 5475595744850214745, guid: 21cab3626d7739a4bb3d6449856bafdc, type: 3}
       propertyPath: m_Name
       value: Position1
@@ -24017,6 +24017,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4944428962089428701, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
+--- !u!20 &1035189272 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8893508738664451625, guid: e981def004e418740a2f9bca0b75e9f9, type: 3}
+  m_PrefabInstance: {fileID: 1547651630}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1036901263 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5522876393556254721, guid: 28d60e49159b6f74290ac4cf2cf55ab8, type: 3}
@@ -32134,6 +32139,18 @@ PrefabInstance:
     - target: {fileID: 6081631735143917504, guid: e981def004e418740a2f9bca0b75e9f9, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893508737110884826, guid: e981def004e418740a2f9bca0b75e9f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.192
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893508737110884826, guid: e981def004e418740a2f9bca0b75e9f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.317
+      objectReference: {fileID: 0}
+    - target: {fileID: 8893508737110884826, guid: e981def004e418740a2f9bca0b75e9f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.348
       objectReference: {fileID: 0}
     - target: {fileID: 8893508737181831996, guid: e981def004e418740a2f9bca0b75e9f9, type: 3}
       propertyPath: shotSound
@@ -45801,7 +45818,7 @@ PrefabInstance:
     - target: {fileID: 3999191328832993678, guid: 09f13de3c1a011a4d9deabeb3d2ecf56, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1035189272}
     - target: {fileID: 4118659147002905209, guid: 09f13de3c1a011a4d9deabeb3d2ecf56, type: 3}
       propertyPath: m_Name
       value: Blue
@@ -46004,7 +46021,7 @@ PrefabInstance:
     - target: {fileID: 5020010204021533192, guid: 21cab3626d7739a4bb3d6449856bafdc, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1035189272}
     - target: {fileID: 5475595744850214745, guid: 21cab3626d7739a4bb3d6449856bafdc, type: 3}
       propertyPath: m_Name
       value: Green
@@ -46428,7 +46445,7 @@ PrefabInstance:
     - target: {fileID: 7387110908416583902, guid: f2e4640a39f802f48878afa15644749f, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1035189272}
     - target: {fileID: 7553622638488239495, guid: f2e4640a39f802f48878afa15644749f, type: 3}
       propertyPath: m_Name
       value: Red
