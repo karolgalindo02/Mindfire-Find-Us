@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3389623670465571326
+--- !u!1 &3480782000165196922
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2612523638949901124}
-  - component: {fileID: 1436182076069280993}
-  - component: {fileID: 3749986338031831083}
-  - component: {fileID: 7088810128026240552}
-  - component: {fileID: 3238095516930304757}
+  - component: {fileID: 904480656119691860}
+  - component: {fileID: 1046891553446761915}
+  - component: {fileID: 8113829647604324917}
+  - component: {fileID: 1469534684357132071}
+  - component: {fileID: 8113829647604324922}
   m_Layer: 0
-  m_Name: Piece 1
-  m_TagString: Piece
+  m_Name: Pencil
+  m_TagString: Pencil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2612523638949901124
+--- !u!4 &904480656119691860
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3389623670465571326}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 31.55724, y: 0.700595, z: -120.93551}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_GameObject: {fileID: 3480782000165196922}
+  m_LocalRotation: {x: 0.20904875, y: -0.8240201, z: 0.33083814, w: 0.4096776}
+  m_LocalPosition: {x: 24.457, y: -2.808, z: -124.46}
+  m_LocalScale: {x: 1.3, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1436182076069280993
+  m_LocalEulerAnglesHint: {x: 45.768, y: -129.683, z: -6.044}
+--- !u!33 &1046891553446761915
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3389623670465571326}
-  m_Mesh: {fileID: -667608338998129469, guid: 7da74795e2ddcb840a75dae0f3519b8d, type: 3}
---- !u!23 &3749986338031831083
+  m_GameObject: {fileID: 3480782000165196922}
+  m_Mesh: {fileID: 5816080360201774770, guid: 72517bf9a5bd42b459ab5581f69f645f, type: 3}
+--- !u!23 &8113829647604324917
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3389623670465571326}
+  m_GameObject: {fileID: 3480782000165196922}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ded93440b822046409f3c106b6aceb7d, type: 2}
+  - {fileID: 2100000, guid: 2287b03bd01290044a445231d8f5cfa1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,30 +85,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7088810128026240552
+--- !u!65 &1469534684357132071
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3389623670465571326}
+  m_GameObject: {fileID: 3480782000165196922}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0024421813, y: 0.0029444504, z: 0.003385257}
-  m_Center: {x: 0.00018609385, y: -2.9802322e-10, z: 0.0016764194}
---- !u!114 &3238095516930304757
+  m_Size: {x: 0.21151713, y: 0.018090175, z: 0.019021157}
+  m_Center: {x: 0.041298278, y: 0.0009549155, z: 0.0000019053145}
+--- !u!114 &8113829647604324922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3389623670465571326}
+  m_GameObject: {fileID: 3480782000165196922}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0698358325b8eb642807ba82458d907d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Piece
+  itemName: Pencil
   itemType: 1
