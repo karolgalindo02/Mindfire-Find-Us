@@ -106,6 +106,12 @@ public class CameraSwitch : MonoBehaviour
     {
         foreach (Transform item in itemsToManage)
         {
+            Animator itemAnimator = item.GetComponent<Animator>();
+            if (itemAnimator != null)
+            {
+                itemAnimator.enabled = false;
+            }
+
             if (isFirstPesonEnable)
             {
                 item.SetParent(fp_ParentCamera);
@@ -117,7 +123,8 @@ public class CameraSwitch : MonoBehaviour
                 if ((pencilMask.value & (1 << item.gameObject.layer)) != 0)
                 {
                     item.SetParent(tp_ItemPointPencil);
-                }else if ((pieceMask.value & (1 << item.gameObject.layer)) != 0)
+                }
+                else if ((pieceMask.value & (1 << item.gameObject.layer)) != 0)
                 {
                     item.SetParent(tp_ItemPointPiece);
                 }
@@ -135,16 +142,19 @@ public class CameraSwitch : MonoBehaviour
                     item.SetParent(tp_ItemPointGun); 
                     isGunActive=true;
                 }
-
-                 else if((knifeMask.value & (1 << item.gameObject.layer)) != 0){
+                else if((knifeMask.value & (1 << item.gameObject.layer)) != 0)
+                {
                     item.SetParent(tp_ItemPointKnife);
                 }
-
+                
                 item.localPosition = Vector3.zero;
                 item.localRotation = Quaternion.identity;
             }
+
+            if(itemAnimator != null)
+            {
+                itemAnimator.enabled = true;
+            }
         }
-
-
     }
 }

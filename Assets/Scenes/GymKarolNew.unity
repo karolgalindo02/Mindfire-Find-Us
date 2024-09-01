@@ -27107,7 +27107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4303805177008916090, guid: 4fd8e1c129e5df44ea2c59cb9e6b0a43, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fd8e1c129e5df44ea2c59cb9e6b0a43, type: 3}
@@ -32710,6 +32710,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553581327}
   m_Mesh: {fileID: -2913194210864721359, guid: 61e3ece981c709743a75c98261390fb0, type: 3}
+--- !u!1 &1560927960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1560927961}
+  m_Layer: 7
+  m_Name: KnifeReference
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1560927961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560927960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3110008, y: -0.143, z: 0.6309967}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 820292604589478256}
+  m_Father: {fileID: 5327460681229190786}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1562149711
 GameObject:
   m_ObjectHideFlags: 0
@@ -40853,7 +40885,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1008966576459983411, guid: 5465309e729396e4c9f5dabf44db7cd2, type: 3}
       propertyPath: m_Name
-      value: Knife
+      value: KnifePickeable
       objectReference: {fileID: 0}
     - target: {fileID: 1008966576459983411, guid: 5465309e729396e4c9f5dabf44db7cd2, type: 3}
       propertyPath: m_Layer
@@ -45906,12 +45938,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822343945921567530}
   m_LocalRotation: {x: 0.22011927, y: -0.6719729, z: 0.6719729, w: -0.22011931}
-  m_LocalPosition: {x: 0.31100082, y: -0.143, z: 0.6309967}
-  m_LocalScale: {x: 1.5000001, y: 1.5000004, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5000001, y: 1.5000005, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5327460681229190786}
-  m_RootOrder: 1
+  m_Father: {fileID: 1560927961}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 126.274994, y: -90, z: 90}
 --- !u!1 &822343945921567530
 GameObject:
@@ -45934,7 +45966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &831580353356317330
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46770,8 +46802,8 @@ MonoBehaviour:
   shotPower: 1500
   ejectPower: 250
   shotRate: 0.5
-  shotSound: {fileID: 0}
-  emptySound: {fileID: 0}
+  shotSound: {fileID: 1261219495}
+  emptySound: {fileID: 1566344581}
 --- !u!114 &5327460679769566316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47649,7 +47681,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822343945921567530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20c887979026a1948af1bdc91b5c9268, type: 3}
   m_Name: 
@@ -48321,7 +48353,7 @@ MonoBehaviour:
   tp_ItemPointKnife: {fileID: 5327460681360024453}
   itemsToManage:
   - {fileID: 970724853}
-  - {fileID: 820292604589478256}
+  - {fileID: 1560927961}
   - {fileID: 188973151}
   - {fileID: 474111883}
   - {fileID: 876878916}
@@ -48401,7 +48433,7 @@ MonoBehaviour:
   moveHorizontal: 0
   moveVertical: 0
   gun: {fileID: 970724852}
-  knife: {fileID: 822343945921567530}
+  knife: {fileID: 1560927960}
   isGunActive: 0
   isKnifeActive: 0
 --- !u!114 &5327460680944818459
@@ -48468,7 +48500,7 @@ MonoBehaviour:
   playerInventory: {fileID: 5327460680944818461}
   weaponsInHierachy: []
   inactiveWeapon: {fileID: 970724852}
-  inactiveKnife: {fileID: 822343945921567530}
+  inactiveKnife: {fileID: 1560927960}
   inactiveKey: {fileID: 188973150}
   inactiveFuse: {fileID: 474111882}
   inactiveKeyBasement: {fileID: 876878915}
@@ -49178,7 +49210,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5327460681149347064}
-  - {fileID: 820292604589478256}
+  - {fileID: 1560927961}
   - {fileID: 970724853}
   - {fileID: 188973151}
   - {fileID: 474111883}
@@ -49490,14 +49522,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5327460681360024450}
-  m_LocalRotation: {x: -0.018506601, y: 0.69315964, z: 0.7203088, w: 0.018506596}
-  m_LocalPosition: {x: -0.00018, y: -0, z: -0.00324}
+  m_LocalRotation: {x: 0.83191544, y: -0.50246656, z: 0.131832, w: 0.19510119}
+  m_LocalPosition: {x: -0.00073, y: -0.00027, z: -0.00233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5327460679750470528}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -87.8, y: 358.5, z: -181.5}
+  m_LocalEulerAnglesHint: {x: -207.2, y: 358.5, z: 61.9}
 --- !u!4 &5327460681385041878
 Transform:
   m_ObjectHideFlags: 0

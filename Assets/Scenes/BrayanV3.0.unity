@@ -36538,7 +36538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1008966576459983411, guid: 5465309e729396e4c9f5dabf44db7cd2, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008966576459983411, guid: 5465309e729396e4c9f5dabf44db7cd2, type: 3}
+      propertyPath: m_TagString
+      value: Knife
       objectReference: {fileID: 0}
     - target: {fileID: 1012007477183848553, guid: 5465309e729396e4c9f5dabf44db7cd2, type: 3}
       propertyPath: m_RootOrder
