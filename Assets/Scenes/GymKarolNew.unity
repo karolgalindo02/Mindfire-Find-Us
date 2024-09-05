@@ -5576,11 +5576,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4345197550711715204, guid: bf0ea4a7b2c279047a7d801bff445913, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.07869339
+      value: 0.129
       objectReference: {fileID: 0}
     - target: {fileID: 4345197550711715204, guid: bf0ea4a7b2c279047a7d801bff445913, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3110001
+      value: -0.358
       objectReference: {fileID: 0}
     - target: {fileID: 4345197550711715204, guid: bf0ea4a7b2c279047a7d801bff445913, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6301,7 +6301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5aac277e49036949a5b0ffeab9a58c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerReference: {fileID: 0}
+  playerReference: {fileID: 5327460680944818467}
   playerOffset: 10
 --- !u!20 &275987130
 Camera:
@@ -45853,20 +45853,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822343945921567530}
   m_Mesh: {fileID: 4300000, guid: 945a66d44b244214e9c81207908ac5e3, type: 3}
---- !u!114 &800001429266104840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822343945921567530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0698358325b8eb642807ba82458d907d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Knife
-  itemType: 1
 --- !u!95 &800001429266104841
 Animator:
   serializedVersion: 5
@@ -45958,11 +45944,10 @@ GameObject:
   - component: {fileID: 808888377112241772}
   - component: {fileID: 831580353356317330}
   - component: {fileID: 5327460680217812697}
-  - component: {fileID: 800001429266104840}
   - component: {fileID: 800001429266104841}
   m_Layer: 7
   m_Name: Knife
-  m_TagString: Knife
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46184,7 +46169,7 @@ PrefabInstance:
     - target: {fileID: 3999191328832993678, guid: 09f13de3c1a011a4d9deabeb3d2ecf56, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5327460681229190910}
     - target: {fileID: 4118659147002905209, guid: 09f13de3c1a011a4d9deabeb3d2ecf56, type: 3}
       propertyPath: m_Name
       value: Blue
@@ -46321,7 +46306,7 @@ PrefabInstance:
     - target: {fileID: 5020010204021533192, guid: 21cab3626d7739a4bb3d6449856bafdc, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5327460681229190910}
     - target: {fileID: 5475595744850214745, guid: 21cab3626d7739a4bb3d6449856bafdc, type: 3}
       propertyPath: m_Name
       value: Green
@@ -47681,7 +47666,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822343945921567530}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20c887979026a1948af1bdc91b5c9268, type: 3}
   m_Name: 
@@ -48506,7 +48491,7 @@ MonoBehaviour:
   inactiveKeyBasement: {fileID: 876878915}
   inactivePiece: {fileID: 1904781692}
   inactivePencil: {fileID: 4385414}
-  inactiveFireExtinguisher: {fileID: 0}
+  inactiveFireExtinguisher: {fileID: 1598216972}
   playerInteractions: {fileID: 5327460680944818459}
 --- !u!114 &5327460680944818461
 MonoBehaviour:
@@ -49017,7 +49002,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 197568
+    m_Bits: 721856
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -50004,7 +49989,7 @@ PrefabInstance:
     - target: {fileID: 7387110908416583902, guid: f2e4640a39f802f48878afa15644749f, type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5327460681229190910}
     - target: {fileID: 7553622638488239495, guid: f2e4640a39f802f48878afa15644749f, type: 3}
       propertyPath: m_Name
       value: Red
